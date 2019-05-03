@@ -42,8 +42,12 @@ class Rectangle {
   }
 
   detectBirdCollision(...birdArgs) {
-    //     for (bird in birdArgs) {
-    //       if (bird.position.x)
+    let birdArg;
+    // for (birdArg in birdArgs) {
+    //   if
+    //   {
+    //     alert("Collided!");
+    //   }
     // }
   }
 }

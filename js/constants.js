@@ -8,3 +8,6 @@ const GRAVITY = 10;
 
 var initialBirdX = 350;
 var initialBirdY = 360;
+
+const GROUND_X = 0;
+const GROUND_Y = GAME_HEIGHT - 130;

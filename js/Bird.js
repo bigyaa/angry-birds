@@ -38,5 +38,6 @@ class Bird {
   launch() {
     this.position.x += projectile.horizontalDisplacement();
     this.position.y += projectile.verticalDisplacement();
+    console.log(this.position.x, this.position.y);
   }
 }

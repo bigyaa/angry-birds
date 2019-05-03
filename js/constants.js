@@ -7,5 +7,4 @@ canvas.height = GAME_HEIGHT;
 const GRAVITY = 10;
 
 var initialBirdX = 350;
-var initialBirdY = 560;
-var direction = 0;
+var initialBirdY = 360;

@@ -4,11 +4,16 @@ class Bird {
       x: posX,
       y: posY,
     };
+
     this.position = {
       x: posX,
       y: posY,
     };
-    console.log(this.position);
+
+    this.finalPosition = {
+      x: 0,
+      y: 0,
+    };
 
     this.color = '#FF1';
     this.radius = radius;
@@ -16,6 +21,8 @@ class Bird {
     this.slingshot = slingshot;
     this.maxHeightPos;
     this.slingshot.stretchedDistance = 8;
+
+    this.speed = 2;
 
     // H=(usin0)2/(2g)
     this.maxHeight = (Math.pow(this.projectile.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY);
@@ -26,8 +33,6 @@ class Bird {
       x: this.maxRange / 2 + this.projectile.finalPosition.x * this.slingshot.stretchedDistance,
       y: this.projectile.finalPosition.y - this.maxHeight - this.slingshot.height,
     };
-    console.log(this.position.x);
-    // console.log(this.maxHeightPos.x);
   }
 
   launch() {
@@ -38,7 +43,6 @@ class Bird {
       } else {
         this.position.y += this.projectile.upwardVerticalDisplacement();
       }
-      // console.log(this.position);
     }
   }
 
@@ -46,21 +50,29 @@ class Bird {
     context.beginPath();
     context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
     context.fill();
+    context.closePath();
   }
 
   shiftLeft() {
-    this.position.x -= 2;
+    this.position.x -= this.speed;
   }
 
   shiftRight() {
-    this.position.x += 2;
+    this.position.x += this.speed;
   }
 
   shiftUp() {
-    this.position.y -= 2;
+    this.position.y -= this.speed;
   }
 
   shiftDown() {
-    this.position.y += 2;
+    this.position.y += this.speed;
+  }
+
+  stopControls() {
+    this.finalPosition = this.position;
+    console.log(this.finalPosition);
+
+    this.speed = 0;
   }
 }

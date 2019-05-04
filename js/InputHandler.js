@@ -20,8 +20,10 @@ class InputHandler {
           break;
 
         case 32:
-          bird.launch();
-          document.removeEventListener('keydown', birdController(event));
+          bird.stopControls();
+          clearInterval(init);
+          gameLoop();
+
           break;
       };
     });

@@ -10,7 +10,7 @@ class Projectile {
       y: finalPosY,
     };
 
-    this.angle = /* getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y) */ 45 * Math.PI / 180;
+    this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y) /* 45 * Math.PI / 180 */;
 
     this.time = 0.3;
     this.initialVelocity = 19;

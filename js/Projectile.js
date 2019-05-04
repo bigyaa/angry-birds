@@ -13,7 +13,6 @@ class Projectile {
     this.initialVelocity = initialVelocity;
 
     this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y) /* 20 * Math.PI / 180 */;
-    console.log(this.angle);
 
     this.time = 0.3;
   }

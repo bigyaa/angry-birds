@@ -13,16 +13,15 @@ class Bird {
 
     this.finalPosition;
 
-    this.initialVelocity = 19;
-
+    this.initialVelocity = 9; //the lower the slower
     this.color = '#FF1';
     this.radius = radius;
-    this.slingshot = slingshot;
-    this.slingshot.stretchedDistance = 8;
-    this.maxHeightPos;
-
     this.speed = 2;
 
+    this.slingshot = slingshot;
+    this.slingshot.stretchedDistance = 8;
+
+    this.maxHeightPos;
   }
 
   initProjectile() {

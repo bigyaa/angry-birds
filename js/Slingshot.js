@@ -1,5 +1,5 @@
 class Slingshot {
-  constructor(height, projectile) {
+  constructor(height) {
     this.height = height;
     // this.stretchedDistance =
   }

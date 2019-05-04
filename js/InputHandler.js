@@ -1,28 +1,29 @@
 class InputHandler {
-  constructor(bird, gameLoop) {
+  constructor(bird) {
+    this.spaceBar = false;
 
-    document.addEventListener('keydown', function birdController(event) {
+    document.addEventListener('keydown', (event) => {
       switch (event.keyCode) {
-        case 37:
+        case ARROW_LEFT:
           bird.shiftLeft();
           break;
 
-        case 38:
+        case ARROW_UP:
           bird.shiftUp();
           break;
 
-        case 39:
+        case ARROW_RIGHT:
           bird.shiftRight();
           break;
 
-        case 40:
+        case ARROW_DOWN:
           bird.shiftDown();
           break;
 
-        case 32:
+        case SPACEBAR:
           bird.stopControls();
-          clearInterval(init);
-          gameLoop();
+          bird.initProjectile();
+          this.spaceBar = true;
 
           break;
       };

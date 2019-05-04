@@ -1,5 +1,6 @@
 class Bird {
-  constructor(posX, posY, radius, projectile, slingshot) {
+  constructor(posX, posY, radius, slingshot) {
+
     this.initialPosition = {
       x: posX,
       y: posY,
@@ -10,28 +11,32 @@ class Bird {
       y: posY,
     };
 
-    this.finalPosition = {
-      x: 0,
-      y: 0,
-    };
+    this.finalPosition;
+
+    this.initialVelocity = 19;
 
     this.color = '#FF1';
     this.radius = radius;
-    this.projectile = projectile;
     this.slingshot = slingshot;
-    this.maxHeightPos;
     this.slingshot.stretchedDistance = 8;
+    this.maxHeightPos;
 
     this.speed = 2;
 
-    // H=(usin0)2/(2g)
-    this.maxHeight = (Math.pow(this.projectile.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY);
+  }
 
-    this.maxRange = Math.pow(this.projectile.initialVelocity, 2) * Math.sin(2 * this.projectile.angle) / GRAVITY;
+  initProjectile() {
+    this.projectile = new Projectile(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y, this.initialVelocity);
+
+    // H=(usin0)2/(2g)
+    this.maxHeight = (Math.pow(this.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY);
+    console.log(this.maxHeight);
+
+    this.maxRange = Math.pow(this.initialVelocity, 2) * Math.sin(2 * this.projectile.angle) / GRAVITY;
 
     this.maxHeightPos = {
-      x: this.maxRange / 2 + this.projectile.finalPosition.x * this.slingshot.stretchedDistance,
-      y: this.projectile.finalPosition.y - this.maxHeight - this.slingshot.height,
+      x: this.maxRange / 2 + this.finalPosition.x * this.slingshot.stretchedDistance,
+      y: this.finalPosition.y - this.maxHeight - this.slingshot.height,
     };
   }
 

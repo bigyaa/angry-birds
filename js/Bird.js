@@ -1,5 +1,5 @@
 class Bird {
-  constructor(posX, posY, radius, slingshot) {
+  constructor(posX, posY, slingshot, radius = 45) {
 
     this.initialPosition = {
       x: posX,
@@ -19,9 +19,12 @@ class Bird {
     this.speed = 2;
 
     this.slingshot = slingshot;
-    this.slingshot.stretchedDistance = 8;
+    this.slingshot.stretchedDistance = 8; /* distance(this.initialPosition.x,this.initialPosition.y,this.finalPosition.x,this.finalPosition.y); */
 
     this.maxHeightPos;
+
+    this.birdImage = new Image();
+    this.birdImage.src = "./images/red-bird.png";
   }
 
   initProjectile() {
@@ -51,10 +54,15 @@ class Bird {
   }
 
   show(context) {
-    context.beginPath();
-    context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
-    context.fill();
-    context.closePath();
+    // context.beginPath();
+    // context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
+    // context.fill();
+    // context.closePath();
+
+    (() => {
+      context.drawImage(this.birdImage, this.position.x - this.radius, this.position.y - this.radius);
+    })();
+
   }
 
   shiftLeft() {

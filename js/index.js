@@ -2,9 +2,9 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 var ground = new Rectangle(GROUND_X, GROUND_Y, GAME_WIDTH, GAME_HEIGHT - 20, 'rgb(188,212,56');
-var obstacle = new Rectangle(1000, GAME_HEIGHT - 205, 15, 80, '#946');
+var obstacle = new Wood(1000, GAME_HEIGHT - 205);
 var slingshot = new Slingshot(initialBirdX, initialBirdY);
-var bird = new Bird(initialBirdX, initialBirdY, 20, slingshot);
+var bird = new Bird(initialBirdX, initialBirdY, slingshot);
 
 var inputHandler = new InputHandler(bird);
 

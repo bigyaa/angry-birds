@@ -19,10 +19,10 @@ class Slingshot {
       y: this.position.y,
     };
 
-    var that = this;
+    this.maxStretch = 10;
 
     this.showSlingShot = (context) => {
-      context.drawImage(that.slingShotImage, that.position.x, that.position.y, that.width, that.height);
+      context.drawImage(this.slingShotImage, this.position.x, this.position.y, this.width, this.height);
     }
   }
 }

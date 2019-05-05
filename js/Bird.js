@@ -13,12 +13,15 @@ class Bird extends Circle {
       y: posY,
     };
 
-    this.maxStretch = 0;
-
     this.finalPosition;
 
     this.initialVelocity = 9; //the lower the slower
     this.radius = radius;
+
+    this.speed = {
+      x: 2,
+      y: 2,
+    };
 
     this.sling = sling;
 
@@ -77,45 +80,44 @@ class Bird extends Circle {
 
   }
 
-  checkStretchLimit() {
-    this.travelledDistance = distance(this.initialPosition.x, this.initialPosition.y, this.position.x, this.position.y);
-
-    if (this.travelledDistance > 80) { this.maxStretch = 1; }
-  }
-
   shiftLeft() {
-    this.checkStretchLimit();
-    if (!this.maxStretch) {
-      this.position.x -= this.speed;
+    this.sling.checkStretchLimit(this.initialPosition.x, this.initialPosition.y, this.position.x, this.position.y);
+    if (!this.sling.maxStretch) {
+      this.position.x -= this.speed.x;
     } else {
-      this.stopControls();
+      alert("Maximum Stretch Limit Reached");
+      this.sling.maxStretch = -1; //reset flag
+
     }
   }
 
   shiftRight() {
-    this.checkStretchLimit();
-    if (!this.maxStretch) {
-      this.position.x += this.speed;
+    this.sling.checkStretchLimit(this.initialPosition.x, this.initialPosition.y, this.position.x, this.position.y);
+    if (!this.sling.maxStretch) {
+      this.position.x += this.speed.x;
     } else {
-      this.stopControls();
+      alert("Maximum Stretch Limit Reached");
+      this.sling.maxStretch = -1;
     }
   }
 
   shiftUp() {
-    this.checkStretchLimit();
-    if (!this.maxStretch) {
-      this.position.y -= this.speed;
+    this.sling.checkStretchLimit(this.initialPosition.x, this.initialPosition.y, this.position.x, this.position.y);
+    if (!this.sling.maxStretch) {
+      this.position.y -= this.speed.y;
     } else {
-      this.stopControls();
+      alert("Maximum Stretch Limit Reached");
+      this.sling.maxStretch = -1;
     }
   }
 
   shiftDown() {
-    this.checkStretchLimit();
-    if (!this.maxStretch) {
-      this.position.y += this.speed;
+    this.sling.checkStretchLimit(this.initialPosition.x, this.initialPosition.y, this.position.x, this.position.y);
+    if (!this.sling.maxStretch) {
+      this.position.y += this.speed.y;
     } else {
-      this.stopControls();
+      alert("Maximum Stretch Limit Reached");
+      this.sling.maxStretch = -1;
     }
   }
 

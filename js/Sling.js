@@ -18,11 +18,17 @@ class Sling {
       y: this.position.y,
     };
 
-    this.maxStretch = 10;
+    this.maxStretch = 0;
   }
 
   showSling(context) {
     context.drawImage(this.slingImage, this.position.x, this.position.y, this.width, this.height);
+  }
+
+  checkStretchLimit(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY) {
+    this.travelledDistance = this.calcStretchDistance(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY);
+
+    if (this.travelledDistance > 80) { this.maxStretch += 1; }
   }
 
   calcStretchDistance(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY) {

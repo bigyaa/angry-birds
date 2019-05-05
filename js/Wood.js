@@ -13,8 +13,6 @@ class Wood extends Rectangle {
   }
 
   show(context) {
-    console.log(this.posX);
-
     (() => {
       context.drawImage(this.woodImage, this.posX, this.posY, this.width, this.height);
     })();

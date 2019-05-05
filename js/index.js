@@ -14,10 +14,13 @@ var inputHandler = new InputHandler(bird);
 var background = new Image();
 background.src = "./images/background.png";
 
+var sound = new Audio("./sounds/angry-birds.mp3");
+
 setInterval(function gameLoop() {
   context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
   context.drawImage(background, 0, 0, GAME_WIDTH, GROUND_Y);
+  // sound.play();
 
   ground.show(context);
   obstacle1.show(context);

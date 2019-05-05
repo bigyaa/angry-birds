@@ -21,3 +21,5 @@ const GROUND_Y = GAME_HEIGHT - 130;
 const WOOD_HEIGHT = 90;
 const WOOD_WIDTH = 25;
 
+var direction = 0; //upward
+

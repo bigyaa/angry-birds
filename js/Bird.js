@@ -13,7 +13,7 @@ class Bird extends Circle {
       y: posY,
     };
 
-    this.finalPosition;
+    this.finalPosition = 0;
 
     this.initialVelocity = 1; //minimum initial velocity
     this.radius = radius;
@@ -24,8 +24,6 @@ class Bird extends Circle {
     };
 
     this.sling = sling;
-
-    this.maxHeightPos;
 
     this.birdImage = new Image();
     this.birdImage.src = "./images/red-bird.png";
@@ -48,12 +46,6 @@ class Bird extends Circle {
     this.maxHeight = (Math.pow(this.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY);
 
     this.maxRange = Math.abs(Math.pow(this.initialVelocity, 2) * Math.sin(2 * this.projectile.angle) / GRAVITY);
-
-    // When the bird reaches it's maximum height based on it's projectile motion
-    this.maxHeightPos = {
-      x: this.maxRange / 2 + this.finalPosition.x,
-      y: this.finalPosition.y - this.maxHeight - this.sling.height,
-    };
   }
 
   launch() {
@@ -61,10 +53,11 @@ class Bird extends Circle {
       this.position.x += this.projectile.horizontalVelocity();
 
       // Check if the bird is moving against gravity
-      if (this.position.x >= this.maxHeightPos.x) {
-        this.position.y += this.projectile.downwardVerticalVelocity();
+      if (this.position.x >= (this.maxRange / 2 + this.initialPosition.x - this.birdStretch)) {
+        this.position.y -= this.projectile.verticalVelocity();
       } else {
-        this.position.y += this.projectile.upwardVerticalVelocity();
+        this.position.y += this.projectile.verticalVelocity();
+
       }
     }
   }
@@ -119,6 +112,7 @@ class Bird extends Circle {
 
   stopControls() {
     this.finalPosition = this.position;
+
     this.calcBirdStretch();
 
     this.shiftingDistance = 0;

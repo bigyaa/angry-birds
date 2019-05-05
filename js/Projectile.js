@@ -5,14 +5,14 @@ class Projectile {
       y: initialPosY,
     };
 
-    this.finalPosition = {
+    this.finalPos = {
       x: finalPosX,
       y: finalPosY,
     };
 
     this.initialVelocity = initialVelocity;
 
-    this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y) /* 20 * Math.PI / 180 */;
+    this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPos.x, this.finalPos.y) /* 20 * Math.PI / 180 */;
 
     // console.log(this.angle * 180 / Math.PI);
 
@@ -29,13 +29,8 @@ class Projectile {
     return (this.initialVelocity * Math.cos(this.angle));
   }
 
-  // vy=u+gt
-  downwardVerticalVelocity() {
-    return this.verticalDistance() + (GRAVITY * this.time);
-  }
-
   // vy=u-at against gravity
-  upwardVerticalVelocity() {
+  verticalVelocity() {
     return this.verticalDistance() - (GRAVITY * this.time);
   }
 

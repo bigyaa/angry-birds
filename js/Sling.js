@@ -28,7 +28,7 @@ class Sling {
   checkStretchLimit(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY) {
     this.travelledDistance = this.calcStretchDistance(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY);
 
-    if (this.travelledDistance > 80) { this.maxStretch += 1; }
+    if (this.travelledDistance > 160) { this.maxStretch += 1; }
   }
 
   calcStretchDistance(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY) {

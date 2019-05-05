@@ -40,14 +40,4 @@ class Rectangle {
     context.fillStyle = this.color;
     context.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
-
-  detectBirdCollision(...birdArgs) {
-    let birdArg;
-    // for (birdArg in birdArgs) {
-    //   if
-    //   {
-    //     alert("Collided!");
-    //   }
-    // }
-  }
 }

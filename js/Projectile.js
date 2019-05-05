@@ -1,5 +1,5 @@
 class Projectile {
-  constructor(initialPosX, initialPosY, finalPosX, finalPosY, initialVelocity = 19) {
+  constructor(initialPosX, initialPosY, finalPosX, finalPosY, initialVelocity) {
     this.initialPosition = {
       x: initialPosX,
       y: initialPosY,
@@ -14,22 +14,33 @@ class Projectile {
 
     this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y) /* 20 * Math.PI / 180 */;
 
-    this.time = 0.3;
+    // console.log(this.angle * 180 / Math.PI);
+
+    this.time = 1;
   }
 
-  // y=usin0t-(1/2)gt2
-  upwardVerticalDisplacement() {
-    return (this.initialVelocity * Math.sin(this.angle) * this.time) - (0.5 * GRAVITY * Math.pow(this.time, 2)); /* +3 */
+  // y=usin0
+  verticalDistance() {
+    return (this.initialVelocity * Math.sin(this.angle));
   }
 
-  // y=usin0t+(1/2)gt2
-  downwardVerticalDisplacement() {
-    return (this.initialVelocity * Math.sin(this.angle) * this.time) + (0.5 * GRAVITY * Math.pow(this.time, 2)); /* -4.25 */
+  // x=ucos0
+  horizontalDistance() {
+    return (this.initialVelocity * Math.cos(this.angle));
   }
 
-  // x=ucos0t
-  horizontalDisplacement() {
-    return (this.initialVelocity * Math.cos(this.angle) * this.time);
+  // vy=u+gt
+  downwardVerticalVelocity() {
+    return this.verticalDistance() + (GRAVITY * this.time);
+  }
+
+  // vy=u-at against gravity
+  upwardVerticalVelocity() {
+    return this.verticalDistance() - (GRAVITY * this.time);
+  }
+
+  horizontalVelocity() {
+    return this.horizontalDistance();
   }
 }
 

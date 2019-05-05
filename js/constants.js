@@ -10,7 +10,7 @@ const SPACEBAR = 32;
 canvas.width = GAME_WIDTH;
 canvas.height = GAME_HEIGHT;
 
-const GRAVITY = 10;
+const GRAVITY = 8;
 
 var initialBirdX = 250;
 var initialBirdY = 360;
@@ -18,4 +18,6 @@ var initialBirdY = 360;
 const GROUND_X = 0;
 const GROUND_Y = GAME_HEIGHT - 130;
 
-// var maxStretch = 0;
+const WOOD_HEIGHT = 90;
+const WOOD_WIDTH = 25;
+

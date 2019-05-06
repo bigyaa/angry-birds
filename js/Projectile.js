@@ -1,21 +1,8 @@
 class Projectile {
-  constructor(initialPosX, initialPosY, finalPosX, finalPosY, initialVelocity) {
-    this.initialPosition = {
-      x: initialPosX,
-      y: initialPosY,
-    };
-
-    this.finalPos = {
-      x: finalPosX,
-      y: finalPosY,
-    };
-
+  constructor(angle, initialVelocity) {
     this.initialVelocity = initialVelocity;
     this.time = 1;
-
-    this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPos.x, this.finalPos.y) /* 20 * Math.PI / 180 */;
-
-    // console.log(this.angle * 180 / Math.PI);
+    this.angle = angle;
   }
 
   // y=usin0

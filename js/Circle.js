@@ -46,4 +46,10 @@ class Circle {
 
     this.speed = 0;
   }
+
+  bounce(angle, initialVelocity) {
+    if (this.position.y >= GROUND_Y) {
+
+    }
+  }
 }

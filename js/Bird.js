@@ -33,14 +33,16 @@ class Bird extends Circle {
 
     /* The sling stretched distance determines the range and height of the projectile.
     The lower the value, the lower the range and vice-versa */
-    this.birdStretch = (this.sling.calcStretchDistance(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y));
+    this.birdStretch = (this.sling.calcStretchDistance(
+      this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y));
 
     /* Determines speed of the bird based on the stretched distance */
     this.initialVelocity *= this.birdStretch;
   }
 
   initProjectile() {
-    this.projectile = new Projectile(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y, this.initialVelocity);
+    this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y);
+    this.projectile = new Projectile(this.angle, this.initialVelocity);
 
     // H=(usin0)2/(2g)
     this.maxHeight = Math.ceil((Math.pow(this.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY));
@@ -48,7 +50,7 @@ class Bird extends Circle {
   }
 
   launch() {
-    if (this.position.y + this.radius < GROUND_Y) {
+    if (this.position.y + this.radius <= GROUND_Y) {
       this.position.x += this.projectile.horizontalVelocity() * 0.025; //offset to slow the speed
 
       // Check if the bird is moving against gravity
@@ -112,20 +114,9 @@ class Bird extends Circle {
 
   stopControls() {
     this.finalPosition = this.position;
-
     this.calcBirdStretch();
 
     this.shiftingDistance = 0;
   }
 
-  resetPosition() {
-    // this.position = this.initialPosition;
-    // this.finalPosition = this.position;
-    // this.birdStretch = 0;
-    // this.angle = 0;
-    // this.shiftingDistance = 2;
-    // this.verticalVelocity = 0;
-    // this.horizontalVelocity = 0;
-    // spaceBar = false;
-  }
 }

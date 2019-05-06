@@ -13,18 +13,22 @@ const BIRD_RADIUS = 30;
 
 const OBSTACLE_HEIGHT = 90;
 const OBSTACLE_WIDTH = 25;
-const NUM_OF_OBSTACLES = 4;
+const OBSTACLE_POPULATION = 4;
 const OBSTACLE_POSITION = {
-  x: [900, 950, 1000, 1050],
+  x: [800, 850, 900, 950],
   y: [GROUND_Y - OBSTACLE_HEIGHT]
 };
 
-const PIG_RADIUS = 107;
-const PIG_POPULATION = 4;
+const PIG_RADIUS = 37.5;
+const PIG_POPULATION = 2;
 const PIG_POSITION = {
-  x: [400, 620, 850, 1100],
+  x: [850, 1100],
   y: [GROUND_Y - 2 * PIG_RADIUS]
 };
+const PIG_SIZE = {
+  width: 75,
+  height: 75
+}
 
 const GRAVITY = 8;
 

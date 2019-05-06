@@ -45,16 +45,4 @@ class Rectangle {
     context.fillStyle = this.color;
     context.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
-
-  checkBallCollision(bird) {
-    if (bird.position.x + bird.radius >= this.vertices.firstPoint.x &&
-      this.vertices.firstPoint.y <= bird.position.y &&
-      bird.position.x - bird.radius < this.vertices.thirdPoint.x) {
-      // alert("Collided");
-      obstacles.splice(obstacles.indexOf(this), 1);
-      bird.resetPosition();
-      console.log(obstacles);
-
-    }
-  }
 }

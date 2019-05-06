@@ -17,14 +17,14 @@ var background = new Image();
 background.src = "./images/background.png";
 
 // Generate obstacles
-for (let i = 0; i < NUM_OF_OBSTACLES; i++) {
-  obstacles[i] = new Wood(OBSTACLE_POSITION.x[i], OBSTACLE_POSITION.y[0]/*  - i * OBSTACLE_HEIGHT */, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
+for (let i = 0; i < OBSTACLE_POPULATION; i++) {
+  obstacles[i] = new Wood(OBSTACLE_POSITION.x[i], OBSTACLE_POSITION.y[0] - i * OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
 }
 
-/* // Generate pigs
+// Generate pigs
 for (let i = 0; i < PIG_POPULATION; i++) {
   pigs[i] = new Pig(PIG_POSITION.x[i], PIG_POSITION.y[0]);
-} */
+}
 
 // Main Execution
 setInterval(function gameLoop() {
@@ -36,13 +36,14 @@ setInterval(function gameLoop() {
 
   for (let obstacle of obstacles) {
     obstacle.show(context);
-    obstacle.checkBallCollision(bird);
+    handleBirdToObstacleCollision(bird, obstacle);
   }
 
-  /*   for (let pig of pigs) {
-      pig.show(context);
-    }
-   */
+  for (let pig of pigs) {
+    pig.show(context);
+    handleBirdToPigCollision(bird, pig);
+  }
+
   bird.show(context);
   sling.showSling(context);
 

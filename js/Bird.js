@@ -1,5 +1,7 @@
 class Bird extends Circle {
-  constructor(posX, posY, sling, radius = 30) {
+
+  // Radius assigned based on actual image size
+  constructor(posX, posY, sling, radius = BIRD_RADIUS) {
 
     super(posX, posY, radius);
 
@@ -41,25 +43,27 @@ class Bird extends Circle {
     this.projectile = new Projectile(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y, this.initialVelocity);
 
     // H=(usin0)2/(2g)
-    this.maxHeight = (Math.pow(this.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY);
-    this.maxRange = Math.abs(Math.pow(this.initialVelocity, 2) * Math.sin(2 * this.projectile.angle) / GRAVITY);
+    this.maxHeight = Math.ceil((Math.pow(this.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY));
+    this.maxRange = Math.ceil(Math.abs(Math.pow(this.initialVelocity, 2) * Math.sin(2 * this.projectile.angle) / GRAVITY));
   }
 
   launch() {
     if (this.position.y + this.radius < GROUND_Y) {
-      this.position.x += this.projectile.horizontalVelocity() * 0.5; //offset
+      this.position.x += this.projectile.horizontalVelocity() * 0.025; //offset to slow the speed
 
       // Check if the bird is moving against gravity
       if (this.position.x >= (this.maxRange / 2 + this.initialPosition.x - this.birdStretch)) {
-        this.position.y -= this.projectile.verticalVelocity();
+        this.position.y -= this.projectile.verticalVelocity() * 0.075;
       } else {
-        this.position.y += this.projectile.verticalVelocity() * 0.25; //offset
+        this.position.y += this.projectile.verticalVelocity() * 0.075; //offset to slow the speed
       }
     }
   }
 
   show(context) {
     (() => {
+
+      // Align image position with the circle
       context.drawImage(this.birdImage, this.position.x - this.radius, this.position.y - this.radius);
     })();
 

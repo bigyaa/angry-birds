@@ -7,7 +7,7 @@ class Sling {
     // Relative to the bird's initial position
     this.position = {
       x: positionX - (this.width / 2),
-      y: positionY - 30,
+      y: positionY - BIRD_RADIUS,
     };
 
     this.slingImage = new Image();

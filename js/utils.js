@@ -13,3 +13,17 @@ function distance(x1, y1, x2, y2) {
 
   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
+
+function radianToDegree(angleInRadian) {
+
+  return (180 / Math.PI) * angleInRadian;
+}
+
+function rangeInclusive(start, end) {
+  var ans = [];
+  for (let i = start; i <= end; i++) {
+    ans.push(i);
+  }
+
+  return ans;
+}

@@ -12,7 +12,6 @@ class Circle {
     };
 
     this.finalPosition;
-
     this.color = '#FF1';
     this.radius = radius;
     this.speed = 2;

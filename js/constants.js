@@ -7,19 +7,16 @@ const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
 const SPACEBAR = 32;
 
-canvas.width = GAME_WIDTH;
-canvas.height = GAME_HEIGHT;
-
-const GRAVITY = 8;
-
-var initialBirdX = 250;
-var initialBirdY = 360;
-
 const GROUND_X = 0;
 const GROUND_Y = GAME_HEIGHT - 130;
 
-const WOOD_HEIGHT = 90;
-const WOOD_WIDTH = 25;
+const OBSTACLE_HEIGHT = 90;
+const OBSTACLE_WIDTH = 25;
+const NUM_OF_OBSTACLES = 4;
+const OBSTACLE_POSITION = {
+  x: [1200, 1240, 1280, 2200],
+  y: [GROUND_Y - OBSTACLE_HEIGHT]
+};
 
-var direction = 0; //upward
+const GRAVITY = 8;
 

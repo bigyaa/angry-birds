@@ -1,32 +1,34 @@
 class InputHandler {
   constructor(bird) {
-    this.spaceBar = false;
+
+    this.bird = bird;
 
     document.addEventListener('keydown', (event) => {
       switch (event.keyCode) {
         case ARROW_LEFT:
-          bird.shiftLeft();
+          this.bird.shiftLeft();
           break;
 
         case ARROW_UP:
-          bird.shiftUp();
+          this.bird.shiftUp();
           break;
 
         case ARROW_RIGHT:
-          bird.shiftRight();
+          this.bird.shiftRight();
           break;
 
         case ARROW_DOWN:
-          bird.shiftDown();
+          this.bird.shiftDown();
           break;
 
         case SPACEBAR:
-          bird.stopControls();
-          bird.initProjectile();
-          this.spaceBar = true;
+          spaceBar = true;
+          this.bird.stopControls();
+          this.bird.initProjectile();
 
           break;
       };
     });
   }
 }
+

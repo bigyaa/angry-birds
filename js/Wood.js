@@ -1,10 +1,9 @@
 class Wood extends Rectangle {
-  constructor(posX, posY, width = WOOD_WIDTH, height = WOOD_HEIGHT) {
+  constructor(posX, posY, width, height) {
     super(posX, posY, width, height);
 
     this.woodImage = new Image();
     this.woodImage.src = "./images/column.png";
-
     this.posX = posX;
     this.posY = posY;
     this.width = width;

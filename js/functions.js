@@ -10,7 +10,7 @@ function generateObstacles() {
       );
     } else {
       obstacles[i] = new Wood(
-        OBSTACLE_POSITION.x[i - 4],
+        OBSTACLE_POSITION.x[i - 4] + 0.5 * woodImageType["vertical"]["width"],
         OBSTACLE_POSITION.y[0] - (woodImageType["horizontal"]["height"] + woodImageType["vertical"]["height"]),
         "horizontal"
       );

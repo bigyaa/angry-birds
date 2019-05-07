@@ -42,6 +42,7 @@ function handleBirdToObstacleCollision(bird, obstacle) {
     // Make the collided obstacle disappear
     // obstacles.splice(obstacles.indexOf(obstacle), 1);
 
+    obstacle.hitCount++;
     obstacle.initProjectile(bird);
     obstacle.launch();
   }
@@ -50,6 +51,7 @@ function handleBirdToObstacleCollision(bird, obstacle) {
 function handleBirdToPigCollision(bird, pig) {
   if (checkCircleToCircleCollision(bird, pig)) {
 
+    pig.hitCount++;
     pig.initProjectile(bird);
     pig.launch();
     pig.pigImage.src = "./images/pig_hit-1.png";
@@ -64,8 +66,9 @@ function handleBirdToGroundCollision(bird, ground) {
 }
 
 function handlePigToObstacleCollision(pig, obstacle) {
-  if (checkCircleToRectangleCollision(pig, obstacle)) {
+  if (pig.initialVelocity && checkCircleToRectangleCollision(pig, obstacle)) {
 
+    obstacle.hitCount++;
     obstacle.initProjectile(pig);
     obstacle.launch();
   }

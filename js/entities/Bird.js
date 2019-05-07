@@ -33,7 +33,19 @@ class Bird extends Circle {
     this.initialVelocity = 2;
     this.radius = radius;
     this.sling = sling;
+    this.hitCount = 0;
 
+    this.updateFrame = () => {
+      if (this.hitCount === 1) {
+        this.birdImage.src = this.imageSources[2]
+      }
+      else if (this.hitCount === 2) {
+        this.birdImage.src = this.imageSources[3]
+      }
+      else {
+        // make bird disappear
+      }
+    }
   }
 
 

@@ -15,6 +15,7 @@ class Pig extends Circle {
     this.radius = radius;
     this.pigImage = new Image();
     this.pigImage.src = "./images/pig_initial.png";
+    this.hitCount = 0;
   }
 
   show(context) {

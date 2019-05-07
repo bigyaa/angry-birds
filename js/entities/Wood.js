@@ -16,6 +16,7 @@ class Wood extends Rectangle {
     this.woodImage.src = woodImageType[imageType].src;
     this.width = woodImageType[imageType].width;
     this.height = woodImageType[imageType].height;
+    this.hitCount = 0;
   }
 
   show(context) {

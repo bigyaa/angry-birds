@@ -21,7 +21,7 @@ const PIG_RADIUS = 37.5;
 const PIG_POPULATION = 2;
 const PIG_POSITION = {
   x: [852, 950],
-  y: [GROUND_Y - 4 * PIG_RADIUS]
+  y: [GROUND_Y - 150]
 };
 const PIG_SIZE = {
   width: 75,

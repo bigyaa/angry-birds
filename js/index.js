@@ -16,10 +16,12 @@ var sound = new Audio("./sounds/angry-birds.mp3");
 var background = new Image();
 background.src = "./images/background.png";
 
-// Generate obstacles
+/* // Generate obstacles
 for (let i = 0; i < OBSTACLE_POPULATION; i++) {
   obstacles[i] = new Wood(OBSTACLE_POSITION.x[i], OBSTACLE_POSITION.y[0] - i * OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
-}
+} */
+
+generateObstacles();
 
 // Generate pigs
 for (let i = 0; i < PIG_POPULATION; i++) {

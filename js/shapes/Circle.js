@@ -49,7 +49,10 @@ class Circle {
 
   bounce(angle, initialVelocity) {
     if (this.position.y >= GROUND_Y) {
+      this.bounceProjectile = new Projectile(angle, initialVelocity);
 
+      this.position.x += this.bounceProjectile.horizontalVelocity() * 0.025; //offset to slow the speed
+      this.position.y -= this.bounceProjectile.verticalVelocity() * 0.075;
     }
   }
 }

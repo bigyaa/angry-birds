@@ -24,15 +24,14 @@ class Bird extends Circle {
     this.birdImage.src = "./images/red-bird.png";
 
     this.finalPosition = 0;
-    this.initialVelocity = 2; //minimum initial velocity
+    this.initialVelocity = 2;
     this.radius = radius;
     this.sling = sling;
   }
 
   calcBirdStretch() {
 
-    /* The sling stretched distance determines the range and height of the projectile.
-    The lower the value, the lower the range and vice-versa */
+    /* The sling stretched distance determines the range and height of the projectile. The lower the value, the lower the range and vice-versa */
     this.birdStretch = (this.sling.calcStretchDistance(
       this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y));
 
@@ -44,8 +43,10 @@ class Bird extends Circle {
     this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y);
     this.projectile = new Projectile(this.angle, this.initialVelocity);
 
-    // H=(usin0)2/(2g)
+    // Maximum height the object will reach
     this.maxHeight = Math.ceil((Math.pow(this.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY));
+
+    // Maximum distance the object will travel
     this.maxRange = Math.ceil(Math.abs(Math.pow(this.initialVelocity, 2) * Math.sin(2 * this.projectile.angle) / GRAVITY));
   }
 
@@ -59,7 +60,10 @@ class Bird extends Circle {
       } else {
         this.position.y += this.projectile.verticalVelocity() * 0.075; //offset to slow the speed
       }
-    }
+    } /* else {
+      bird.bounce(this.angle, this.initialVelocity);
+
+    } */
   }
 
   show(context) {
@@ -118,5 +122,4 @@ class Bird extends Circle {
 
     this.shiftingDistance = 0;
   }
-
 }

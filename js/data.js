@@ -11,19 +11,17 @@ const GROUND_X = 0;
 const GROUND_Y = GAME_HEIGHT - 130;
 const BIRD_RADIUS = 30;
 
-const OBSTACLE_HEIGHT = 90;
-const OBSTACLE_WIDTH = 25;
-const OBSTACLE_POPULATION = 4;
+const OBSTACLE_POPULATION = 7;
 const OBSTACLE_POSITION = {
-  x: [800, 850, 900, 950],
-  y: [GROUND_Y - OBSTACLE_HEIGHT]
+  x: [800, 900, 1000, 1100],
+  y: [GROUND_Y]
 };
 
 const PIG_RADIUS = 37.5;
 const PIG_POPULATION = 2;
 const PIG_POSITION = {
-  x: [850, 1100],
-  y: [GROUND_Y - 2 * PIG_RADIUS]
+  x: [852, 950],
+  y: [GROUND_Y - 4 * PIG_RADIUS]
 };
 const PIG_SIZE = {
   width: 75,
@@ -31,4 +29,17 @@ const PIG_SIZE = {
 }
 
 const GRAVITY = 8;
+
+var woodImageType = {
+  vertical: {
+    src: "./images/wood-vertical.png",
+    width: 25,
+    height: 90
+  },
+  horizontal: {
+    src: "./images/wood-horizontal.png",
+    width: 100,
+    height: 25
+  }
+}
 

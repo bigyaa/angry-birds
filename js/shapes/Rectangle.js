@@ -43,6 +43,11 @@ class Rectangle {
 
   show(context) {
     context.fillStyle = this.color;
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    context.fillRect(
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
   }
 }

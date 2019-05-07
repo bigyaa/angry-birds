@@ -1,7 +1,11 @@
 class Wood extends Rectangle {
   /* imageType= "vertical" or "horizontal" */
   constructor(posX, posY, imageType) {
-    super(posX, posY, woodImageType[imageType]["width"], woodImageType[imageType]["height"]);
+    super(posX,
+      posY,
+      woodImageType[imageType]["width"],
+      woodImageType[imageType]["height"]
+    );
 
     if (posY <= GROUND_Y) {
       this.posX = posX;
@@ -16,16 +20,27 @@ class Wood extends Rectangle {
 
   show(context) {
     (() => {
-      context.drawImage(this.woodImage, this.posX, this.posY, this.width, this.height);
+      context.drawImage(
+        this.woodImage,
+        this.posX,
+        this.posY,
+        this.width,
+        this.height
+      );
     })();
   }
 
-  initProjectile(bird) {
-    this.projectile = new Projectile(bird.angle, bird.initialVelocity);
+  initProjectile(circle) {
+    this.projectile = new Projectile(
+      circle.angle,
+      circle.initialVelocity * 0.75
+    );
+
+    circle.initialVelocity *= 0.75;
   }
 
   launch() {
-    this.posX += this.projectile.horizontalVelocity() * 0.025; //offset to slow the speed
-    this.posY -= this.projectile.verticalVelocity() * 0.075; //offset to slow the speed
+    this.posX += this.projectile.horizontalVelocity() * 0.025;
+    this.posY -= this.projectile.verticalVelocity() * AIR_RESISTANCE;
   }
 }

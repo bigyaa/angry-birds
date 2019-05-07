@@ -20,7 +20,12 @@ class Circle {
 
   show(context) {
     context.beginPath();
-    context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
+    context.arc(
+      this.position.x,
+      this.position.y,
+      this.radius,
+      0, 2 * Math.PI
+    );
     context.fill();
     context.closePath();
   }
@@ -51,8 +56,8 @@ class Circle {
     if (this.position.y >= GROUND_Y) {
       this.bounceProjectile = new Projectile(angle, initialVelocity);
 
-      this.position.x += this.bounceProjectile.horizontalVelocity() * 0.025; //offset to slow the speed
-      this.position.y -= this.bounceProjectile.verticalVelocity() * 0.075;
+      this.position.x += this.bounceProjectile.horizontalVelocity() * 0.025;
+      this.position.y -= this.bounceProjectile.verticalVelocity() * AIR_RESISTANCE;
     }
   }
 }

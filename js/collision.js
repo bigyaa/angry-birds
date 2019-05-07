@@ -13,7 +13,12 @@ function checkCircleToRectangleCollision(circle, rectangle) {
 }
 
 function checkCircleToCircleCollision(circle1, circle2) {
-  if (distance(circle1.position.x, circle1.position.y, circle2.position.x, circle2.position.y) <= (circle1.radius + circle2.radius)) {
+  if (distance(
+    circle1.position.x,
+    circle1.position.y,
+    circle2.position.x,
+    circle2.position.y) <= (circle1.radius + circle2.radius)
+  ) {
 
     return true;
   } else {
@@ -57,3 +62,15 @@ function handleBirdToGroundCollision(bird, ground) {
     ground.reflectCollidingCircle(bird);
   }
 }
+
+function handlePigToObstacleCollision(pig, obstacle) {
+  if (checkCircleToRectangleCollision(pig, obstacle)) {
+
+    obstacle.initProjectile(pig);
+    obstacle.launch();
+  }
+}
+
+// function handleObstacleToPigCollision(obstacle, pig) {
+//   if(checkCircleToRectangleCollision())
+// }

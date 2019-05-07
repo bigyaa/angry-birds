@@ -22,18 +22,45 @@ class Sling {
   }
 
   showSling(context) {
-    context.drawImage(this.slingImage, this.position.x, this.position.y, this.width, this.height);
+    context.drawImage(
+      this.slingImage,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
   }
 
-  checkStretchLimit(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY) {
-    this.travelledDistance = this.calcStretchDistance(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY);
+  checkStretchLimit(
+    initialObjPositionX,
+    initialObjPositionY,
+    stretchedPositionX,
+    stretchedPositionY
+  ) {
+
+    this.travelledDistance = this.calcStretchDistance(
+      initialObjPositionX,
+      initialObjPositionY,
+      stretchedPositionX,
+      stretchedPositionY
+    );
 
     if (this.travelledDistance > 160) { this.maxStretch += 1; }
   }
 
-  calcStretchDistance(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY) {
+  calcStretchDistance(
+    initialObjPositionX,
+    initialObjPositionY,
+    stretchedPositionX,
+    stretchedPositionY
+  ) {
 
-    return distance(initialObjPositionX, initialObjPositionY, stretchedPositionX, stretchedPositionY);
+    return distance(
+      initialObjPositionX,
+      initialObjPositionY,
+      stretchedPositionX,
+      stretchedPositionY
+    );
   }
 
 }

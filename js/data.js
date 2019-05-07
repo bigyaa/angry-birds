@@ -30,7 +30,7 @@ const PIG_SIZE = {
 
 const GRAVITY = 8;
 
-var woodImageType = {
+let woodImageType = {
   vertical: {
     src: "./images/wood-vertical.png",
     width: 25,

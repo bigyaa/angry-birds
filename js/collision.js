@@ -26,7 +26,10 @@ function handleBirdToObstacleCollision(bird, obstacle) {
   if (checkCircleToRectangleCollision(bird, obstacle)) {
 
     // Make the collided obstacle disappear
-    obstacles.splice(obstacles.indexOf(obstacle), 1);
+    // obstacles.splice(obstacles.indexOf(obstacle), 1);
+
+    obstacle.initProjectile(bird);
+    obstacle.launch();
   }
 }
 

@@ -23,3 +23,15 @@ function generatePigs() {
     pigs[i] = new Pig(PIG_POSITION.x[i], PIG_POSITION.y[0]);
   }
 }
+
+/* function pigAnimate(i) {
+  let framesSrc = [
+    "./images/pig_hit2-roll-1.png",
+    "./images/pig_hit2-roll-1.png",
+    "./images/pig_hit2-roll-1.png",
+    "./images/pig_hit2-roll-1.png",
+    "./images/pig_hit2-roll-1.png"
+  ];
+
+  return (framesSrc[i]);
+} */

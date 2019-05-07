@@ -12,13 +12,22 @@ function checkCircleToRectangleCollision(circle, rectangle) {
   }
 }
 
-function checkCircleToCircleCollision(bird, pig) {
-  if (distance(bird.position.x, bird.position.y, pig.position.x, pig.position.y) <= (bird.radius + pig.radius)) {
+function checkCircleToCircleCollision(circle1, circle2) {
+  if (distance(circle1.position.x, circle1.position.y, circle2.position.x, circle2.position.y) <= (circle1.radius + circle2.radius)) {
 
     return true;
   } else {
 
     return false;
+  }
+}
+
+function checkRectangleToRectangleCollision(rectangle1, rectangle2) {
+  if (rectangle1.vertices.thirdPoint.x >= rectangle2.vertices.firstPoint &&
+    rectangle1.vertices.firstPoint.x <= rectangle2.vertices.thirdPoint.x &&
+    rectangle1.vertices.thirdPoint.y >= rectangle2.vertices.firstPoint.y &&
+    rectangle1.vertices.firstPoint.y <= rectangle2.vertices.thirdPoint.y) {
+    alert("Collided obstacles!")
   }
 }
 
@@ -39,5 +48,12 @@ function handleBirdToPigCollision(bird, pig) {
     pig.initProjectile(bird);
     pig.launch();
     pig.pigImage.src = "./images/pig_hit-1.png";
+  }
+}
+
+function handleBirdToGroundCollision(bird, ground) {
+  if (checkCircleToRectangleCollision(bird, ground)) {
+
+    ground.reflectCollidingCircle(bird);
   }
 }

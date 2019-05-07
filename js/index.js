@@ -8,7 +8,7 @@ let obstacles = [];
 let pigs = [];
 let initialBirdX = 250;
 let initialBirdY = 360;
-let ground = new Rectangle(GROUND_X, GROUND_Y, GAME_WIDTH, GAME_HEIGHT - 20, 'rgb(188,212,56');
+let ground = new Ground(GROUND_X, GROUND_Y, GAME_WIDTH, GAME_HEIGHT - 20, 'rgb(188,212,56');
 let sling = new Sling(initialBirdX, initialBirdY);
 let bird = new Bird(initialBirdX, initialBirdY, sling); // Position in terms of the centre of the bird
 let inputHandler = new InputHandler(bird);
@@ -20,7 +20,7 @@ generateObstacles();
 generatePigs();
 
 // Main Execution
-setInterval(function gameLoop() {
+(function GameLoop() {
   // sound.play();
 
   context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -43,7 +43,19 @@ setInterval(function gameLoop() {
 
   if (spaceBar) {
     bird.launch();
+
+    for (let obstacle of obstacles) {
+      for (let n in obstacles) {
+        if (obstacles[n] != obstacle) {
+          checkRectangleToRectangleCollision(obstacle, obstacles[n]);
+        }
+      }
+    }
+
+    handleBirdToGroundCollision(bird, ground);
   }
 
-}, 1000 / 60);
+  requestAnimationFrame(GameLoop);
+
+})();
 

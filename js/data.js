@@ -29,6 +29,8 @@ const PIG_SIZE = {
 }
 
 const GRAVITY = 8;
+const FRICTION = 0.02;
+const AIR_RESISTANCE = 0.075;
 
 let woodImageType = {
   vertical: {

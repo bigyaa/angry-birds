@@ -2,3 +2,4 @@
 var direction = 1;
 
 var spaceBar = false;
+

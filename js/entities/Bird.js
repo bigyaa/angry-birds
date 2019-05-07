@@ -21,12 +21,14 @@ class Bird extends Circle {
     };
 
     this.birdImage = new Image();
-    this.birdImage.src = "./images/red-bird.png";
+    this.imageSources = ["./images/red-bird.png", "./images/bird-flight.png", "./images/bird-hit1.png", "./images/bird-hit2.png"];
+    this.birdImage.src = this.imageSources[0];
 
     this.finalPosition = 0;
     this.initialVelocity = 2;
     this.radius = radius;
     this.sling = sling;
+
   }
 
   calcBirdStretch() {
@@ -41,6 +43,7 @@ class Bird extends Circle {
 
   initProjectile() {
     this.angle = getTrajectoryAngle(this.initialPosition.x, this.initialPosition.y, this.finalPosition.x, this.finalPosition.y);
+    console.log(this.angle)
     this.projectile = new Projectile(this.angle, this.initialVelocity);
 
     // Maximum height the object will reach
@@ -51,19 +54,22 @@ class Bird extends Circle {
   }
 
   launch() {
+    this.birdImage.src = this.imageSources[1];
+
     if (this.position.y + this.radius <= GROUND_Y) {
       this.position.x += this.projectile.horizontalVelocity() * 0.025; //offset to slow the speed
 
       // Check if the bird is moving against gravity
       if (this.position.x >= (this.maxRange / 2 + this.initialPosition.x - this.birdStretch)) {
-        this.position.y -= this.projectile.verticalVelocity() * 0.075;
-      } else {
-        this.position.y += this.projectile.verticalVelocity() * 0.075; //offset to slow the speed
-      }
-    } /* else {
-      bird.bounce(this.angle, this.initialVelocity);
 
-    } */
+        // Go upward
+        this.position.y -= this.projectile.verticalVelocity() * AIR_RESISTANCE;
+      } else {
+
+        // Go downward
+        this.position.y += this.projectile.verticalVelocity() * AIR_RESISTANCE; //offset to slow the speed
+      }
+    }
   }
 
   show(context) {

@@ -27,27 +27,29 @@ class Bird extends Circle {
       "./images/bird-hit1.png",
       "./images/bird-hit2.png"
     ];
-    this.birdImage.src = this.imageSources[0];
+    this.birdImage.src = this.imageSources[birdFrame];
 
     this.finalPosition = 0;
-    this.initialVelocity = 2;
+    this.initialVelocity = 3;
     this.radius = radius;
     this.sling = sling;
-    this.hitCount = 0;
+    this.newAngle;
 
-    this.updateFrame = () => {
-      if (this.hitCount === 1) {
-        this.birdImage.src = this.imageSources[2]
-      }
-      else if (this.hitCount === 2) {
-        this.birdImage.src = this.imageSources[3]
-      }
-      else {
-        // make bird disappear
-      }
-    }
+    // this.birdID
+    // this.hitCount = 0;
+
+    /*     this.updateFrame = () => {
+          if (this.hitCount === 1) {
+            this.birdImage.src = this.imageSources[2]
+          }
+          else if (this.hitCount === 2) {
+            this.birdImage.src = this.imageSources[3]
+          }
+          else {
+            // make bird disappear
+          }
+        } */
   }
-
 
   calcBirdStretch() {
 
@@ -74,36 +76,31 @@ class Bird extends Circle {
     );
 
     this.projectile = new Projectile(this.angle, this.initialVelocity);
-
-    // Maximum height the object will reach
-    this.maxHeight = Math.floor((Math.pow(
-      this.initialVelocity * Math.sin(this.projectile.angle)), 2) / (2 * GRAVITY)
-    );
-
-    // Maximum distance the object will travel
-    this.maxRange = Math.floor(Math.abs(Math.pow(
-      this.initialVelocity, 2) * Math.sin(2 * this.projectile.angle) / GRAVITY)
-    );
   }
 
 
   launch() {
-    this.birdImage.src = this.imageSources[1];
+    // this.birdImage.src = this.imageSources[1];
+    birdFrame++;
 
     if (this.position.y + this.radius <= GROUND_Y) {
-      this.position.x += this.projectile.horizontalVelocity() * 0.025;
+      let newHorizontalVelocity = this.projectile.horizontalVelocity() * 0.075;
+      let newVerticalVelocity = this.projectile.verticalVelocity() * AIR_RESISTANCE;
 
-      // Check if the bird is moving against gravity
-      if (this.position.x >= (this.maxRange / 2 + this.initialPosition.x - this.birdStretch)) {
+      this.position.x += newHorizontalVelocity;
+      this.position.y += newVerticalVelocity;
 
-        // Go upward
-        this.position.y -= this.projectile.verticalVelocity() * AIR_RESISTANCE;
-      } else {
-
-        // Go downward
-        this.position.y += this.projectile.verticalVelocity() * AIR_RESISTANCE;
-      }
+      // Calculate angle of projection at each frame
+      this.newAngle = Math.atan(newVerticalVelocity / (this.projectile.horizontalVelocity() * 0.075));
+      this.projectile.updateData(this.newAngle);
     }
+
+    /*     if (this.position.y + this.radius >= GROUND_Y) {
+          birdFrame++;
+
+          birdID++;
+          defeatedBird.append(this);
+        } */
   }
 
 
@@ -196,4 +193,9 @@ class Bird extends Circle {
 
     this.shiftingDistance = 0;
   }
+
+  resetBirdFrame() {
+    birdFrame = 0;
+  }
 }
+

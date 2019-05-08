@@ -19,10 +19,9 @@ class Projectile {
 
   }
 
-  // vy=u-at against gravity
   verticalVelocity() {
 
-    return this.verticalDistance() - (GRAVITY * this.time);
+    return this.verticalDistance() + (GRAVITY * this.time);
 
   }
 
@@ -32,9 +31,9 @@ class Projectile {
 
   }
 
-  resetProjectile() {
-    this.verticalVelocity = 0;
-    this.horizontalVelocity = 0;
+  updateData(angle) {
+
+    this.angle = angle;
   }
 }
 

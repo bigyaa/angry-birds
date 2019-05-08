@@ -6,7 +6,7 @@ class Ground extends Rectangle {
 
   reflectCollidingCircle(element) {
     this.projectile = new Projectile(
-      element.angle,
+      element.newAngle,
       element.initialVelocity / 2
     );
 
@@ -17,7 +17,7 @@ class Ground extends Rectangle {
     // limit the frame of bounce effect
     while (this.hit < 50) {
       element.position.x += this.projectile.horizontalVelocity() * FRICTION;
-      element.position.y -= this.projectile.verticalVelocity() * FRICTION;
+      element.position.y += this.projectile.verticalVelocity() * FRICTION;
 
       this.hit++;
     }

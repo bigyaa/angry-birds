@@ -1,20 +1,10 @@
-let canvas = document.getElementById('canvas');
-let context = canvas.getContext('2d');
-
-canvas.width = GAME_WIDTH;
-canvas.height = GAME_HEIGHT;
-
-let obstacles = [];
-let pigs = [];
-let initialBirdX = 250;
-let initialBirdY = 360;
 
 let ground = new Ground(
   GROUND_X,
   GROUND_Y,
   GAME_WIDTH,
   GAME_HEIGHT - 20,
-  'rgb(188,212,56'
+  'rgb(188,212,56)'
 );
 
 let sling = new Sling(
@@ -23,13 +13,24 @@ let sling = new Sling(
 );
 
 // Position in terms of the centre of the bird
-let bird = new Bird(
-  initialBirdX,
-  initialBirdY,
-  sling
-);
+for (let i = 0; i < BIRD_POPULATION; i++) {
+  if (i === 0) {
+    bird[i] = new Bird(
+      initialBirdX,
+      initialBirdY,
+      sling
+    );
+  } else {
+    bird[i] = new Bird(
+      initialBirdX - i * 80,
+      initialBirdY + 160,
+      sling
+    );
+  }
 
-let inputHandler = new InputHandler(bird);
+}
+
+let inputHandler = new InputHandler(bird[0]);
 let sound = new Audio("./sounds/angry-birds.mp3");
 let background = new Image();
 background.src = "./images/background.png";
@@ -52,17 +53,21 @@ generatePigs();
   );
 
   ground.show(context);
-  bird.show(context);
+
+  for (let i = 0; i < BIRD_POPULATION; i++) {
+    bird[i].show(context);
+  }
+
   sling.showSling(context);
 
   for (let obstacle of obstacles) {
     obstacle.show(context);
-    handleBirdToObstacleCollision(bird, obstacle);
+    handleBirdToObstacleCollision(bird[0], obstacle);
   }
 
   for (let pig of pigs) {
     pig.show(context);
-    handleBirdToPigCollision(bird, pig);
+    handleBirdToPigCollision(bird[0], pig);
   }
 
   for (let pig of pigs) {
@@ -71,7 +76,7 @@ generatePigs();
     }
   }
 
-  handleBirdToGroundCollision(bird, ground);
+  handleBirdToGroundCollision(bird[0], ground);
 
   for (let obstacle of obstacles) {
     for (let n = 0; n < obstacles.length; n++) {
@@ -82,7 +87,7 @@ generatePigs();
   }
 
   if (spaceBar) {
-    bird.launch();
+    bird[0].launch();
   }
 
   requestAnimationFrame(GameLoop);

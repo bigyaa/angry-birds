@@ -43,7 +43,13 @@ generatePigs();
 (function GameLoop() {
   // sound.play();
 
-  context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+  context.clearRect(
+    0,
+    0,
+    GAME_WIDTH,
+    GAME_HEIGHT
+  );
+
   context.drawImage(
     background,
     0,

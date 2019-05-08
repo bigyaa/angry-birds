@@ -13,7 +13,7 @@ let bird = [];
 let defeatedBird = [];
 
 let initialBirdX = 250;
-let initialBirdY = 360;
+let initialBirdY = 300;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;

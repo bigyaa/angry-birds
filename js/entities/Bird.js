@@ -97,7 +97,10 @@ class Bird extends Circle {
       this.position.y += newVerticalVelocity;
 
       // Calculate angle of projection at each frame
-      this.newAngle = Math.atan(newVerticalVelocity / (this.projectile.horizontalVelocity() * 0.075));
+      this.newAngle = Math.atan(
+        newVerticalVelocity / (this.projectile.horizontalVelocity() * 0.075
+        ));
+
       this.projectile.updateData(this.newAngle);
     } else {
 

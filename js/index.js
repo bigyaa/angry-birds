@@ -76,7 +76,7 @@ generatePigs();
     }
   }
 
-  handleBirdToGroundCollision(bird[0], ground);
+  // handleBirdToGroundCollision(bird[0], ground);
 
   for (let obstacle of obstacles) {
     for (let n = 0; n < obstacles.length; n++) {

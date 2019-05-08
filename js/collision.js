@@ -60,8 +60,8 @@ function handleBirdToPigCollision(bird, pig) {
 
 function handleBirdToGroundCollision(bird, ground) {
   if (checkCircleToRectangleCollision(bird, ground)) {
-
-    ground.reflectCollidingCircle(bird);
+    // bounce effect
+    // ground.reflectCollidingCircle(bird);
   }
 }
 

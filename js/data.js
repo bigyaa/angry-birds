@@ -61,4 +61,3 @@ let woodImageType = {
   }
 }
 
-let birdFrame = 0;

@@ -20,6 +20,7 @@ class Bird extends Circle {
       y: 2,
     };
 
+    this.birdFrame = 0;
     this.birdImage = new Image();
     this.imageSources = [
       "./images/red-bird.png",
@@ -27,7 +28,7 @@ class Bird extends Circle {
       "./images/bird-hit1.png",
       "./images/bird-hit2.png"
     ];
-    this.birdImage.src = this.imageSources[birdFrame];
+    this.birdImage.src = this.imageSources[this.birdFrame];
 
     this.finalPosition = 0;
     this.initialVelocity = 3;
@@ -49,6 +50,10 @@ class Bird extends Circle {
             // make bird disappear
           }
         } */
+  }
+
+  updateImage() {
+    this.birdImage.src = this.imageSources[this.birdFrame];
   }
 
   calcBirdStretch() {
@@ -81,9 +86,10 @@ class Bird extends Circle {
 
   launch() {
     // this.birdImage.src = this.imageSources[1];
-    birdFrame++;
+    this.birdFrame = 1;
+    this.updateImage();
 
-    if (this.position.y + this.radius <= GROUND_Y) {
+    if (this.position.y + this.radius < GROUND_Y) {
       let newHorizontalVelocity = this.projectile.horizontalVelocity() * 0.075;
       let newVerticalVelocity = this.projectile.verticalVelocity() * AIR_RESISTANCE;
 
@@ -93,6 +99,11 @@ class Bird extends Circle {
       // Calculate angle of projection at each frame
       this.newAngle = Math.atan(newVerticalVelocity / (this.projectile.horizontalVelocity() * 0.075));
       this.projectile.updateData(this.newAngle);
+    } else {
+
+      // change bird image when it touches the ground
+      this.birdFrame = 3;
+      this.updateImage();
     }
 
     /*     if (this.position.y + this.radius >= GROUND_Y) {

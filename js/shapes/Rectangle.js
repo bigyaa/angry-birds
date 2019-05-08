@@ -16,24 +16,8 @@ class Rectangle {
             |                         |
     (fourthPoint)-------------(thirdPoint)
        */
-    this.vertices = {
-      firstPoint: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      secondPoint: {
-        x: this.position.x + this.width,
-        y: this.position.y,
-      },
-      thirdPoint: {
-        x: this.position.x + this.width,
-        y: this.position.y + this.height,
-      },
-      fourthPoint: {
-        x: this.position.x,
-        y: this.position.y + this.height,
-      },
-    }
+    this.vertices;
+    this.updateVertices();
 
     this.midPoint = {
       x: this.width / 2,
@@ -49,5 +33,33 @@ class Rectangle {
       this.width,
       this.height
     );
+  }
+
+  fall() {
+    if (this.vertices.fourthPoint < GROUND_Y) {
+      this.position.y += 2;
+      this.updateVertices(this.position.x, this.position.y)
+    }
+  }
+
+  updateVertices(positionX = this.position.x, positionY = this.position.y) {
+    this.vertices = {
+      firstPoint: {
+        x: positionX,
+        y: positionY,
+      },
+      secondPoint: {
+        x: positionX + this.width,
+        y: positionY,
+      },
+      thirdPoint: {
+        x: positionX + this.width,
+        y: positionY + this.height,
+      },
+      fourthPoint: {
+        x: positionX,
+        y: positionY + this.height,
+      },
+    }
   }
 }

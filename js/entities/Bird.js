@@ -34,7 +34,6 @@ class Bird extends Circle {
     this.initialVelocity = 3;
     this.radius = radius;
     this.sling = sling;
-    this.newAngle;
 
     // this.birdID
     // this.hitCount = 0;
@@ -58,17 +57,30 @@ class Bird extends Circle {
 
   calcBirdStretch() {
 
-    /* The sling stretched distance determines the range and height of the projectile.
-    The lower the value, the lower the range and vice-versa */
-    this.birdStretch = (this.sling.calcStretchDistance(
-      this.initialPosition.x,
-      this.initialPosition.y,
-      this.finalPosition.x,
-      this.finalPosition.y)
-    );
+    if (!mouseEvent) {
 
-    /* Determines speed of the bird based on the stretched distance */
-    this.initialVelocity *= this.birdStretch;
+      /* The sling stretched distance determines the range and height of the projectile.
+      The lower the value, the lower the range and vice-versa */
+      this.birdStretch = (this.sling.calcStretchDistance(
+        this.initialPosition.x,
+        this.initialPosition.y,
+        this.finalPosition.x,
+        this.finalPosition.y
+      ));
+
+      /* Determines speed of the bird based on the stretched distance */
+      this.initialVelocity *= this.birdStretch;
+
+    } else {
+
+      this.birdStretch = (this.sling.calcStretchDistance(
+        inputHandler.initialPointerPosition.x,
+        inputHandler.initialPointerPosition.y,
+        inputHandler.finalPointerPosition.x,
+        inputHandler.finalPointerPosition.y
+      ));
+
+    }
   }
 
 
@@ -90,18 +102,17 @@ class Bird extends Circle {
     this.updateImage();
 
     if (this.position.y + this.radius < GROUND_Y) {
-      let newHorizontalVelocity = this.projectile.horizontalVelocity() * 0.075;
+      let newHorizontalVelocity = this.projectile.horizontalVelocity() * AIR_RESISTANCE;
       let newVerticalVelocity = this.projectile.verticalVelocity() * AIR_RESISTANCE;
 
       this.position.x += newHorizontalVelocity;
       this.position.y += newVerticalVelocity;
 
       // Calculate angle of projection at each frame
-      this.newAngle = Math.atan(
-        newVerticalVelocity / (this.projectile.horizontalVelocity() * 0.075
-        ));
+      let newAngle = Math.atan(newVerticalVelocity / newHorizontalVelocity);
 
-      this.projectile.updateData(this.newAngle);
+      this.angle = newAngle;
+      this.projectile.updateData(this.angle);
     } else {
 
       // change bird image when it touches the ground
@@ -207,6 +218,7 @@ class Bird extends Circle {
 
     this.shiftingDistance = 0;
   }
+
 
   resetBirdFrame() {
     birdFrame = 0;

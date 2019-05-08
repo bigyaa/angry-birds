@@ -52,12 +52,12 @@ class Circle {
     this.speed = 0;
   }
 
-  bounce(angle, initialVelocity) {
-    if (this.position.y >= GROUND_Y) {
-      this.bounceProjectile = new Projectile(angle, initialVelocity);
+  /*   bounce(angle, initialVelocity) {
+      if (this.position.y >= GROUND_Y) {
+        this.bounceProjectile = new Projectile(angle, initialVelocity);
 
-      this.position.x += this.bounceProjectile.horizontalVelocity() * 0.025;
-      this.position.y -= this.bounceProjectile.verticalVelocity() * AIR_RESISTANCE;
-    }
-  }
+        this.position.x += this.bounceProjectile.horizontalVelocity() * AIR_RESISTANCE;
+        this.position.y -= this.bounceProjectile.verticalVelocity() * AIR_RESISTANCE;
+      }
+    } */
 }

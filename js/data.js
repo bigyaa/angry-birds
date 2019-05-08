@@ -1,19 +1,11 @@
-let canvas = document.getElementById('canvas');
-let context = canvas.getContext('2d');
-
 const GAME_WIDTH = window.innerWidth - 20;
 const GAME_HEIGHT = window.innerHeight - 20;
 
 canvas.width = GAME_WIDTH;
 canvas.height = GAME_HEIGHT;
 
-let obstacles = [];
-let pigs = [];
-let bird = [];
-let defeatedBird = [];
-
 let initialBirdX = 250;
-let initialBirdY = 300;
+let initialBirdY = 365;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -26,6 +18,7 @@ const GROUND_Y = GAME_HEIGHT - 130;
 
 const BIRD_RADIUS = 30;
 const BIRD_POPULATION = 3;
+const BIRD_STRETCH_LIMIT = 160;
 
 const OBSTACLE_POPULATION = 7;
 const OBSTACLE_POSITION = {
@@ -60,4 +53,7 @@ let woodImageType = {
     height: 25
   }
 }
+
+
+
 

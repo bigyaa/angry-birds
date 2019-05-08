@@ -1,6 +1,7 @@
 // -1 to reverse direction
-var direction = 1;
+let direction = 1;
 
-var spaceBar = false;
+let releaseBird = false;
+let mouseEvent = false;
 
 let birdID = 0;

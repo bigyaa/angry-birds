@@ -41,7 +41,7 @@ class Wood extends Rectangle {
   }
 
   launch() {
-    this.posX += this.projectile.horizontalVelocity() * 0.025;
-    this.posY -= this.projectile.verticalVelocity() * AIR_RESISTANCE;
+    this.posX += this.projectile.horizontalVelocity() * AIR_RESISTANCE;
+    this.posY += this.projectile.verticalVelocity() * AIR_RESISTANCE;
   }
 }

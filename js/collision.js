@@ -1,4 +1,3 @@
-
 function checkCircleToRectangleCollision(circle, rectangle) {
   if (circle.position.x + circle.radius >= rectangle.vertices.firstPoint.x &&
     circle.position.x - circle.radius < rectangle.vertices.thirdPoint.x &&
@@ -32,7 +31,19 @@ function checkRectangleToRectangleCollision(rectangle1, rectangle2) {
     rectangle1.vertices.firstPoint.x <= rectangle2.vertices.thirdPoint.x &&
     rectangle1.vertices.thirdPoint.y >= rectangle2.vertices.firstPoint.y &&
     rectangle1.vertices.firstPoint.y <= rectangle2.vertices.thirdPoint.y) {
-    alert("Collided obstacles!")
+    // alert("Collided obstacles!")
+    console.log("Obstacles collide");
+  }
+}
+
+function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
+  if (
+    /*    rectangle1.vertices.thirdPoint.y >= rectangle2.vertices.firstPoint.y && */
+    rectangle1.vertices.fourthPoint.y >= rectangle2.vertices.secondPoint.y
+  ) {
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -42,7 +53,7 @@ function handleBirdToObstacleCollision(bird, obstacle) {
     // Make the collided obstacle disappear
     // obstacles.splice(obstacles.indexOf(obstacle), 1);
 
-    obstacle.hitCount++;
+    // obstacle.hitCount++;
     obstacle.initProjectile(bird);
     obstacle.launch();
   }

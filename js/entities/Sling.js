@@ -18,6 +18,7 @@ class Sling {
       y: this.position.y,
     };
 
+    // flag for stretch limit
     this.maxStretch = 0;
   }
 
@@ -45,7 +46,7 @@ class Sling {
       stretchedPositionY
     );
 
-    if (this.travelledDistance > 160) { this.maxStretch += 1; }
+    if (this.travelledDistance > BIRD_STRETCH_LIMIT) { this.maxStretch += 1; }
   }
 
   calcStretchDistance(

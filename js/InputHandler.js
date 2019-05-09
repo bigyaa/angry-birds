@@ -36,24 +36,26 @@ class InputHandler {
           break;
 
         case SPACEBAR:
-          releaseBird = true;
+          if (!spaceBar) {
+            spaceBar = true;
 
-          this.bird.stopControls();
-          this.bird.initProjectile();
+            this.bird.stopControls();
+            this.bird.initProjectile();
+          }
 
           break;
       };
     });
-    /*
-        // Controls for mouse events
-        this.bird.addEventListener('mousedown', (event) => {
+
+    /*     // Controls for mouse events
+        birdEvent.addEventListener('mousedown', (event) => {
           mouseEvent = true;
 
           this.initialPointerPosition.x = event.clientX;
           this.initialPointerPosition.y = event.clientY;
         });
 
-        this.bird.addEventListener('mouseup', (event) => {
+        birdEvent.addEventListener('mouseup', (event) => {
           this.finalPointerPosition.x = event.clientX;
           this.finalPointerPosition.y = event.clientY;
 

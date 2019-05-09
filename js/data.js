@@ -6,6 +6,7 @@ canvas.height = GAME_HEIGHT;
 
 let initialBirdX = 250;
 let initialBirdY = 365;
+let releaseBird = 0;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;

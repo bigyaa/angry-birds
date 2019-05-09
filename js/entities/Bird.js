@@ -57,30 +57,26 @@ class Bird extends Circle {
 
   calcBirdStretch() {
 
-    if (!mouseEvent) {
+    /*  if (mouseEvent) {
 
-      /* The sling stretched distance determines the range and height of the projectile.
-      The lower the value, the lower the range and vice-versa */
-      this.birdStretch = (this.sling.calcStretchDistance(
-        this.initialPosition.x,
-        this.initialPosition.y,
-        this.finalPosition.x,
-        this.finalPosition.y
-      ));
+       this.initialPosition.x = angryBirds.inputHandler.initialPointerPosition.x;
+       this.finalPosition.y = angryBirds.inputHandler.initialPointerPosition.y;
+       this.initialPosition.y = angryBirds.inputHandler.finalPointerPosition.x;
+       this.finalPosition.x = angryBirds.inputHandler.finalPointerPosition.y;
 
-      /* Determines speed of the bird based on the stretched distance */
-      this.initialVelocity *= this.birdStretch;
+     } */
 
-    } else {
+    /* The sling stretched distance determines the range and height of the projectile.
+    The lower the value, the lower the range and vice-versa */
+    this.birdStretch = (this.sling.calcStretchDistance(
+      this.initialPosition.x,
+      this.initialPosition.y,
+      this.finalPosition.x,
+      this.finalPosition.y
+    ));
 
-      this.birdStretch = (this.sling.calcStretchDistance(
-        inputHandler.initialPointerPosition.x,
-        inputHandler.initialPointerPosition.y,
-        inputHandler.finalPointerPosition.x,
-        inputHandler.finalPointerPosition.y
-      ));
-
-    }
+    /* Determines speed of the bird based on the stretched distance */
+    this.initialVelocity *= this.birdStretch;
   }
 
 
@@ -101,7 +97,7 @@ class Bird extends Circle {
     this.birdFrame = 1;
     this.updateImage();
 
-    if (this.position.y + this.radius < GROUND_Y) {
+    if (this.position.y + this.radius <= GROUND_Y) {
       let newHorizontalVelocity = this.projectile.horizontalVelocity() * AIR_RESISTANCE;
       let newVerticalVelocity = this.projectile.verticalVelocity() * AIR_RESISTANCE;
 
@@ -219,9 +215,13 @@ class Bird extends Circle {
     this.shiftingDistance = 0;
   }
 
+  resetAttributes() {
+    this.initialPosition.x = initialBirdX;
+    this.initialPosition.y = initialBirdY;
 
-  resetBirdFrame() {
-    birdFrame = 0;
+    this.position = this.initialPosition;
+
+    this.birdFrame = 0;
   }
 }
 

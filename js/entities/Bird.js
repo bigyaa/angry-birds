@@ -211,6 +211,8 @@ class Bird extends Circle {
     this.angle = 0;
 
     this.birdFrame = 0;
+
+    showSlingElastic = true;
   }
 
 

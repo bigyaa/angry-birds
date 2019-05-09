@@ -128,6 +128,8 @@ class Game {
     }
 
     for (let defeatedBird of this.defeatedBirds) {
+      defeatedBird.updateImage(3);
+
       defeatedBird.show(this.context);
     }
 
@@ -141,10 +143,12 @@ class Game {
 
     this.draw();
 
+    if (spaceBar) {
+      this.birds[0].launch();
+    }
+
     // Change launching bird when bird touches the ground
-    // if (!reachGround) {
     if (this.birds[0].position.y + this.birds[0].radius >= GROUND_Y) {
-      // reachGround = true;
 
       releaseBird++;
 
@@ -157,8 +161,7 @@ class Game {
       // }
     }
 
-    // handleBirdToGroundCollision(this.birds[0], ground);
-
+    // Make obstacles fall when base is misaligned
     for (let obstacle1 of this.obstacles) {
       for (let obstacle2 of this.obstacles) {
         if (obstacle1 !== obstacle2) {
@@ -169,10 +172,6 @@ class Game {
           }
         }
       }
-    }
-
-    if (spaceBar) {
-      this.birds[0].launch();
     }
 
     requestAnimationFrame(() => this.mainLoop());

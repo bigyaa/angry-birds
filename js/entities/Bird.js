@@ -31,7 +31,7 @@ class Bird extends Circle {
     this.birdImage.src = this.imageSources[this.birdFrame];
 
     this.finalPosition = 0;
-    this.initialVelocity = 1.5;
+    this.initialVelocity = 1.75;
     this.radius = radius;
     this.sling = sling;
 
@@ -51,20 +51,11 @@ class Bird extends Circle {
         } */
   }
 
-  updateImage() {
-    this.birdImage.src = this.imageSources[this.birdFrame];
+  updateImage(birdFrame = this.birdFrame) {
+    this.birdImage.src = this.imageSources[birdFrame];
   }
 
   calcBirdStretch() {
-
-    /*  if (mouseEvent) {
-
-       this.initialPosition.x = angryBirds.inputHandler.initialPointerPosition.x;
-       this.finalPosition.y = angryBirds.inputHandler.initialPointerPosition.y;
-       this.initialPosition.y = angryBirds.inputHandler.finalPointerPosition.x;
-       this.finalPosition.x = angryBirds.inputHandler.finalPointerPosition.y;
-
-     } */
 
     /* The sling stretched distance determines the range and height of the projectile.
     The lower the value, the lower the range and vice-versa */
@@ -97,7 +88,7 @@ class Bird extends Circle {
     this.birdFrame = 1;
     this.updateImage();
 
-    if (this.position.y + this.radius <= GROUND_Y) {
+    if (this.position.y + this.radius < GROUND_Y) {
       let newHorizontalVelocity = this.projectile.horizontalVelocity() * AIR_RESISTANCE;
       let newVerticalVelocity = this.projectile.verticalVelocity() * AIR_RESISTANCE;
 
@@ -109,19 +100,7 @@ class Bird extends Circle {
 
       this.angle = newAngle;
       this.projectile.updateData(this.angle);
-    } else {
-
-      // change bird image when it touches the ground
-      this.birdFrame = 3;
-      this.updateImage();
     }
-
-    /*     if (this.position.y + this.radius >= GROUND_Y) {
-          birdFrame++;
-
-          birdID++;
-          defeatedBird.append(this);
-        } */
   }
 
 

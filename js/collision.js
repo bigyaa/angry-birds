@@ -41,7 +41,6 @@ function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
   if (
     /*    rectangle1.vertices.thirdPoint.y >= rectangle2.vertices.firstPoint.y && */
     rectangle1.vertices.fourthPoint.y >= rectangle2.vertices.firstPoint.y
-    // rectangle1.vertices.firstPoint.x >= rectangle2.vertices.firstPoint.x
   ) {
     return true;
   } else {

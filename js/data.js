@@ -30,8 +30,8 @@ const OBSTACLE_POSITION = {
 const PIG_RADIUS = 37.5;
 const PIG_POPULATION = 2;
 const PIG_POSITION = {
-  x: [852, 950],
-  y: [GROUND_Y - 150]
+  x: [862, 962],
+  y: [GROUND_Y - PIG_RADIUS]
 };
 const PIG_SIZE = {
   width: 75,

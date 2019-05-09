@@ -40,6 +40,13 @@ class Bird extends Circle {
     this.sling = sling;
   }
 
+  get positionX() {
+    return this.position.x;
+  }
+
+  get positionY() {
+    return this.position.y;
+  }
 
   updateImage(birdFrame = this.birdFrame) {
     this.birdImage.src = this.imageSources[birdFrame];
@@ -78,6 +85,8 @@ class Bird extends Circle {
 
 
   launch() {
+    showSlingElastic = false;
+
     this.birdFrame = 1;
     this.updateImage();
 

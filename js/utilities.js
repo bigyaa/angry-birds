@@ -41,3 +41,21 @@ function rangeInclusive(start, end) {
   return ans;
 }
 
+
+function drawSlingElasticBack(context, positionX, positionY) {
+  context.beginPath();
+  context.strokeStyle = 'black';
+
+  context.moveTo(INITIAL_BIRD_X, INITIAL_BIRD_Y);
+  context.lineTo(positionX - BIRD_RADIUS, positionY);
+  context.stroke();
+}
+
+function drawSlingElasticFront(context, positionX, positionY) {
+  context.beginPath();
+  context.strokeStyle = 'black';
+
+  context.moveTo(INITIAL_BIRD_X - SLING_WIDTH / 2.2, INITIAL_BIRD_Y);
+  context.lineTo(positionX - BIRD_RADIUS, positionY);
+  context.stroke();
+}

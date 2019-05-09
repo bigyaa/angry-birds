@@ -86,7 +86,7 @@ function handlePigToObstacleCollision(pig, obstacle) {
   if (pig.initialVelocity &&
     checkCircleToRectangleCollision(pig, obstacle)
   ) {
-    obstacle.hitCount++;
+    // obstacle.hitCount++;
     obstacle.initProjectile(pig);
     obstacle.launch();
   }

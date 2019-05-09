@@ -3,8 +3,8 @@ class Sling {
   constructor(
     positionX,
     positionY,
-    width = 100,
-    height = 210
+    width = SLING_WIDTH,
+    height = SLING_HEIGHT
   ) {
 
     this.height = height;

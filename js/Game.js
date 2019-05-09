@@ -106,7 +106,14 @@ class Game {
       GROUND_Y
     );
 
+    this.context.shadowOffsetY = 2;
+    this.context.shadowColor = "black";
+
     this.ground.show(this.context);
+
+    if (showSlingElastic) {
+      drawSlingElasticBack(this.context, this.birds[0].positionX, this.birds[0].positionY);
+    }
 
     // Display birds
     for (
@@ -115,6 +122,10 @@ class Game {
       i++
     ) {
       this.birds[i].show(this.context);
+    }
+
+    if (showSlingElastic) {
+      drawSlingElasticFront(this.context, this.birds[0].positionX, this.birds[0].positionY);
     }
 
     // Display obstacles and handle bird to obstacle collision

@@ -38,7 +38,7 @@ const PIG_SIZE = {
   height: 75
 }
 
-const GRAVITY = 8;
+const GRAVITY = 2;
 const FRICTION = 0.02;
 const AIR_RESISTANCE = 0.075;
 

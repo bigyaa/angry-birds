@@ -1,6 +1,6 @@
 function checkCircleToRectangleCollision(circle, rectangle) {
   if (circle.position.x + circle.radius >= rectangle.vertices.firstPoint.x &&
-    circle.position.x - circle.radius < rectangle.vertices.thirdPoint.x &&
+    circle.position.x - circle.radius <= rectangle.vertices.thirdPoint.x &&
     circle.position.y + circle.radius >= rectangle.vertices.firstPoint.y &&
     circle.position.y + circle.radius <= rectangle.vertices.fourthPoint.y) {
 
@@ -41,6 +41,7 @@ function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
   if (
     /*    rectangle1.vertices.thirdPoint.y >= rectangle2.vertices.firstPoint.y && */
     rectangle1.vertices.fourthPoint.y >= rectangle2.vertices.firstPoint.y
+    // rectangle1.vertices.firstPoint.x >= rectangle2.vertices.firstPoint.x
   ) {
     return true;
   } else {

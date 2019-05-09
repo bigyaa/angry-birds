@@ -18,11 +18,6 @@ class Rectangle {
        */
     this.vertices;
     this.updateVertices();
-
-    this.midPoint = {
-      x: this.width / 2,
-      y: this.height / 2,
-    };
   }
 
   show(context) {
@@ -33,13 +28,6 @@ class Rectangle {
       this.width,
       this.height
     );
-  }
-
-  fall() {
-    if (this.vertices.fourthPoint.y < GROUND_Y) {
-      this.position.y += 2;
-      this.updateVertices(this.position.x, this.position.y)
-    }
   }
 
   updateVertices(positionX = this.position.x, positionY = this.position.y) {

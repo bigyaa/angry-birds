@@ -120,6 +120,10 @@ class Game {
     for (let pig of this.pigs) {
       for (let obstacle of this.obstacles) {
         handlePigToObstacleCollision(pig, obstacle);
+
+        if (!checkCircleToRectangleCollision(pig, obstacle) && !checkCircleToRectangleCollision(pig, this.ground)) {
+          pig.fall();
+        }
       }
     }
 
@@ -155,21 +159,17 @@ class Game {
 
     // handleBirdToGroundCollision(this.birds[0], ground);
 
-    /* for (let obstacle1 of this.obstacles) {
+    for (let obstacle1 of this.obstacles) {
       for (let obstacle2 of this.obstacles) {
         if (obstacle1 !== obstacle2) {
 
-          // if (!checkRectangleToRectangleCollision(obstacle1, obstacle2)) {
-
           if (!checkVerticalRectangleToRectangleCollision(obstacle1, obstacle2)) {
-            console.log("Condition met")
 
             obstacle1.fall();
-            obstacle2.fall();
           }
         }
       }
-    } */
+    }
 
     if (spaceBar) {
       this.birds[0].launch();

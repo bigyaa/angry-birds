@@ -31,7 +31,7 @@ class Bird extends Circle {
     this.birdImage.src = this.imageSources[this.birdFrame];
 
     this.finalPosition = 0;
-    this.initialVelocity = 3;
+    this.initialVelocity = 1.5;
     this.radius = radius;
     this.sling = sling;
 
@@ -215,6 +215,7 @@ class Bird extends Circle {
     this.shiftingDistance = 0;
   }
 
+
   resetAttributes() {
     this.initialPosition.x = initialBirdX;
     this.initialPosition.y = initialBirdY;
@@ -222,6 +223,14 @@ class Bird extends Circle {
     this.position = this.initialPosition;
 
     this.birdFrame = 0;
+  }
+
+  fall() {
+    if (this.position.y + this.radius < GROUND_Y) {
+
+      // Increase y-coordinate until it collides
+      this.position.y += GRAVITY;
+    }
   }
 }
 

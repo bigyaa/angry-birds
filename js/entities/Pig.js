@@ -43,4 +43,12 @@ class Pig extends Circle {
     this.position.x += this.projectile.horizontalVelocity() * AIR_RESISTANCE;
     this.position.y += this.projectile.verticalVelocity() * AIR_RESISTANCE;
   }
+
+  fall() {
+    if (this.position.y + this.radius < GROUND_Y) {
+
+      // Increase y-coordinate until it collides
+      this.position.y += GRAVITY;
+    }
+  }
 }

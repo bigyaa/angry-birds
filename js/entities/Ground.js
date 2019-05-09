@@ -6,7 +6,7 @@ class Ground extends Rectangle {
 
   /*   reflectCollidingCircle(element) {
       this.projectile = new Projectile(
-        element.newAngle,
+        element.angle,
         element.initialVelocity / 2
       );
 

@@ -21,13 +21,13 @@ class Projectile {
 
   }
 
-  verticalVelocity() {
+  get verticalVelocity() {
 
     return this.verticalDistance() + (GRAVITY * this.time);
 
   }
 
-  horizontalVelocity() {
+  get horizontalVelocity() {
 
     return this.horizontalDistance();
 

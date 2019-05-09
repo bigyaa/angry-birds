@@ -88,11 +88,11 @@ class Bird extends Circle {
     showSlingElastic = false;
 
     this.birdFrame = 1;
-    this.updateImage();
+    this.updateImage(this.birdFrame);
 
     if (this.position.y + this.radius < GROUND_Y) {
-      let newHorizontalVelocity = this.projectile.horizontalVelocity() * AIR_RESISTANCE;
-      let newVerticalVelocity = this.projectile.verticalVelocity() * AIR_RESISTANCE;
+      let newHorizontalVelocity = this.projectile.horizontalVelocity * AIR_RESISTANCE;
+      let newVerticalVelocity = this.projectile.verticalVelocity * AIR_RESISTANCE;
 
       this.position.x += newHorizontalVelocity;
       this.position.y += newVerticalVelocity;
@@ -132,7 +132,7 @@ class Bird extends Circle {
     } else {
       alert("Maximum Stretch Limit Reached");
 
-      this.sling.maxStretch = 0; //reset flag
+      this.sling.maxStretch = -1; //reset flag
     }
   }
 
@@ -149,7 +149,7 @@ class Bird extends Circle {
       this.position.x += this.shiftingDistance.x;
     } else {
       alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = 0;
+      this.sling.maxStretch = -1;
     }
   }
 
@@ -166,7 +166,7 @@ class Bird extends Circle {
       this.position.y -= this.shiftingDistance.y;
     } else {
       alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = 0;
+      this.sling.maxStretch = -1;
     }
   }
 
@@ -183,7 +183,7 @@ class Bird extends Circle {
       this.position.y += this.shiftingDistance.y;
     } else {
       alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = 0;
+      this.sling.maxStretch = -1;
     }
   }
 
@@ -208,10 +208,9 @@ class Bird extends Circle {
 
     this.initialVelocity = INITIAL_BIRD_VELOCITY;
 
+    this.angle = 0;
+
     this.birdFrame = 0;
-
-    this.calcBirdStretch();
-
   }
 
 

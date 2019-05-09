@@ -3,15 +3,6 @@ class InputHandler {
   constructor(bird) {
 
     this.bird = bird;
-    this.initialPointerPosition = {
-      x: 0,
-      y: 0
-    };
-
-    this.finalPointerPosition = {
-      x: 0,
-      y: 0
-    };
 
     // Controls for keyboard events
     document.addEventListener('keydown',
@@ -48,6 +39,10 @@ class InputHandler {
             break;
         };
       });
+  }
+
+  updateInputHandler(bird) {
+    this.bird = bird;
   }
 }
 

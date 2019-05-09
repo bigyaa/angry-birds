@@ -55,7 +55,7 @@ class Sling {
 
     if (this.travelledDistance > BIRD_STRETCH_LIMIT
     ) {
-      this.maxStretch = 1;
+      this.maxStretch += 1;
     }
   }
 

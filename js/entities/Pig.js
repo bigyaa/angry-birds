@@ -47,8 +47,8 @@ class Pig extends Circle {
 
 
   launch() {
-    this.position.x += this.projectile.horizontalVelocity() * AIR_RESISTANCE;
-    this.position.y += this.projectile.verticalVelocity() * AIR_RESISTANCE;
+    this.position.x += this.projectile.horizontalVelocity * AIR_RESISTANCE;
+    this.position.y += this.projectile.verticalVelocity * AIR_RESISTANCE;
   }
 
 

@@ -55,6 +55,9 @@ class Game {
       }
     }
 
+    // Initiate input-handler
+    this.inputHandler = new InputHandler(this.birds[0]);
+
     // Generate obstacles
     /* woodImageType [vertical, horizontal][src, width,height] */
     for (let i = 0; i < OBSTACLE_POPULATION; i++) {
@@ -83,9 +86,6 @@ class Game {
     for (let i = 0; i < PIG_POPULATION; i++) {
       this.pigs[i] = new Pig(PIG_POSITION.x[i], PIG_POSITION.y[0]);
     }
-
-    // Initiate input-handler
-    this.inputHandler = new InputHandler(this.birds[0]);
   }
 
 
@@ -188,7 +188,7 @@ class Game {
       this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
 
       this.birds[0].resetAttributes();
-      // }
+      this.inputHandler.updateInputHandler(this.birds[0]);
     }
 
     // Make obstacles fall when base is misaligned

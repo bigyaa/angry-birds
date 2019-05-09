@@ -15,8 +15,8 @@ class Ground extends Rectangle {
 
       // limit the frame of bounce effect
       while (this.hit < 50) {
-        element.position.x += this.projectile.horizontalVelocity() * FRICTION;
-        element.position.y += this.projectile.verticalVelocity() * FRICTION;
+        element.position.x += this.projectile.horizontalVelocity * FRICTION;
+        element.position.y += this.projectile.verticalVelocity * FRICTION;
 
         this.hit++;
       }

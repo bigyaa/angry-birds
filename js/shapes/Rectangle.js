@@ -1,11 +1,21 @@
 class Rectangle {
-  constructor(posX, posY, width, height, color = '#BF6') {
+
+  constructor(
+    posX,
+    posY,
+    width,
+    height,
+    color = '#BF6'
+  ) {
+
     this.height = height;
     this.width = width;
+
     this.position = {
       x: posX,
-      y: posY,
+      y: posY
     }
+
     this.color = color;
 
     /*
@@ -20,8 +30,10 @@ class Rectangle {
     this.updateVertices();
   }
 
+
   show(context) {
     context.fillStyle = this.color;
+
     context.fillRect(
       this.position.x,
       this.position.y,
@@ -30,24 +42,28 @@ class Rectangle {
     );
   }
 
-  updateVertices(positionX = this.position.x, positionY = this.position.y) {
+
+  updateVertices(
+    positionX = this.position.x,
+    positionY = this.position.y
+  ) {
     this.vertices = {
       firstPoint: {
         x: positionX,
-        y: positionY,
+        y: positionY
       },
       secondPoint: {
         x: positionX + this.width,
-        y: positionY,
+        y: positionY
       },
       thirdPoint: {
         x: positionX + this.width,
-        y: positionY + this.height,
+        y: positionY + this.height
       },
       fourthPoint: {
         x: positionX,
-        y: positionY + this.height,
-      },
+        y: positionY + this.height
+      }
     }
   }
 }

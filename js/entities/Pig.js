@@ -1,5 +1,7 @@
 class Pig extends Circle {
+
   constructor(posX, posY, radius = PIG_RADIUS) {
+
     super(posX, posY, radius);
 
     this.initialPosition = {
@@ -13,10 +15,13 @@ class Pig extends Circle {
     };
 
     this.radius = radius;
+
     this.pigImage = new Image();
     this.pigImage.src = "./images/pig_initial.png";
+
     this.hitCount = 0;
   }
+
 
   show(context) {
     (() => {
@@ -30,6 +35,7 @@ class Pig extends Circle {
     })();
   }
 
+
   initProjectile(circle) {
     this.projectile = new Projectile(
       circle.angle,
@@ -39,10 +45,12 @@ class Pig extends Circle {
     circle.initialVelocity *= 0.75;
   }
 
+
   launch() {
     this.position.x += this.projectile.horizontalVelocity() * AIR_RESISTANCE;
     this.position.y += this.projectile.verticalVelocity() * AIR_RESISTANCE;
   }
+
 
   fall() {
     if (this.position.y + this.radius < GROUND_Y) {

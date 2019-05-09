@@ -1,5 +1,7 @@
 class Projectile {
+
   constructor(angle, initialVelocity) {
+
     this.initialVelocity = initialVelocity;
     this.time = 1;
     this.angle = angle;
@@ -32,7 +34,6 @@ class Projectile {
   }
 
   updateData(angle) {
-
     this.angle = angle;
   }
 }

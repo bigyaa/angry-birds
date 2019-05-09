@@ -20,51 +20,43 @@ class Bird extends Circle {
       y: 2,
     };
 
+    this.finalPosition = 0;
+
     this.birdFrame = 0;
     this.birdImage = new Image();
+
     this.imageSources = [
       "./images/red-bird.png",
       "./images/bird-flight.png",
       "./images/bird-hit1.png",
       "./images/bird-hit2.png"
     ];
+
     this.birdImage.src = this.imageSources[this.birdFrame];
 
-    this.finalPosition = 0;
-    this.initialVelocity = 1.75;
+    this.initialVelocity = INITIAL_BIRD_VELOCITY;
+
     this.radius = radius;
     this.sling = sling;
-
-    // this.birdID
-    // this.hitCount = 0;
-
-    /*     this.updateFrame = () => {
-          if (this.hitCount === 1) {
-            this.birdImage.src = this.imageSources[2]
-          }
-          else if (this.hitCount === 2) {
-            this.birdImage.src = this.imageSources[3]
-          }
-          else {
-            // make bird disappear
-          }
-        } */
   }
+
 
   updateImage(birdFrame = this.birdFrame) {
     this.birdImage.src = this.imageSources[birdFrame];
   }
 
+
   calcBirdStretch() {
 
     /* The sling stretched distance determines the range and height of the projectile.
     The lower the value, the lower the range and vice-versa */
-    this.birdStretch = (this.sling.calcStretchDistance(
-      this.initialPosition.x,
-      this.initialPosition.y,
-      this.finalPosition.x,
-      this.finalPosition.y
-    ));
+    this.birdStretch = (
+      this.sling.calcStretchDistance(
+        this.initialPosition.x,
+        this.initialPosition.y,
+        this.finalPosition.x,
+        this.finalPosition.y
+      ));
 
     /* Determines speed of the bird based on the stretched distance */
     this.initialVelocity *= this.birdStretch;
@@ -79,12 +71,13 @@ class Bird extends Circle {
       this.finalPosition.y
     );
 
-    this.projectile = new Projectile(this.angle, this.initialVelocity);
+    this.projectile = new Projectile(
+      this.angle,
+      this.initialVelocity);
   }
 
 
   launch() {
-    // this.birdImage.src = this.imageSources[1];
     this.birdFrame = 1;
     this.updateImage();
 
@@ -130,7 +123,7 @@ class Bird extends Circle {
     } else {
       alert("Maximum Stretch Limit Reached");
 
-      this.sling.maxStretch = -1; //reset flag
+      this.sling.maxStretch = 0; //reset flag
     }
   }
 
@@ -147,7 +140,7 @@ class Bird extends Circle {
       this.position.x += this.shiftingDistance.x;
     } else {
       alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = -1;
+      this.sling.maxStretch = 0;
     }
   }
 
@@ -164,7 +157,7 @@ class Bird extends Circle {
       this.position.y -= this.shiftingDistance.y;
     } else {
       alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = -1;
+      this.sling.maxStretch = 0;
     }
   }
 
@@ -181,7 +174,7 @@ class Bird extends Circle {
       this.position.y += this.shiftingDistance.y;
     } else {
       alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = -1;
+      this.sling.maxStretch = 0;
     }
   }
 
@@ -196,13 +189,22 @@ class Bird extends Circle {
 
 
   resetAttributes() {
-    this.initialPosition.x = initialBirdX;
-    this.initialPosition.y = initialBirdY;
+    this.initialPosition.x = INITIAL_BIRD_X;
+    this.initialPosition.y = INITIAL_BIRD_Y;
 
-    this.position = this.initialPosition;
+    this.finalPosition = 0;
+
+    this.position.x = this.initialPosition.x;
+    this.position.y = this.initialPosition.y;
+
+    this.initialVelocity = INITIAL_BIRD_VELOCITY;
 
     this.birdFrame = 0;
+
+    this.calcBirdStretch();
+
   }
+
 
   fall() {
     if (this.position.y + this.radius < GROUND_Y) {

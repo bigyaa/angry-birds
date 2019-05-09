@@ -7,15 +7,16 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.sound = new Audio("./sounds/angry-birds.mp3");
+
     this.background = new Image();
     this.background.src = "./images/background.png";
 
     this.obstacles = [];
     this.birds = [];
     this.pigs = [];
-    this.sling;
     this.defeatedBirds = [];
 
+    this.sling;
   }
 
 
@@ -31,8 +32,8 @@ class Game {
 
     // Positioning of sling relative to the bird's initial position
     this.sling = new Sling(
-      initialBirdX,
-      initialBirdY
+      INITIAL_BIRD_X,
+      INITIAL_BIRD_Y
     );
 
     // Generate birds
@@ -40,15 +41,15 @@ class Game {
     for (let i = 0; i < BIRD_POPULATION; i++) {
       if (i === 0) {
         this.birds[i] = new Bird(
-          initialBirdX,
-          initialBirdY,
+          INITIAL_BIRD_X,
+          INITIAL_BIRD_Y,
           this.sling
         );
       } else {
 
         this.birds[i] = new Bird(
-          initialBirdX - i * 70,
-          initialBirdY + 160,
+          INITIAL_BIRD_X - i * 70,
+          INITIAL_BIRD_Y + 160,
           this.sling
         );
       }
@@ -60,7 +61,9 @@ class Game {
       if (i < 4) {
         this.obstacles[i] = new Wood(
           OBSTACLE_POSITION.x[i],
-          OBSTACLE_POSITION.y[0] - (woodImageType["vertical"]["height"]),
+          OBSTACLE_POSITION.y[0] - (
+            woodImageType["vertical"]["height"]
+          ),
           "vertical"
         );
 
@@ -68,7 +71,9 @@ class Game {
 
         this.obstacles[i] = new Wood(
           OBSTACLE_POSITION.x[i - 4] + 0.5 * woodImageType["vertical"]["width"],
-          OBSTACLE_POSITION.y[0] - (woodImageType["horizontal"]["height"] + woodImageType["vertical"]["height"]),
+          OBSTACLE_POSITION.y[0] - (
+            woodImageType["horizontal"]["height"] + woodImageType["vertical"]["height"]
+          ),
           "horizontal"
         );
       }
@@ -103,30 +108,44 @@ class Game {
 
     this.ground.show(this.context);
 
-    for (let i = 0; i < BIRD_POPULATION - this.defeatedBirds.length; i++) {
+    // Display birds
+    for (
+      let i = 0;
+      i < BIRD_POPULATION - this.defeatedBirds.length;
+      i++
+    ) {
       this.birds[i].show(this.context);
     }
 
+    // Display obstacles and handle bird to obstacle collision
     for (let obstacle of this.obstacles) {
       obstacle.show(this.context);
+
       handleBirdToObstacleCollision(this.birds[0], obstacle);
     }
 
+    // Display pigs and handle bird to pig collision
     for (let pig of this.pigs) {
       pig.show(this.context);
+
       handleBirdToPigCollision(this.birds[0], pig);
     }
 
+    // Handle pig to obstacle collision
     for (let pig of this.pigs) {
       for (let obstacle of this.obstacles) {
         handlePigToObstacleCollision(pig, obstacle);
 
-        if (!checkCircleToRectangleCollision(pig, obstacle) && !checkCircleToRectangleCollision(pig, this.ground)) {
+        // Make pig fall due to gravity
+        if (!checkCircleToRectangleCollision(pig, obstacle) &&
+          !checkCircleToRectangleCollision(pig, this.ground)) {
+
           pig.fall();
         }
       }
     }
 
+    // Display defeated birds
     for (let defeatedBird of this.defeatedBirds) {
       defeatedBird.updateImage(3);
 

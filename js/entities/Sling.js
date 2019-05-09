@@ -1,5 +1,11 @@
 class Sling {
-  constructor(positionX, positionY, width = 100, height = 210) {
+
+  constructor(
+    positionX,
+    positionY,
+    width = 100,
+    height = 210
+  ) {
 
     this.height = height;
     this.width = width;
@@ -22,6 +28,7 @@ class Sling {
     this.maxStretch = 0;
   }
 
+
   showSling(context) {
     context.drawImage(
       this.slingImage,
@@ -32,13 +39,13 @@ class Sling {
     );
   }
 
+
   checkStretchLimit(
     initialObjPositionX,
     initialObjPositionY,
     stretchedPositionX,
     stretchedPositionY
   ) {
-
     this.travelledDistance = this.calcStretchDistance(
       initialObjPositionX,
       initialObjPositionY,
@@ -46,8 +53,12 @@ class Sling {
       stretchedPositionY
     );
 
-    if (this.travelledDistance > BIRD_STRETCH_LIMIT) { this.maxStretch += 1; }
+    if (this.travelledDistance > BIRD_STRETCH_LIMIT
+    ) {
+      this.maxStretch = 1;
+    }
   }
+
 
   calcStretchDistance(
     initialObjPositionX,

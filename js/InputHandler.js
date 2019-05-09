@@ -1,4 +1,5 @@
 class InputHandler {
+
   constructor(bird) {
 
     this.bird = bird;
@@ -13,55 +14,40 @@ class InputHandler {
     };
 
     // Controls for keyboard events
-    document.addEventListener('keydown', (event) => {
-      switch (event.keyCode) {
-        case ARROW_LEFT:
-          this.bird.shiftLeft();
+    document.addEventListener('keydown',
+      (event) => {
+        switch (event.keyCode) {
+          case ARROW_LEFT:
+            this.bird.shiftLeft();
 
-          break;
+            break;
 
-        case ARROW_UP:
-          this.bird.shiftUp();
+          case ARROW_UP:
+            this.bird.shiftUp();
 
-          break;
+            break;
 
-        case ARROW_RIGHT:
-          this.bird.shiftRight();
+          case ARROW_RIGHT:
+            this.bird.shiftRight();
 
-          break;
+            break;
 
-        case ARROW_DOWN:
-          this.bird.shiftDown();
+          case ARROW_DOWN:
+            this.bird.shiftDown();
 
-          break;
+            break;
 
-        case SPACEBAR:
-          if (!spaceBar) {
-            spaceBar = true;
+          case SPACEBAR:
+            if (!spaceBar) {
+              spaceBar = true;
 
-            this.bird.stopControls();
-            this.bird.initProjectile();
-          }
+              this.bird.stopControls();
+              this.bird.initProjectile();
+            }
 
-          break;
-      };
-    });
-
-    /*     // Controls for mouse events
-        birdEvent.addEventListener('mousedown', (event) => {
-          mouseEvent = true;
-
-          this.initialPointerPosition.x = event.clientX;
-          this.initialPointerPosition.y = event.clientY;
-        });
-
-        birdEvent.addEventListener('mouseup', (event) => {
-          this.finalPointerPosition.x = event.clientX;
-          this.finalPointerPosition.y = event.clientY;
-
-          releaseBird = true;
-        }); */
-
+            break;
+        };
+      });
   }
 }
 

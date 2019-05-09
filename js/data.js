@@ -1,13 +1,6 @@
 const GAME_WIDTH = window.innerWidth - 20;
 const GAME_HEIGHT = window.innerHeight - 20;
 
-canvas.width = GAME_WIDTH;
-canvas.height = GAME_HEIGHT;
-
-let initialBirdX = 250;
-let initialBirdY = 365;
-let releaseBird = 0;
-
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
@@ -16,6 +9,10 @@ const SPACEBAR = 32;
 
 const GROUND_X = 0;
 const GROUND_Y = GAME_HEIGHT - 130;
+
+const INITIAL_BIRD_X = 250;
+const INITIAL_BIRD_Y = 365;
+const INITIAL_BIRD_VELOCITY = 1.75;
 
 const BIRD_RADIUS = 30;
 const BIRD_POPULATION = 3;
@@ -41,6 +38,11 @@ const PIG_SIZE = {
 const GRAVITY = 2;
 const FRICTION = 0.02;
 const AIR_RESISTANCE = 0.075;
+
+canvas.width = GAME_WIDTH;
+canvas.height = GAME_HEIGHT;
+
+let releaseBird = 0;
 
 let woodImageType = {
   vertical: {

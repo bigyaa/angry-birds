@@ -155,20 +155,21 @@ class Game {
 
     // handleBirdToGroundCollision(this.birds[0], ground);
 
-    /*     for (let obstacle1 in this.obstacles) {
-          for (let obstacle2 in this.obstacles) {
-            if (this.obstacles[obstacle1] !== this.obstacles[obstacle2]) {
+    /* for (let obstacle1 of this.obstacles) {
+      for (let obstacle2 of this.obstacles) {
+        if (obstacle1 !== obstacle2) {
 
-              // checkRectangleToRectangleCollision(obstacle, this.obstacles[n]);
+          // if (!checkRectangleToRectangleCollision(obstacle1, obstacle2)) {
 
-              if (!checkVerticalRectangleToRectangleCollision(this.obstacles[obstacle1], this.obstacles[obstacle2])) {
-                console.log("Condition met")
-                // obstacle.fall();
-                // this.obstacles[n].fall();
-              }
-            }
+          if (!checkVerticalRectangleToRectangleCollision(obstacle1, obstacle2)) {
+            console.log("Condition met")
+
+            obstacle1.fall();
+            obstacle2.fall();
           }
-        } */
+        }
+      }
+    } */
 
     if (spaceBar) {
       this.birds[0].launch();

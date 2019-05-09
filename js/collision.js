@@ -27,19 +27,20 @@ function checkCircleToCircleCollision(circle1, circle2) {
 }
 
 function checkRectangleToRectangleCollision(rectangle1, rectangle2) {
-  if (rectangle1.vertices.thirdPoint.x >= rectangle2.vertices.firstPoint &&
+  if (rectangle1.vertices.thirdPoint.x >= rectangle2.vertices.firstPoint.x &&
     rectangle1.vertices.firstPoint.x <= rectangle2.vertices.thirdPoint.x &&
     rectangle1.vertices.thirdPoint.y >= rectangle2.vertices.firstPoint.y &&
     rectangle1.vertices.firstPoint.y <= rectangle2.vertices.thirdPoint.y) {
-    // alert("Collided obstacles!")
-    console.log("Obstacles collide");
+    return true;
+  } else {
+    return false;
   }
 }
 
 function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
   if (
     /*    rectangle1.vertices.thirdPoint.y >= rectangle2.vertices.firstPoint.y && */
-    rectangle1.vertices.fourthPoint.y >= rectangle2.vertices.secondPoint.y
+    rectangle1.vertices.fourthPoint.y >= rectangle2.vertices.firstPoint.y
   ) {
     return true;
   } else {

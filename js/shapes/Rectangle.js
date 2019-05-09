@@ -36,7 +36,7 @@ class Rectangle {
   }
 
   fall() {
-    if (this.vertices.fourthPoint < GROUND_Y) {
+    if (this.vertices.fourthPoint.y < GROUND_Y) {
       this.position.y += 2;
       this.updateVertices(this.position.x, this.position.y)
     }

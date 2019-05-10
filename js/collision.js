@@ -66,10 +66,10 @@ function handleBirdToObstacleCollision(bird, obstacle) {
 
 function handleBirdToPigCollision(bird, pig) {
   if (checkCircleToCircleCollision(bird, pig)) {
-    pig.hitCount++;
+    // pig.hitCount++;
     pig.initProjectile(bird);
     pig.launch();
-    pig.pigImage.src = "./images/pig_hit-1.png";
+    pig.updateImage();
   }
 }
 
@@ -86,7 +86,6 @@ function handlePigToObstacleCollision(pig, obstacle) {
   if (pig.initialVelocity &&
     checkCircleToRectangleCollision(pig, obstacle)
   ) {
-    // obstacle.hitCount++;
     obstacle.initProjectile(pig);
     obstacle.launch();
   }

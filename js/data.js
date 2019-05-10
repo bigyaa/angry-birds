@@ -58,8 +58,19 @@ let woodImageType = {
     width: 100,
     height: 25
   }
-}
+};
 
+let pigVanishingImages = [
+  "./images/cloud-cushy-dark.png",
+  "./images/cloud-dark.png",
+  "./images/cloud-dark-vanish.png"
+];
+
+let birdVanishingImages = [
+  ".images/cloud-white.png",
+  ".images/cloud-white-another.png",
+  ".images/cloud-white-vanish.png"
+];
 
 
 

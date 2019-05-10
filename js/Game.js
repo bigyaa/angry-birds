@@ -132,14 +132,18 @@ class Game {
     for (let obstacle of this.obstacles) {
       obstacle.show(this.context);
 
-      handleBirdToObstacleCollision(this.birds[0], obstacle);
+      if (this.birds.length != 0) {
+        handleBirdToObstacleCollision(this.birds[0], obstacle);
+      }
     }
 
     // Display pigs and handle bird to pig collision
     for (let pig of this.pigs) {
       pig.show(this.context);
 
-      handleBirdToPigCollision(this.birds[0], pig);
+      if (this.birds.length != 0) {
+        handleBirdToPigCollision(this.birds[0], pig);
+      }
     }
 
     // Handle pig to obstacle collision
@@ -170,7 +174,6 @@ class Game {
   mainLoop() {
 
     // this.sound.play();
-
     this.draw();
 
     if (spaceBar) {
@@ -178,7 +181,9 @@ class Game {
     }
 
     // Change launching bird when bird touches the ground
-    if (this.birds[0].position.y + this.birds[0].radius >= GROUND_Y) {
+    if (this.birds.length >= 1 &&
+      this.birds[0].position.y + this.birds[0].radius >= GROUND_Y
+    ) {
 
       releaseBird++;
 
@@ -187,8 +192,11 @@ class Game {
       // Add defeated birds to new array
       this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
 
-      this.birds[0].resetAttributes();
-      this.inputHandler.updateInputHandler(this.birds[0]);
+      // Reset bird attributes if it isn't empty
+      if (this.birds.length > 0) {
+        this.birds[0].resetAttributes();
+        this.inputHandler.updateInputHandler(this.birds[0]);
+      }
     }
 
     // Make obstacles fall when base is misaligned

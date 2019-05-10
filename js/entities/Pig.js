@@ -16,10 +16,10 @@ class Pig extends Circle {
 
     this.radius = radius;
 
+    this.hitCount = 0;
+
     this.pigImage = new Image();
     this.pigImage.src = "./images/pig_initial.png";
-
-    this.hitCount = 0;
   }
 
 
@@ -47,8 +47,12 @@ class Pig extends Circle {
 
 
   launch() {
-    this.position.x += this.projectile.horizontalVelocity * AIR_RESISTANCE;
-    this.position.y += this.projectile.verticalVelocity * AIR_RESISTANCE;
+    if (this.position.y + this.radius <= GROUND_Y) {
+      this.position.x += this.projectile.horizontalVelocity * AIR_RESISTANCE;
+      this.position.y += this.projectile.verticalVelocity * AIR_RESISTANCE;
+    } else {
+      this.hitCount++;
+    }
   }
 
 
@@ -57,6 +61,28 @@ class Pig extends Circle {
 
       // Increase y-coordinate until it collides
       this.position.y += GRAVITY;
+    }
+  }
+
+  updateImage(hitCount = this.hitCount) {
+
+    switch (hitCount) {
+      case 1:
+        this.pigImage.src = "./images/pig_hit-1.png";
+        break;
+
+      case 2:
+        this.pigImage.src = "./images/pig_hit-2.png";
+        break;
+
+      case 3:
+        this.pigImage.src = "./images/pig_hit2-roll-1.png";
+        break;
+
+      case 4:
+        pigVanishingImages[1];
+        break;
+
     }
   }
 }

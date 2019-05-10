@@ -8,3 +8,4 @@ let showSlingElastic = true;
 let soundFlag = false;
 let gameOver = false;
 let reset = false;
+let listen = true;

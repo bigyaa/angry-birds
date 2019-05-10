@@ -183,10 +183,10 @@ class Game {
   }
 
   playSound() {
-    if (!soundFlag) {
-      this.sound.play();
-      soundFlag = true;
-    }
+    // if (!soundFlag) {
+    this.sound.play();
+    //   soundFlag = true;
+    // }
   }
 
   mainLoop() {
@@ -195,10 +195,14 @@ class Game {
       gameOver = true;
     }
 
+    this.playSound();
+
     this.draw();
 
     if (spaceBar) {
       this.birds[0].launch();
+
+      listen = false;
     }
 
     // Change launching bird when bird touches the ground
@@ -209,6 +213,7 @@ class Game {
       releaseBird++;
 
       spaceBar = false;
+      listen = true;
 
       // Add defeated birds to new array
       this.defeatedBirds.push(this.birds.splice(0, 1)[0]);

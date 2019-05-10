@@ -9,31 +9,41 @@ class InputHandler {
       (event) => {
         switch (event.keyCode) {
           case ARROW_LEFT:
-            this.bird.shiftLeft();
-
+            if (listen) {
+              this.bird.shiftLeft();
+            }
             break;
+
 
           case ARROW_UP:
-            this.bird.shiftUp();
-
+            if (listen) {
+              this.bird.shiftUp();
+            }
             break;
+
 
           case ARROW_RIGHT:
-            this.bird.shiftRight();
-
+            if (listen) {
+              this.bird.shiftRight();
+            }
             break;
+
 
           case ARROW_DOWN:
-            this.bird.shiftDown();
-
+            if (listen) {
+              this.bird.shiftDown();
+            }
             break;
 
-          case SPACEBAR:
-            if (!spaceBar) {
-              spaceBar = true;
 
-              this.bird.stopControls();
-              this.bird.initProjectile();
+          case SPACEBAR:
+            if (listen) {
+              if (!spaceBar) {
+                spaceBar = true;
+
+                this.bird.stopControls();
+                this.bird.initProjectile();
+              }
             }
 
             break;

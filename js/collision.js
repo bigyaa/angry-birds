@@ -41,14 +41,14 @@ function checkRectangleToRectangleCollision(rectangle1, rectangle2) {
 
 
 function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
-  if (/* (inBetween(
+  if ((inBetween(
     rectangle1.vertices.firstPoint.x,
     rectangle1.vertices.secondPoint.x,
     rectangle2.vertices.firstPoint.x) ||
     inBetween(
       rectangle1.vertices.firstPoint.x,
       rectangle1.vertices.secondPoint.x,
-      rectangle2.vertices.secondPoint.x)) && */
+      rectangle2.vertices.secondPoint.x)) &&
     rectangle1.vertices.fourthPoint.y > rectangle2.vertices.firstPoint.y
   ) {
     return true;
@@ -57,6 +57,13 @@ function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
   }
 }
 
+function handleVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
+  if (!checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2)) {
+    while (rectangle1.positionY < rectangle2.positionY) {
+      rectangle1.positionY += 2;
+    }
+  }
+}
 
 function handleBirdToObstacleCollision(bird, obstacle) {
   if (checkCircleToRectangleCollision(bird, obstacle)) {
@@ -67,16 +74,20 @@ function handleBirdToObstacleCollision(bird, obstacle) {
     // obstacle.hitCount++;
     obstacle.initProjectile(bird);
     obstacle.launch();
+
+    // obstacle.fall();
+
   }
 }
 
 
 function handleBirdToPigCollision(bird, pig) {
   if (checkCircleToCircleCollision(bird, pig)) {
-    // pig.hitCount++;
+
     pig.initProjectile(bird);
     pig.launch();
     pig.update();
+    // pig.fall();
   }
 }
 
@@ -95,5 +106,12 @@ function handlePigToObstacleCollision(pig, obstacle) {
   ) {
     obstacle.initProjectile(pig);
     obstacle.launch();
+  }
+}
+
+function handleObstacleToObstacleCollision(obstacle1, obstacle2) {
+  if (!checkRectangleToRectangleCollision(obstacle1, obstacle2)) {
+
+    // obstacle1.posX -= 2;
   }
 }

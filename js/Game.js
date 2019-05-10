@@ -140,36 +140,14 @@ class Game {
       );
     }
 
-    // Display obstacles and handle bird to obstacle collision
+    // Display obstacles
     for (let obstacle of this.obstacles) {
       obstacle.show(this.context);
-
-      if (this.birds.length != 0) {
-        handleBirdToObstacleCollision(this.birds[0], obstacle);
-      }
     }
 
-    // Display pigs and handle bird to pig collision
+    // Display pigs
     for (let pig of this.pigs) {
       pig.show(this.context);
-
-      if (this.birds.length != 0) {
-        handleBirdToPigCollision(this.birds[0], pig);
-      }
-    }
-
-    // Handle pig to obstacle collision
-    for (let pig of this.pigs) {
-      for (let obstacle of this.obstacles) {
-        handlePigToObstacleCollision(pig, obstacle);
-
-        // Make pig fall due to gravity
-        if (!checkCircleToRectangleCollision(pig, obstacle) &&
-          !checkCircleToRectangleCollision(pig, this.ground)) {
-
-          pig.fall();
-        }
-      }
     }
 
     // Display defeated birds
@@ -189,15 +167,60 @@ class Game {
     // }
   }
 
-  mainLoop() {
+  handleCollisions() {
+    for (let pig of this.pigs) {
+
+      for (let obstacle1 of this.obstacles) {
+
+        if (this.birds.length != 0) {
+          handleBirdToPigCollision(this.birds[0], pig);
+          handleBirdToObstacleCollision(this.birds[0], obstacle1);
+          handlePigToObstacleCollision(pig, obstacle1);
+
+          // Make pig fall due to gravity
+          if (!checkCircleToRectangleCollision(pig, obstacle1)) {
+
+            if (pig.position.y + pig.radius < GROUND_Y) {
+
+              // Increase y-coordinate until it collides
+              this.position.y += GRAVITY;
+            }
+          }
+
+          for (let obstacle2 of this.obstacles) {
+
+            if (obstacle1 !== obstacle2 &&
+              !checkVerticalRectangleToRectangleCollision(obstacle1, obstacle2) &&
+              !checkCircleToRectangleCollision(pig, obstacle1) &&
+              !checkCircleToRectangleCollision(this.birds[0], obstacle1) &&
+              (obstacle1.vertices.fourthPoint.y < GROUND_Y)) {
+
+              // // Increase y-coordinate until it collides
+              // obstacle1.posY += GRAVITY;
+
+              // // Send updated values to draw on updates co-ordinates
+              // obstacle1.updateVertices(obstacle1.posX, obstacle1.posY)
+
+              // this.context.fillRect(obstacle1.vertices.firstPoint.x, obstacle1.vertices.firstPoint.y, 20, 10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  startGameLoop() {
+
+    // this.playSound();
+
+    this.draw();
+
+    this.handleCollisions();
 
     if (this.birds.length === 0) {
       gameOver = true;
     }
-
-    this.playSound();
-
-    this.draw();
 
     if (spaceBar) {
       this.birds[0].launch();
@@ -225,21 +248,8 @@ class Game {
       }
     }
 
-    // Make obstacles fall when base is misaligned
-    for (let obstacle1 of this.obstacles) {
-      for (let obstacle2 of this.obstacles) {
-        if (obstacle1 !== obstacle2) {
-
-          if (!checkVerticalRectangleToRectangleCollision(obstacle1, obstacle2)) {
-
-            obstacle1.fall();
-          }
-        }
-      }
-    }
-
     if (!gameOver) {
-      requestAnimationFrame(() => this.mainLoop());
+      requestAnimationFrame(() => this.startGameLoop());
     } else {
       showText(this.context, "GAME OVER", "80px Signika", 550, GAME_HEIGHT / 2, "black");
     }

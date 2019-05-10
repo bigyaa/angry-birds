@@ -22,6 +22,8 @@ class Wood extends Rectangle {
     this.height = woodImageType[imageType].height;
 
     this.hitCount = 0;
+
+    this.velocityChangeFactor = 0.75;
   }
 
 
@@ -38,19 +40,24 @@ class Wood extends Rectangle {
   }
 
 
-  initProjectile(circle) {
+  initProjectile(circle, velocityChangeFactor = this.velocityChangeFactor) {
     this.projectile = new Projectile(
       circle.angle,
-      circle.initialVelocity * 0.75
+      circle.initialVelocity * velocityChangeFactor
     );
 
-    circle.initialVelocity *= 0.75;
+    circle.initialVelocity *= velocityChangeFactor;
   }
 
 
   launch() {
-    this.posX += this.projectile.horizontalVelocity * AIR_RESISTANCE;
-    this.posY += this.projectile.verticalVelocity * AIR_RESISTANCE;
+    this.posX += this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+
+    if (this.posY + this.height < GROUND_Y) {
+      this.posY += this.projectile.verticalVelocity * TIME_DIFFERENCE;
+    } else {
+      this.hitCount++;
+    }
 
     // Update vertices after each movement
     this.updateVertices(this.posX, this.posY);

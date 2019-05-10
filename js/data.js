@@ -42,7 +42,7 @@ const PIG_SIZE = {
 
 const GRAVITY = 2;
 const FRICTION = 0.02;
-const AIR_RESISTANCE = 0.075;
+const TIME_DIFFERENCE = 0.075;
 
 canvas.width = GAME_WIDTH;
 canvas.height = GAME_HEIGHT;

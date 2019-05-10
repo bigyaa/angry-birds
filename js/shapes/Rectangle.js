@@ -43,6 +43,22 @@ class Rectangle {
   }
 
 
+  get positionX() {
+    return this.position.x;
+  }
+
+  get positionY() {
+    return this.position.y;
+  }
+
+  set positionX(posX) {
+    this.position.x = posX;
+  }
+
+  set positionY(posY) {
+    this.position.y = posY;
+  }
+
   updateVertices(
     positionX = this.position.x,
     positionY = this.position.y

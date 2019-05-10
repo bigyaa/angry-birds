@@ -61,10 +61,10 @@ class Game {
     // Generate obstacles
     /* woodImageType [vertical, horizontal][src, width,height] */
     for (let i = 0; i < OBSTACLE_POPULATION; i++) {
-      if (i < 4) {
+      if (i < NUM_OF_VERTICAL_OBSTACLES) {
         this.obstacles[i] = new Wood(
           OBSTACLE_POSITION.x[i],
-          OBSTACLE_POSITION.y[0] - (
+          OBSTACLE_POSITION.y[i] - (
             woodImageType["vertical"]["height"]
           ),
           "vertical"
@@ -73,8 +73,8 @@ class Game {
       } else {
 
         this.obstacles[i] = new Wood(
-          OBSTACLE_POSITION.x[i - 4] + 0.5 * woodImageType["vertical"]["width"],
-          OBSTACLE_POSITION.y[0] - (
+          OBSTACLE_POSITION.x[i - NUM_OF_VERTICAL_OBSTACLES] + 0.5 * woodImageType["vertical"]["width"],
+          OBSTACLE_POSITION.y[i - NUM_OF_VERTICAL_OBSTACLES] - (
             woodImageType["horizontal"]["height"] + woodImageType["vertical"]["height"]
           ),
           "horizontal"
@@ -106,13 +106,21 @@ class Game {
       GROUND_Y
     );
 
+    // Show score points
+    showText(this.context, "SCORE: " + score, "30px Signika", 20, 50, "white");
+
+    // Add shadow to elements
     this.context.shadowOffsetY = 2;
     this.context.shadowColor = "black";
 
     this.ground.show(this.context);
 
     if (showSlingElastic) {
-      drawSlingElasticBack(this.context, this.birds[0].positionX, this.birds[0].positionY);
+      drawSlingElasticBack(
+        this.context,
+        this.birds[0].positionX,
+        this.birds[0].positionY
+      );
     }
 
     // Display birds
@@ -125,7 +133,11 @@ class Game {
     }
 
     if (showSlingElastic) {
-      drawSlingElasticFront(this.context, this.birds[0].positionX, this.birds[0].positionY);
+      drawSlingElasticFront(
+        this.context,
+        this.birds[0].positionX,
+        this.birds[0].positionY
+      );
     }
 
     // Display obstacles and handle bird to obstacle collision
@@ -170,10 +182,19 @@ class Game {
     this.sling.showSling(this.context);
   }
 
+  playSound() {
+    if (!soundFlag) {
+      this.sound.play();
+      soundFlag = true;
+    }
+  }
 
   mainLoop() {
 
-    // this.sound.play();
+    if (this.birds.length === 0) {
+      gameOver = true;
+    }
+
     this.draw();
 
     if (spaceBar) {
@@ -212,6 +233,10 @@ class Game {
       }
     }
 
-    requestAnimationFrame(() => this.mainLoop());
+    if (!gameOver) {
+      requestAnimationFrame(() => this.mainLoop());
+    } else {
+      showText(this.context, "GAME OVER", "80px Signika", 550, GAME_HEIGHT / 2, "black");
+    }
   }
 }

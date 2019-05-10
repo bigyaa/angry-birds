@@ -22,15 +22,17 @@ const SLING_WIDTH = 100;
 const SLING_HEIGHT = 210;
 
 const OBSTACLE_POPULATION = 7;
+NUM_OF_VERTICAL_OBSTACLES = 4;
+
 const OBSTACLE_POSITION = {
-  x: [800, 900, 1000, 1100],
-  y: [GROUND_Y]
+  x: [800, 900, 1000, 1100, 1200],
+  y: [GROUND_Y, GROUND_Y, GROUND_Y, GROUND_Y, GROUND_Y - 170]
 };
 
 const PIG_RADIUS = 37.5;
-const PIG_POPULATION = 2;
+const PIG_POPULATION = 3;
 const PIG_POSITION = {
-  x: [862, 962],
+  x: [862, 962, 1062],
   y: [GROUND_Y - PIG_RADIUS]
 };
 const PIG_SIZE = {
@@ -71,6 +73,8 @@ let birdVanishingImages = [
   ".images/cloud-white-another.png",
   ".images/cloud-white-vanish.png"
 ];
+
+let score = 0;
 
 
 

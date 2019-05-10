@@ -64,25 +64,26 @@ class Pig extends Circle {
     }
   }
 
-  updateImage(hitCount = this.hitCount) {
+  update(hitCount = this.hitCount) {
 
     switch (hitCount) {
       case 1:
+        score += 500;
+
         this.pigImage.src = "./images/pig_hit-1.png";
         break;
 
       case 2:
+        score += 1000;
+
         this.pigImage.src = "./images/pig_hit-2.png";
         break;
 
       case 3:
+        score += 1500;
+
         this.pigImage.src = "./images/pig_hit2-roll-1.png";
         break;
-
-      case 4:
-        pigVanishingImages[1];
-        break;
-
     }
   }
 }

@@ -5,3 +5,6 @@ let mouseEvent = false;
 let spaceBar = false;
 let reachGround = false;
 let showSlingElastic = true;
+let soundFlag = false;
+let gameOver = false;
+let reset = false;

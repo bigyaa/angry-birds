@@ -41,8 +41,15 @@ function checkRectangleToRectangleCollision(rectangle1, rectangle2) {
 
 
 function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
-  if (
-    rectangle1.vertices.fourthPoint.y >= rectangle2.vertices.firstPoint.y
+  if (/* (inBetween(
+    rectangle1.vertices.firstPoint.x,
+    rectangle1.vertices.secondPoint.x,
+    rectangle2.vertices.firstPoint.x) ||
+    inBetween(
+      rectangle1.vertices.firstPoint.x,
+      rectangle1.vertices.secondPoint.x,
+      rectangle2.vertices.secondPoint.x)) && */
+    rectangle1.vertices.fourthPoint.y > rectangle2.vertices.firstPoint.y
   ) {
     return true;
   } else {
@@ -69,7 +76,7 @@ function handleBirdToPigCollision(bird, pig) {
     // pig.hitCount++;
     pig.initProjectile(bird);
     pig.launch();
-    pig.updateImage();
+    pig.update();
   }
 }
 

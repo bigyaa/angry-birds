@@ -12,7 +12,7 @@ function getTrajectoryAngle(
 
 
 function inBetween(min, max, inclusive) {
-  (inclusive >= min && inclusive <= max) ?
+  (inclusive >= min && inclusive < max) ?
     true :
     false;
 }
@@ -51,6 +51,7 @@ function drawSlingElasticBack(context, positionX, positionY) {
   context.stroke();
 }
 
+
 function drawSlingElasticFront(context, positionX, positionY) {
   context.beginPath();
   context.strokeStyle = 'black';
@@ -58,4 +59,11 @@ function drawSlingElasticFront(context, positionX, positionY) {
   context.moveTo(INITIAL_BIRD_X - SLING_WIDTH / 2.2, INITIAL_BIRD_Y);
   context.lineTo(positionX - BIRD_RADIUS, positionY);
   context.stroke();
+}
+
+
+function showText(context, text, font, x, y, color) {
+  context.fillStyle = color;
+  context.font = font;
+  context.fillText(text, x, y);
 }

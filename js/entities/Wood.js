@@ -67,4 +67,25 @@ class Wood extends Rectangle {
       this.updateVertices(this.posX, this.posY)
     }
   }
+
+
+  update(hitCount = this.hitCount) {
+
+    switch (hitCount) {
+      case 1:
+        score += 200;
+
+        break;
+
+      case 2:
+        score += 400;
+
+        break;
+
+      case 3:
+        score += 800;
+
+        break;
+    }
+  }
 }

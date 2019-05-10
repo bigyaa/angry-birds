@@ -40,7 +40,7 @@ class Sling {
   }
 
 
-  checkStretchLimit(
+  reachStretchLimit(
     initialObjPositionX,
     initialObjPositionY,
     stretchedPositionX,
@@ -53,9 +53,11 @@ class Sling {
       stretchedPositionY
     );
 
-    if (this.travelledDistance > BIRD_STRETCH_LIMIT
+    if (this.travelledDistance >= BIRD_STRETCH_LIMIT
     ) {
-      this.maxStretch += 1;
+      return true;
+    } else {
+      return false;
     }
   }
 

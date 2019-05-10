@@ -15,11 +15,6 @@ class Bird extends Circle {
       y: posY,
     };
 
-    this.shiftingDistance = {
-      x: 2,
-      y: 2,
-    };
-
     this.finalPosition = 0;
 
     this.birdFrame = 0;
@@ -32,12 +27,19 @@ class Bird extends Circle {
       "./images/bird-hit2.png"
     ];
 
+    this.shiftingDistance = {
+      x: 2,
+      y: 2
+    };
+
     this.birdImage.src = this.imageSources[this.birdFrame];
 
     this.initialVelocity = INITIAL_BIRD_VELOCITY;
 
     this.radius = radius;
     this.sling = sling;
+
+    this.stretchFix = 10;
   }
 
   get positionX() {
@@ -91,8 +93,8 @@ class Bird extends Circle {
     this.updateImage(this.birdFrame);
 
     if (this.position.y + this.radius < GROUND_Y) {
-      let newHorizontalVelocity = this.projectile.horizontalVelocity * AIR_RESISTANCE;
-      let newVerticalVelocity = this.projectile.verticalVelocity * AIR_RESISTANCE;
+      let newHorizontalVelocity = this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+      let newVerticalVelocity = this.projectile.verticalVelocity * TIME_DIFFERENCE;
 
       this.position.x += newHorizontalVelocity;
       this.position.y += newVerticalVelocity;
@@ -120,70 +122,55 @@ class Bird extends Circle {
 
 
   shiftLeft() {
-    this.sling.checkStretchLimit(
+    // To shift position if max stretch limit is not reached at current position
+    if (!this.sling.reachStretchLimit(
       this.initialPosition.x,
       this.initialPosition.y,
       this.position.x,
       this.position.y
-    );
-
-    if (!this.sling.maxStretch) {
+    )) {
       this.position.x -= this.shiftingDistance.x;
     } else {
-      alert("Maximum Stretch Limit Reached");
-
-      this.sling.maxStretch = -1; //reset flag
+      this.position.x += this.stretchFix;
     }
   }
 
 
   shiftRight() {
-    this.sling.checkStretchLimit(
+    // To shift position if max stretch limit is not reached at current position
+    if (!this.sling.reachStretchLimit(
       this.initialPosition.x,
       this.initialPosition.y,
       this.position.x,
       this.position.y
-    );
-
-    if (!this.sling.maxStretch) {
+    )) {
       this.position.x += this.shiftingDistance.x;
-    } else {
-      alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = -1;
     }
   }
 
 
   shiftUp() {
-    this.sling.checkStretchLimit(
+    // To shift position if max stretch limit is not reached at current position
+    if (!this.sling.reachStretchLimit(
       this.initialPosition.x,
       this.initialPosition.y,
       this.position.x,
       this.position.y
-    );
-
-    if (!this.sling.maxStretch) {
+    )) {
       this.position.y -= this.shiftingDistance.y;
-    } else {
-      alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = -1;
     }
   }
 
 
   shiftDown() {
-    this.sling.checkStretchLimit(
+    // To shift position if max stretch limit is not reached at current position
+    if (!this.sling.reachStretchLimit(
       this.initialPosition.x,
       this.initialPosition.y,
       this.position.x,
       this.position.y
-    );
-
-    if (!this.sling.maxStretch) {
+    )) {
       this.position.y += this.shiftingDistance.y;
-    } else {
-      alert("Maximum Stretch Limit Reached");
-      this.sling.maxStretch = -1;
     }
   }
 

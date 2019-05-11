@@ -8,7 +8,6 @@ class Pig extends Circle {
       x: posX,
       y: posY
     };
-
     this.position = {
       x: posX,
       y: posY
@@ -16,10 +15,15 @@ class Pig extends Circle {
 
     this.radius = radius;
 
-    this.hitCount = 0;
+    this.damage = 0;
 
     this.pigImage = new Image();
     this.pigImage.src = "./images/pig_initial.png";
+
+    this.initialVelocity = 0;
+    this.velocityAdjustment = 0.75;
+
+    this.collision = false;
   }
 
 
@@ -37,22 +41,22 @@ class Pig extends Circle {
 
 
   initProjectile(circle) {
+    this.initialVelocity = circle.initialVelocity * this.velocityAdjustment;
+
     this.projectile = new Projectile(
       circle.angle,
-      circle.initialVelocity * 0.75
+      this.initialVelocity
     );
-
-    circle.initialVelocity *= 0.75;
   }
 
 
   launch() {
-    this.position.x += this.projectile.horizontalVelocity * TIME_DIFFERENCE;
-
     if (this.position.y + this.radius <= GROUND_Y) {
+      this.position.x += this.projectile.horizontalVelocity * TIME_DIFFERENCE;
       this.position.y += this.projectile.verticalVelocity * TIME_DIFFERENCE;
     } else {
-      this.hitCount++;
+      this.damage++;
+      this.collision = false;
     }
   }
 
@@ -65,9 +69,9 @@ class Pig extends Circle {
     }
   }
 
-  update(hitCount = this.hitCount) {
+  update(damage = this.damage) {
 
-    switch (hitCount) {
+    switch (damage) {
       case 1:
         score += 500;
 

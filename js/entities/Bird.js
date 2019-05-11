@@ -40,6 +40,8 @@ class Bird extends Circle {
     this.sling = sling;
 
     this.stretchFix = 10;
+
+    this.collision = false;
   }
 
   get positionX() {
@@ -93,17 +95,27 @@ class Bird extends Circle {
     this.updateImage(this.birdFrame);
 
     if (this.position.y + this.radius < GROUND_Y) {
-      let newHorizontalVelocity = this.projectile.horizontalVelocity * TIME_DIFFERENCE;
-      let newVerticalVelocity = this.projectile.verticalVelocity * TIME_DIFFERENCE;
+      let dx = this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+      let dy = this.projectile.verticalVelocity * TIME_DIFFERENCE;
 
-      this.position.x += newHorizontalVelocity;
-      this.position.y += newVerticalVelocity;
+      this.position.x += dx;
+      this.position.y += dy;
 
       // Calculate angle of projection at each frame
-      let newAngle = Math.atan(newVerticalVelocity / newHorizontalVelocity);
+      let newAngle = Math.atan(dy / dx);
 
       this.angle = newAngle;
       this.projectile.updateData(this.angle);
+    }
+  }
+
+
+  handleCollision() {
+    if (this.position.y + this.radius <= GROUND_Y) {
+      this.position.x -= this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+      this.position.y += 0.25 * this.projectile.verticalVelocity * TIME_DIFFERENCE;
+    } else {
+      this.collision = false;
     }
   }
 
@@ -198,6 +210,8 @@ class Bird extends Circle {
     this.angle = 0;
 
     this.birdFrame = 0;
+
+    this.collision = false;
 
     showSlingElastic = true;
   }

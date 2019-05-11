@@ -1,13 +1,13 @@
 class Wood extends Rectangle {
 
-  /* imageType= "vertical" or "horizontal" */
+  /* imageType= "vertical" or "horizontal" or "stone" */
   constructor(posX, posY, imageType) {
 
     super(
       posX,
       posY,
-      woodImageType[imageType]["width"],
-      woodImageType[imageType]["height"]
+      obstacleImageType[imageType]["width"],
+      obstacleImageType[imageType]["height"]
     );
 
     if (posY <= GROUND_Y) {
@@ -16,12 +16,14 @@ class Wood extends Rectangle {
     }
 
     this.woodImage = new Image();
-    this.woodImage.src = woodImageType[imageType].src;
+    this.woodImage.src = obstacleImageType[imageType].src;
 
-    this.width = woodImageType[imageType].width;
-    this.height = woodImageType[imageType].height;
+    this.width = obstacleImageType[imageType].width;
+    this.height = obstacleImageType[imageType].height;
 
-    this.hitCount = 0;
+    this.damage = 0;
+
+    this.collision = false;
 
     this.velocityChangeFactor = 0.75;
   }
@@ -51,17 +53,17 @@ class Wood extends Rectangle {
 
 
   launch() {
-    this.posX += this.projectile.horizontalVelocity * TIME_DIFFERENCE;
-
-    if (this.posY + this.height < GROUND_Y) {
-      this.posY += this.projectile.verticalVelocity * TIME_DIFFERENCE;
-    } else {
-      this.hitCount++;
-    }
-
-    // Update vertices after each movement
-    this.updateVertices(this.posX, this.posY);
+    // if (this.posY + this.height < GROUND_Y) {
+    //   this.posX += this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+    //   this.posY += this.projectile.verticalVelocity * TIME_DIFFERENCE;
+    // } else {
+    //   this.damage++;
+    this.collision = false;
   }
+
+  // Update vertices after each movement
+  // this.updateVertices(this.posX, this.posY);
+  // }
 
 
   fall() {
@@ -76,9 +78,9 @@ class Wood extends Rectangle {
   }
 
 
-  update(hitCount = this.hitCount) {
+  update(damage = this.damage) {
 
-    switch (hitCount) {
+    switch (damage) {
       case 1:
         score += 200;
 

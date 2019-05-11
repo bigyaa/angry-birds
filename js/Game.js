@@ -6,8 +6,6 @@ class Game {
     this.canvas = canvas;
     this.context = this.canvas.getContext('2d');
 
-    this.sound = new Audio("./sounds/angry-birds.mp3");
-
     this.background = new Image();
     this.background.src = "./images/background.png";
 
@@ -15,8 +13,14 @@ class Game {
     this.birds = [];
     this.pigs = [];
     this.defeatedBirds = [];
+    this.damagedPigs = [];
+    this.defeatedPigs = [];
 
     this.sling;
+
+    this.birdCollidedWithPig = false;
+    this.birdCollidedWithObstacle = false;
+    this.pigCollidedWithObstacle = false;
   }
 
 
@@ -59,32 +63,20 @@ class Game {
     this.inputHandler = new InputHandler(this.birds[0]);
 
     // Generate obstacles
-    /* woodImageType [vertical, horizontal][src, width,height] */
+    /* obstacleImageType [vertical, horizontal][src, width,height] */
     for (let i = 0; i < OBSTACLE_POPULATION; i++) {
-      if (i < NUM_OF_VERTICAL_OBSTACLES) {
-        this.obstacles[i] = new Wood(
-          OBSTACLE_POSITION.x[i],
-          OBSTACLE_POSITION.y[i] - (
-            woodImageType["vertical"]["height"]
-          ),
-          "vertical"
-        );
-
-      } else {
-
-        this.obstacles[i] = new Wood(
-          OBSTACLE_POSITION.x[i - NUM_OF_VERTICAL_OBSTACLES] + 0.5 * woodImageType["vertical"]["width"],
-          OBSTACLE_POSITION.y[i - NUM_OF_VERTICAL_OBSTACLES] - (
-            woodImageType["horizontal"]["height"] + woodImageType["vertical"]["height"]
-          ),
-          "horizontal"
-        );
-      }
+      this.obstacles[i] = new Wood(
+        OBSTACLE_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i,
+        OBSTACLE_POSITION.y[i] - (
+          obstacleImageType["stone"]["height"]
+        ),
+        "stone"
+      );
     }
 
     // Generate pigs
     for (let i = 0; i < PIG_POPULATION; i++) {
-      this.pigs[i] = new Pig(PIG_POSITION.x[i], PIG_POSITION.y[0]);
+      this.pigs[i] = new Pig(PIG_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i, PIG_POSITION.y[i]);
     }
   }
 
@@ -118,8 +110,8 @@ class Game {
     if (showSlingElastic) {
       drawSlingElasticBack(
         this.context,
-        this.birds[0].positionX,
-        this.birds[0].positionY
+        this.birds[0].position.x,
+        this.birds[0].position.y
       );
     }
 
@@ -160,51 +152,86 @@ class Game {
     this.sling.showSling(this.context);
   }
 
-  playSound() {
-    // if (!soundFlag) {
-    this.sound.play();
-    //   soundFlag = true;
-    // }
-  }
-
   handleCollisions() {
     for (let pig of this.pigs) {
+      for (let obstacle of this.obstacles) {
 
-      for (let obstacle1 of this.obstacles) {
+        /* Flag all the collided elements */
 
+        // Condition to ensure all birds haven't been defeated
         if (this.birds.length != 0) {
-          handleBirdToPigCollision(this.birds[0], pig);
-          handleBirdToObstacleCollision(this.birds[0], obstacle1);
-          handlePigToObstacleCollision(pig, obstacle1);
-
-          // Make pig fall due to gravity
-          if (!checkCircleToRectangleCollision(pig, obstacle1)) {
-
-            if (pig.position.y + pig.radius < GROUND_Y) {
-
-              // Increase y-coordinate until it collides
-              this.position.y += GRAVITY;
-            }
+          if (checkCircleToCircleCollision(this.birds[0], pig)) {
+            this.birdCollidedWithPig = true;
+            this.birds[0].collision = true;
           }
 
-          for (let obstacle2 of this.obstacles) {
+          if (checkCircleToRectangleCollision(this.birds[0], obstacle)) {
+            this.birdCollidedWithObstacle = true;
+            this.birds[0].collision = true;
+          }
 
-            if (obstacle1 !== obstacle2 &&
-              !checkVerticalRectangleToRectangleCollision(obstacle1, obstacle2) &&
-              !checkCircleToRectangleCollision(pig, obstacle1) &&
-              !checkCircleToRectangleCollision(this.birds[0], obstacle1) &&
-              (obstacle1.vertices.fourthPoint.y < GROUND_Y)) {
+          // if (checkCircleToRectangleCollision(pig, obstacle)) {
+          //   this.pigCollidedWithObstacle = true;
+          // }
+        }
 
-              // // Increase y-coordinate until it collides
-              // obstacle1.posY += GRAVITY;
+        // Change launching bird when bird touches the ground or when it collides
+        if (this.birds.length >= 1 &&
+          (this.birds[0].position.y + this.birds[0].radius >= GROUND_Y ||
+            this.birds[0].collision === true)
+        ) {
+          releaseBird++;
 
-              // // Send updated values to draw on updates co-ordinates
-              // obstacle1.updateVertices(obstacle1.posX, obstacle1.posY)
+          spaceBar = false;
+          listen = true;
 
-              // this.context.fillRect(obstacle1.vertices.firstPoint.x, obstacle1.vertices.firstPoint.y, 20, 10);
-            }
+          // Add defeated birds to new array
+          this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
+
+          // Reset bird attributes if it isn't empty
+          if (this.birds.length > 0) {
+            this.birds[0].resetAttributes();
+            this.inputHandler.updateInputHandler(this.birds[0]);
           }
         }
+
+        /*  Handle flagged collisions */
+
+        if (this.birdCollidedWithPig) {
+          pig.collision = true;
+          this.defeatedBirds[this.defeatedBirds.length - 1].collision = true;
+
+          handleBirdToPigCollision(this.defeatedBirds[this.defeatedBirds.length - 1], pig);
+        }
+
+        if (this.birdCollidedWithObstacle) {
+          obstacle.collision = true;
+          this.defeatedBirds[this.defeatedBirds.length - 1].collision = true;
+
+          handleBirdToObstacleCollision(this.defeatedBirds[this.defeatedBirds.length - 1], obstacle);
+        }
+
+        // if (this.pigCollidedWithObstacle &&
+        //   pig.initialVelocity ||
+        //   obstacle.initialVelocity
+        // ) {
+        //   obstacle.collision = true;
+        //   pig.collision = true;
+
+        //   handlePigToObstacleCollision(pig, obstacle);
+        // }
+
+        // // Make pig fall due to gravity
+        // if (!checkCircleToRectangleCollision(pig, obstacle) /* &&
+        //   !checkCircleToCircleCollision(pig, this.defeatedBirds[defeatedBird]) */
+        // ) {
+
+        //   if (pig.position.y + pig.radius < GROUND_Y) {
+
+        //     // Increase y-coordinate until it collides
+        //     this.position.y += GRAVITY;
+        //   }
+        // }
       }
     }
   }
@@ -212,13 +239,12 @@ class Game {
 
   startGameLoop() {
 
-    // this.playSound();
-
     this.draw();
 
     this.handleCollisions();
 
-    if (this.birds.length === 0) {
+    if (this.defeatedBirds.length === BIRD_POPULATION &&
+      !this.defeatedBirds[BIRD_POPULATION - 1].collision) {
       gameOver = true;
     }
 
@@ -228,30 +254,19 @@ class Game {
       listen = false;
     }
 
-    // Change launching bird when bird touches the ground
-    if (this.birds.length >= 1 &&
-      this.birds[0].position.y + this.birds[0].radius >= GROUND_Y
-    ) {
-
-      releaseBird++;
-
-      spaceBar = false;
-      listen = true;
-
-      // Add defeated birds to new array
-      this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
-
-      // Reset bird attributes if it isn't empty
-      if (this.birds.length > 0) {
-        this.birds[0].resetAttributes();
-        this.inputHandler.updateInputHandler(this.birds[0]);
-      }
-    }
-
     if (!gameOver) {
       requestAnimationFrame(() => this.startGameLoop());
+
     } else {
       showText(this.context, "GAME OVER", "80px Signika", 550, GAME_HEIGHT / 2, "black");
+
+      sound.pause();
     }
+  }
+
+
+  startGame(canvas) {
+    this.init();
+    this.startGameLoop(canvas);
   }
 }

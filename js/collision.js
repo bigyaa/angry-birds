@@ -66,30 +66,44 @@ function handleVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
 }
 
 function handleBirdToObstacleCollision(bird, obstacle) {
-  if (checkCircleToRectangleCollision(bird, obstacle)) {
 
-    // Make the collided obstacle disappear
-    // obstacles.splice(obstacles.indexOf(obstacle), 1);
+  // Make the collided obstacle disappear
+  // obstacles.splice(obstacles.indexOf(obstacle), 1);
 
-    // obstacle.hitCount++;
+  if (bird.collision) {
+    bird.initProjectile();
+    bird.handleCollision();
+  }
+
+  if (obstacle.collision) {
     obstacle.initProjectile(bird);
     obstacle.launch();
+  }
 
-    // obstacle.fall();
-
+  if (!bird.collision &&
+    !obstacle.collision) {
+    angryBirds.birdCollidedWithObstacle = false;
   }
 }
 
-
 function handleBirdToPigCollision(bird, pig) {
-  if (checkCircleToCircleCollision(bird, pig)) {
-
+  if (pig.collision) {
     pig.initProjectile(bird);
     pig.launch();
     pig.update();
-    // pig.fall();
+  }
+
+  if (bird.collision) {
+    bird.initProjectile();
+    bird.handleCollision();
+  }
+
+  if (!pig.collision &&
+    !bird.collision) {
+    angryBirds.birdCollidedWithPig = false;
   }
 }
+// }
 
 
 function handleBirdToGroundCollision(bird, ground) {
@@ -102,7 +116,7 @@ function handleBirdToGroundCollision(bird, ground) {
 
 function handlePigToObstacleCollision(pig, obstacle) {
   if (pig.initialVelocity &&
-    checkCircleToRectangleCollision(pig, obstacle)
+    obstacle.collision
   ) {
     obstacle.initProjectile(pig);
     obstacle.launch();

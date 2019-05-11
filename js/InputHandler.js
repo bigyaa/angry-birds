@@ -3,6 +3,8 @@ class InputHandler {
   constructor(bird) {
 
     this.bird = bird;
+    this.birdSoundOnLaunch = document.getElementById("birdOnLaunch");
+    this.slingStretchedSound = document.getElementById("slingStretched");
 
     // Controls for keyboard events
     document.addEventListener('keydown',
@@ -10,6 +12,8 @@ class InputHandler {
         switch (event.keyCode) {
           case ARROW_LEFT:
             if (listen) {
+              this.slingStretchedSound.play();
+
               this.bird.shiftLeft();
             }
             break;
@@ -17,6 +21,8 @@ class InputHandler {
 
           case ARROW_UP:
             if (listen) {
+              this.slingStretchedSound.play();
+
               this.bird.shiftUp();
             }
             break;
@@ -24,6 +30,8 @@ class InputHandler {
 
           case ARROW_RIGHT:
             if (listen) {
+              this.slingStretchedSound.play();
+
               this.bird.shiftRight();
             }
             break;
@@ -31,6 +39,8 @@ class InputHandler {
 
           case ARROW_DOWN:
             if (listen) {
+              this.slingStretchedSound.play();
+
               this.bird.shiftDown();
             }
             break;
@@ -40,6 +50,8 @@ class InputHandler {
             if (listen) {
               if (!spaceBar) {
                 spaceBar = true;
+
+                this.birdSoundOnLaunch.play();
 
                 this.bird.stopControls();
                 this.bird.initProjectile();

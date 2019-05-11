@@ -10,35 +10,46 @@ const SPACEBAR = 32;
 const GROUND_X = 0;
 const GROUND_Y = GAME_HEIGHT - 130;
 
-const INITIAL_BIRD_X = 250;
-const INITIAL_BIRD_Y = 365;
-const INITIAL_BIRD_VELOCITY = 1.75;
+const SLING_WIDTH = 100;
+const SLING_HEIGHT = 210;
 
 const BIRD_RADIUS = 30;
 const BIRD_POPULATION = 3;
 const BIRD_STRETCH_LIMIT = 160;
 
-const SLING_WIDTH = 100;
-const SLING_HEIGHT = 210;
+const INITIAL_BIRD_X = 250;
+const INITIAL_BIRD_Y = GROUND_Y - SLING_HEIGHT + BIRD_RADIUS;
+const INITIAL_BIRD_VELOCITY = 1.75;
 
-const OBSTACLE_POPULATION = 7;
-NUM_OF_VERTICAL_OBSTACLES = 4;
-
-const OBSTACLE_POSITION = {
-  x: [800, 900, 1000, 1100, 1200],
-  y: [GROUND_Y, GROUND_Y, GROUND_Y, GROUND_Y, GROUND_Y - 170]
-};
-
-const PIG_RADIUS = 37.5;
-const PIG_POPULATION = 3;
+const PIG_RADIUS = 35;
+const PIG_POPULATION = 5;
 const PIG_POSITION = {
-  x: [862, 962, 1062],
-  y: [GROUND_Y - PIG_RADIUS]
+  x: [600],
+  y: [GROUND_Y - PIG_RADIUS - 100,
+  GROUND_Y - PIG_RADIUS - 200,
+  GROUND_Y - PIG_RADIUS - 400,
+  GROUND_Y - PIG_RADIUS - 200,
+  GROUND_Y - PIG_RADIUS - 300,
+  GROUND_Y - PIG_RADIUS - 500]
 };
 const PIG_SIZE = {
   width: 75,
   height: 75
 }
+
+const OBSTACLE_POPULATION = 5;
+
+const OBSTACLE_POSITION = {
+  x: [PIG_POSITION.x - 45],
+  y: [GROUND_Y + PIG_RADIUS - 100,
+  GROUND_Y + PIG_RADIUS - 200,
+  GROUND_Y + PIG_RADIUS - 400,
+  GROUND_Y + PIG_RADIUS - 200,
+  GROUND_Y + PIG_RADIUS - 300,
+  GROUND_Y + PIG_RADIUS - 500]
+};
+
+const SPACE_BETWEEN_OBSTACLES = 140;
 
 const GRAVITY = 2;
 const FRICTION = 0.02;
@@ -49,7 +60,7 @@ canvas.height = GAME_HEIGHT;
 
 let releaseBird = 0;
 
-let woodImageType = {
+let obstacleImageType = {
   vertical: {
     src: "./images/wood-vertical.png",
     width: 25,
@@ -59,6 +70,11 @@ let woodImageType = {
     src: "./images/wood-horizontal.png",
     width: 100,
     height: 25
+  },
+  stone: {
+    src: "./images/stone.png",
+    width: 100,
+    height: 30
   }
 };
 

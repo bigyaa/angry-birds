@@ -1,7 +1,8 @@
 let canvas = document.getElementById('canvas');
+let sound = document.getElementById('mainAudio');
 
 let angryBirds = new Game(canvas);
 
-angryBirds.init();
-// angryBirds.playSound();
-angryBirds.startGameLoop();
+sound.play();
+
+angryBirds.startGame(canvas);

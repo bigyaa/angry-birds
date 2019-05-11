@@ -109,13 +109,20 @@ class Bird extends Circle {
     }
   }
 
+  // direction = 1 if it moves to right, else -1
+  handleBirdCollision(direction) {
+    if (this.collision) {
+      this.fallInterval = 6;
+      this.initialVelocity = 2;
 
-  handleCollision() {
-    if (this.position.y + this.radius <= GROUND_Y) {
-      this.position.x -= this.projectile.horizontalVelocity * TIME_DIFFERENCE;
-      this.position.y += 0.25 * this.projectile.verticalVelocity * TIME_DIFFERENCE;
-    } else {
-      this.collision = false;
+      this.initProjectile();
+
+      if (this.position.y + this.radius <= GROUND_Y) {
+        this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+        this.position.y += this.projectile.verticalVelocity * this.fallInterval;
+      } else {
+        this.collision = false;
+      }
     }
   }
 

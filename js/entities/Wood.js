@@ -52,19 +52,27 @@ class Wood extends Rectangle {
   }
 
 
-  launch() {
-    // if (this.posY + this.height < GROUND_Y) {
-    //   this.posX += this.projectile.horizontalVelocity * TIME_DIFFERENCE;
-    //   this.posY += this.projectile.verticalVelocity * TIME_DIFFERENCE;
-    // } else {
-    //   this.damage++;
-    this.collision = false;
+  launch(direction) {
+    if (this.posY + this.height < GROUND_Y) {
+      this.posX += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+      this.posY += this.projectile.verticalVelocity * TIME_DIFFERENCE;
+    } else {
+      this.damage++;
+      this.collision = false;
+    }
+
+    // Update vertices after each movement
+    this.updateVertices(this.posX, this.posY);
   }
 
-  // Update vertices after each movement
-  // this.updateVertices(this.posX, this.posY);
-  // }
 
+  // direction = 1 if it moves to right, else -1
+  handleObstacleCollision(someEntity) {
+    if (this.collision) {
+      this.initProjectile(someEntity);
+      this.launch(direction);
+    }
+  }
 
   fall() {
     if (this.vertices.fourthPoint.y < GROUND_Y) {

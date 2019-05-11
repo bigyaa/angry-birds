@@ -49,17 +49,27 @@ class Pig extends Circle {
     );
   }
 
-
-  launch() {
-    if (this.position.y + this.radius <= GROUND_Y) {
-      this.position.x += this.projectile.horizontalVelocity * TIME_DIFFERENCE;
-      this.position.y += this.projectile.verticalVelocity * TIME_DIFFERENCE;
+  // direction = 1 if it moves to right, else -1
+  launch(direction) {
+    if (this.position.y + this.radius <= GROUND_Y &&
+      this.damage === 1) {
+      this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+      this.position.y += this.projectile.verticalVelocity * this.fallInterval;
     } else {
       this.damage++;
       this.collision = false;
     }
   }
 
+  handlePigCollision(someEntity, direction) {
+    if (this.collision) {
+      this.fallInterval = 6;
+
+      this.initProjectile(someEntity);
+      this.launch(direction);
+      this.update();
+    }
+  }
 
   fall() {
     if (this.position.y + this.radius < GROUND_Y) {

@@ -17,10 +17,7 @@ class Game {
     this.defeatedPigs = [];
 
     this.sling;
-
-    this.birdCollidedWithPig = false;
-    this.birdCollidedWithObstacle = false;
-    this.pigCollidedWithObstacle = false;
+    this.birdInAir;
   }
 
 
@@ -152,87 +149,85 @@ class Game {
     this.sling.showSling(this.context);
   }
 
+
   handleCollisions() {
-    for (let pig of this.pigs) {
-      for (let obstacle of this.obstacles) {
 
-        /* Flag all the collided elements */
+    /* Flag all the collided elements */
 
-        // Condition to ensure all birds haven't been defeated
-        if (this.birds.length != 0) {
-          if (checkCircleToCircleCollision(this.birds[0], pig)) {
-            this.birdCollidedWithPig = true;
-            this.birds[0].collision = true;
-          }
+    // Condition to ensure all birds haven't been defeated
+    if (this.birds.length != 0) {
 
-          if (checkCircleToRectangleCollision(this.birds[0], obstacle)) {
-            this.birdCollidedWithObstacle = true;
-            this.birds[0].collision = true;
-          }
+      for (let pig of this.pigs) {
 
-          // if (checkCircleToRectangleCollision(pig, obstacle)) {
-          //   this.pigCollidedWithObstacle = true;
-          // }
-        }
-
-        // Change launching bird when bird touches the ground or when it collides
-        if (this.birds.length >= 1 &&
-          (this.birds[0].position.y + this.birds[0].radius >= GROUND_Y ||
-            this.birds[0].collision === true)
-        ) {
-          releaseBird++;
-
-          spaceBar = false;
-          listen = true;
-
-          // Add defeated birds to new array
-          this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
-
-          // Reset bird attributes if it isn't empty
-          if (this.birds.length > 0) {
-            this.birds[0].resetAttributes();
-            this.inputHandler.updateInputHandler(this.birds[0]);
-          }
-        }
-
-        /*  Handle flagged collisions */
-
-        if (this.birdCollidedWithPig) {
+        if (checkCircleToCircleCollision(this.birds[0], pig)) {
           pig.collision = true;
-          this.defeatedBirds[this.defeatedBirds.length - 1].collision = true;
-
-          handleBirdToPigCollision(this.defeatedBirds[this.defeatedBirds.length - 1], pig);
+          this.birds[0].collision = true;
         }
-
-        if (this.birdCollidedWithObstacle) {
-          obstacle.collision = true;
-          this.defeatedBirds[this.defeatedBirds.length - 1].collision = true;
-
-          handleBirdToObstacleCollision(this.defeatedBirds[this.defeatedBirds.length - 1], obstacle);
-        }
-
-        // if (this.pigCollidedWithObstacle &&
-        //   pig.initialVelocity ||
-        //   obstacle.initialVelocity
-        // ) {
-        //   obstacle.collision = true;
-        //   pig.collision = true;
-
-        //   handlePigToObstacleCollision(pig, obstacle);
-        // }
-
-        // // Make pig fall due to gravity
-        // if (!checkCircleToRectangleCollision(pig, obstacle) /* &&
-        //   !checkCircleToCircleCollision(pig, this.defeatedBirds[defeatedBird]) */
-        // ) {
-
-        //   if (pig.position.y + pig.radius < GROUND_Y) {
-
-        //     // Increase y-coordinate until it collides
-        //     this.position.y += GRAVITY;
-        //   }
-        // }
       }
+
+      for (let obstacle of this.obstacles) {
+        if (checkCircleToRectangleCollision(this.birds[0], obstacle)) {
+          obstacle.collision = true;
+          this.birds[0].collision = true;
+        }
+      }
+    }
+
+    // Change launching bird when bird touches the ground or when it collides
+    if (this.birds.length >= 1 &&
+      (this.birds[0].position.y + this.birds[0].radius >= GROUND_Y ||
+        this.birds[0].collision === true)
+    ) {
+      releaseBird++;
+
+      spaceBar = false;
+      listen = true;
+
+      // Add defeated birds to new array
+      this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
+
+      this.birdInAir = this.defeatedBirds[this.defeatedBirds.length - 1];
+
+      // Reset bird attributes if it isn't empty
+      if (this.birds.length > 0) {
+        this.birds[0].resetAttributes();
+        this.inputHandler.updateInputHandler(this.birds[0]);
+      }
+    }
+
+    if (this.birdInAir) {
+      for (let defeatedBird of this.defeatedBirds) {
+        if (this.birdInAir !== this.defeatedBirds &&
+          checkCircleToCircleCollision(this.birdInAir, defeatedBird)) {
+          this.birdInAir.collision = true;
+        }
+      }
+    }
+
+    /*  Handle flagged collisions */
+
+    for (let pig of this.pigs) {
+      if (pig.collision) {
+        this.birdInAir.collision = true;
+
+        pig.handlePigCollision(this.birdInAir, 1);
+      }
+    }
+
+    // If the obstacle isn't stationary
+    /*     for (let obstacle of this.obstacles) {
+          if (obstacle.collision) {
+            this.birdInAir.collision = true;
+
+            obstacle.handleObstacleCollision(this.birdInAir);
+          }
+        } */
+
+    if (this.birdInAir &&
+      this.birdInAir.collision) {
+
+      // @arg: specifies direction; -1 if it is supposed to move to the left, else 1
+      this.birdInAir.handleBirdCollision(-1);
     }
   }
 
@@ -244,7 +239,7 @@ class Game {
     this.handleCollisions();
 
     if (this.defeatedBirds.length === BIRD_POPULATION &&
-      !this.defeatedBirds[BIRD_POPULATION - 1].collision) {
+      !this.birdInAir.collision) {
       gameOver = true;
     }
 

@@ -14,7 +14,7 @@ const SLING_WIDTH = 100;
 const SLING_HEIGHT = 210;
 
 const BIRD_RADIUS = 30;
-const BIRD_POPULATION = 5;
+const BIRD_POPULATION = 4;
 const BIRD_STRETCH_LIMIT = 160;
 
 const INITIAL_BIRD_X = 250;
@@ -22,31 +22,31 @@ const INITIAL_BIRD_Y = GROUND_Y - SLING_HEIGHT + BIRD_RADIUS;
 const INITIAL_BIRD_VELOCITY = 1.75;
 
 const PIG_RADIUS = 35;
-const PIG_POPULATION = 5;
+const PIG_POPULATION = 3;
 const PIG_POSITION = {
   x: [600],
-  y: [GROUND_Y - PIG_RADIUS - 100,
-  GROUND_Y - PIG_RADIUS - 200,
-  GROUND_Y - PIG_RADIUS - 400,
-  GROUND_Y - PIG_RADIUS - 200,
-  GROUND_Y - PIG_RADIUS - 300,
-  GROUND_Y - PIG_RADIUS - 500]
+  y: [
+    GROUND_Y - PIG_RADIUS - 200,
+    GROUND_Y - PIG_RADIUS - 400,
+    GROUND_Y - PIG_RADIUS - 200,
+    GROUND_Y - PIG_RADIUS - 300,
+    GROUND_Y - PIG_RADIUS - 500]
 };
 const PIG_SIZE = {
   width: 75,
   height: 75
 }
 
-const OBSTACLE_POPULATION = 5;
+const OBSTACLE_POPULATION = 3;
 
 const OBSTACLE_POSITION = {
   x: [PIG_POSITION.x - 45],
-  y: [GROUND_Y + PIG_RADIUS - 100,
-  GROUND_Y + PIG_RADIUS - 200,
-  GROUND_Y + PIG_RADIUS - 400,
-  GROUND_Y + PIG_RADIUS - 200,
-  GROUND_Y + PIG_RADIUS - 300,
-  GROUND_Y + PIG_RADIUS - 500]
+  y: [
+    GROUND_Y + PIG_RADIUS - 200,
+    GROUND_Y + PIG_RADIUS - 400,
+    GROUND_Y + PIG_RADIUS - 200,
+    GROUND_Y + PIG_RADIUS - 300,
+    GROUND_Y + PIG_RADIUS - 500]
 };
 
 const SPACE_BETWEEN_OBSTACLES = 150;
@@ -82,12 +82,6 @@ let pigVanishingImages = [
   "./images/cloud-cushy-dark.png",
   "./images/cloud-dark.png",
   "./images/cloud-dark-vanish.png"
-];
-
-let birdVanishingImages = [
-  ".images/cloud-white.png",
-  ".images/cloud-white-another.png",
-  ".images/cloud-white-vanish.png"
 ];
 
 let score = 0;

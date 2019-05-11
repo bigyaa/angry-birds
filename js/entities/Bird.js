@@ -18,13 +18,17 @@ class Bird extends Circle {
     this.finalPosition = 0;
 
     this.birdFrame = 0;
+    this.vanishingFrame = 4;
     this.birdImage = new Image();
 
     this.imageSources = [
       "./images/red-bird.png",
       "./images/bird-flight.png",
       "./images/bird-hit1.png",
-      "./images/bird-hit2.png"
+      "./images/bird-hit2.png",
+      "./images/cloud-white.png",
+      "./images/cloud-white-another.png",
+      "./images/cloud-white-vanish.png"
     ];
 
     this.shiftingDistance = {
@@ -112,12 +116,12 @@ class Bird extends Circle {
   // direction = 1 if it moves to right, else -1
   handleBirdCollision(direction) {
     if (this.collision) {
-      this.fallInterval = 6;
+      this.fallInterval = 8;
       this.initialVelocity = 2;
 
       this.initProjectile();
 
-      if (this.position.y + this.radius <= GROUND_Y) {
+      if (this.position.y + this.radius < randomInt(GROUND_Y, GROUND_Y + 150)) {
         this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
         this.position.y += this.projectile.verticalVelocity * this.fallInterval;
       } else {
@@ -125,6 +129,7 @@ class Bird extends Circle {
       }
     }
   }
+
 
 
   show(context) {

@@ -41,6 +41,10 @@ function rangeInclusive(start, end) {
   return ans;
 }
 
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 
 function drawSlingElasticBack(context, positionX, positionY) {
   context.beginPath();

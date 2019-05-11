@@ -52,11 +52,11 @@ class Pig extends Circle {
   // direction = 1 if it moves to right, else -1
   launch(direction) {
     if (this.position.y + this.radius <= GROUND_Y &&
-      this.damage === 1) {
+      this.damage === 2) {
       this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
       this.position.y += this.projectile.verticalVelocity * this.fallInterval;
     } else {
-      this.damage++;
+      this.damage += 2;
       this.collision = false;
     }
   }
@@ -94,7 +94,7 @@ class Pig extends Circle {
         this.pigImage.src = "./images/pig_hit-2.png";
         break;
 
-      case 3:
+      case 4:
         score += 1500;
 
         this.pigImage.src = "./images/pig_hit2-roll-1.png";

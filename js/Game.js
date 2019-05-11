@@ -195,15 +195,6 @@ class Game {
       }
     }
 
-    if (this.birdInAir) {
-      for (let defeatedBird of this.defeatedBirds) {
-        if (this.birdInAir !== this.defeatedBirds &&
-          checkCircleToCircleCollision(this.birdInAir, defeatedBird)) {
-          this.birdInAir.collision = true;
-        }
-      }
-    }
-
     /*  Handle flagged collisions */
 
     for (let pig of this.pigs) {

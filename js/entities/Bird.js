@@ -17,7 +17,7 @@ class Bird extends Circle {
 
     this.finalPosition = 0;
 
-    this.randomPositionOnGround = randomInt(GROUND_Y, GROUND_Y + 150);
+    this.randomPositionOnGround = getRandomInt(GROUND_Y, GROUND_Y + 150);
 
     this.birdFrame = 0;
     this.vanishingFrame = 4;

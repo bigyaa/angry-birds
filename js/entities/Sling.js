@@ -69,7 +69,7 @@ class Sling {
     stretchedPositionY
   ) {
 
-    return distance(
+    return getDistance(
       initialObjPositionX,
       initialObjPositionY,
       stretchedPositionX,

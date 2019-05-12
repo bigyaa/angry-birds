@@ -13,7 +13,7 @@ function checkCircleToRectangleCollision(circle, rectangle) {
 
 
 function checkCircleToCircleCollision(circle1, circle2) {
-  if (distance(
+  if (getDistance(
     circle1.position.x,
     circle1.position.y,
     circle2.position.x,
@@ -41,11 +41,11 @@ function checkRectangleToRectangleCollision(rectangle1, rectangle2) {
 
 
 function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
-  if ((inBetween(
+  if ((isBetween(
     rectangle1.vertices.firstPoint.x,
     rectangle1.vertices.secondPoint.x,
     rectangle2.vertices.firstPoint.x) ||
-    inBetween(
+    isBetween(
       rectangle1.vertices.firstPoint.x,
       rectangle1.vertices.secondPoint.x,
       rectangle2.vertices.secondPoint.x)) &&

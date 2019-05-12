@@ -11,14 +11,14 @@ function getTrajectoryAngle(
 }
 
 
-function inBetween(min, max, inclusive) {
+function isBetween(min, max, inclusive) {
   (inclusive >= min && inclusive < max) ?
     true :
     false;
 }
 
 
-function distance(x1, y1, x2, y2) {
+function getDistance(x1, y1, x2, y2) {
 
   return Math.sqrt(
     Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
@@ -26,13 +26,19 @@ function distance(x1, y1, x2, y2) {
 }
 
 
-function radianToDegree(angleInRadian) {
+function getAngleInDegree(angleInRadian) {
 
   return (180 / Math.PI) * angleInRadian;
 }
 
 
-function rangeInclusive(start, end) {
+function getAngleInRadian(angleInDegree) {
+
+  return (Math.PI / 180) * angleInDegree;
+}
+
+
+function getRangeValues(start, end) {
   var ans = [];
   for (let i = start; i <= end; i++) {
     ans.push(i);
@@ -41,7 +47,7 @@ function rangeInclusive(start, end) {
   return ans;
 }
 
-function randomInt(min, max) {
+function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 

@@ -5,8 +5,14 @@ class Projectile {
     this.initialVelocity = initialVelocity;
     this.time = 1;
     this.angle = angle;
+
+    this.fixAngle();
+    console.log(this.angle)
   }
 
+  fixAngle() {
+    if (getAngleInDegree(this.angle) < 0) { this.angle += getAngleInRadian(180) }
+  }
 
   // y=usin0
   verticalDistance() {

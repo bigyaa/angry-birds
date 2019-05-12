@@ -7,13 +7,12 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.background = new Image();
-    this.startScreen = new Image();
-
-    this.startScreen.src = "./images/start-page.png";
     this.background.src = "./images/background.png";
 
     this.audioGameOver = new Audio();
     this.audioGameOver.src = "./sounds/game-over.mp3"
+
+    this.resetButton = document.getElementById('resetButton');
 
     this.obstacles = [];
     this.birds = [];
@@ -24,24 +23,28 @@ class Game {
     this.sling;
     this.birdInAir;
     this.score;
+    this.gameOver;
+    this.spaceBar;
+    this.showSlingElastic;
+    this.listen;
 
     this.reset = false;
   }
 
-  showStartScreen() {
-    this.context.beginPath();
-    this.context.fillStyle = "white";
-    this.context.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    this.startScreen.onload = () => {
-      this.context.drawImage(this.startScreen, 0, 0, GAME_WIDTH, GAME_HEIGHT);
-    }
-  }
 
   init() {
 
     sound.pause();
 
     this.score = 0;
+    this.birds = [];
+    this.defeatedBirds = [];
+    this.birdInAir = 0;
+
+    this.gameOver = false;
+    this.spaceBar = false
+    this.showSlingElastic = true;
+    this.listen = true;
 
     this.ground = new Ground(
       GROUND_X,
@@ -95,6 +98,8 @@ class Game {
     for (let i = 0; i < PIG_POPULATION; i++) {
       this.pigs[i] = new Pig(PIG_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i, PIG_POSITION.y[i]);
     }
+
+    this.startGameLoop();
   }
 
 
@@ -116,10 +121,22 @@ class Game {
     );
 
     // Show score points
-    showText(this.context, "SCORE: " + this.score, "30px Signika", 20, 50, "white");
+    showText(
+      this.context,
+      "SCORE: " + this.score,
+      "30px Signika",
+      20,
+      50,
+      "white");
 
-    if (reset) {
-      showText(this.context, "HIGH SCORE: " + this.highScore, "30px Signika", GAME_WIDTH - 30, 50, "white");
+    if (this.reset) {
+      showText(
+        this.context,
+        "HIGH SCORE: " + this.highScore,
+        "30px Signika",
+        GAME_WIDTH - 300,
+        50,
+        "white");
     }
 
     // Add shadow to elements
@@ -128,7 +145,7 @@ class Game {
 
     this.ground.show(this.context);
 
-    if (showSlingElastic) {
+    if (this.showSlingElastic) {
       drawSlingElasticBack(
         this.context,
         this.birds[0].position.x,
@@ -145,7 +162,7 @@ class Game {
       this.birds[i].show(this.context);
     }
 
-    if (showSlingElastic) {
+    if (this.showSlingElastic) {
       drawSlingElasticFront(
         this.context,
         this.birds[0].positionX,
@@ -180,9 +197,7 @@ class Game {
 
     // Condition to ensure all birds haven't been defeated
     if (this.birds.length != 0) {
-
       for (let pig of this.pigs) {
-
         if (checkCircleToCircleCollision(this.birds[0], pig)) {
           pig.collision = true;
           this.birds[0].collision = true;
@@ -211,10 +226,9 @@ class Game {
       (this.birds[0].position.y + this.birds[0].radius >= GROUND_Y ||
         this.birds[0].collision === true)
     ) {
-      releaseBird++;
 
-      spaceBar = false;
-      listen = true;
+      this.spaceBar = false;
+      this.listen = true;
 
       // Add defeated birds to new array
       this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
@@ -259,36 +273,35 @@ class Game {
 
     if (this.defeatedBirds.length === BIRD_POPULATION &&
       !this.birdInAir.collision) {
-      gameOver = true;
+      this.gameOver = true;
     }
 
-    if (spaceBar) {
+    if (this.spaceBar) {
       this.birds[0].launch();
 
-      listen = false;
+      this.listen = false;
     }
 
-    if (!gameOver) {
+    if (!this.gameOver) {
       requestAnimationFrame(() => this.startGameLoop());
-
     } else {
       this.showGameOverScreen();
     }
   }
 
 
-  startGame(canvas) {
+  startGame() {
     this.init();
-    this.startGameLoop(canvas);
   }
 
 
   resetGame() {
+    this.resetButton.style.display = "none";
+
     this.updateScore();
+    this.init();
 
     this.reset = true;
-
-    this.init();
   }
 
 
@@ -302,8 +315,9 @@ class Game {
   showGameOverScreen() {
     this.audioGameOver.play();
 
-    showText(this.context, "GAME OVER", "80px Signika", 550, GAME_HEIGHT / 2, "black");
+    this.resetButton.style.display = "block";
+    this.resetButton.addEventListener('click', () => { this.resetGame(); });
 
-    sound.pause();
+    showText(this.context, "GAME OVER", "80px Signika", 550, 500, "black");
   }
 }

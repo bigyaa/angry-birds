@@ -1,12 +1,14 @@
 let canvas = document.getElementById('canvas');
 let sound = document.getElementById('mainAudio');
+let startScreen = document.getElementById('startScreen');
 
 let angryBirds = new Game(canvas);
 
 sound.play();
 
-// angryBirds.startGame(canvas);
+startScreen.addEventListener('click',
+  () => {
+    startScreen.style.display = "none";
+    angryBirds.startGame();
+  });
 
-angryBirds.showStartScreen();
-
-window.addEventListener('click', () => { angryBirds.startGame(canvas) });

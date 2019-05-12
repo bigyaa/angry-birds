@@ -11,7 +11,7 @@ class InputHandler {
       (event) => {
         switch (event.keyCode) {
           case ARROW_LEFT:
-            if (listen) {
+            if (angryBirds.listen) {
               this.slingStretchedSound.play();
 
               this.bird.shiftLeft();
@@ -20,7 +20,7 @@ class InputHandler {
 
 
           case ARROW_UP:
-            if (listen) {
+            if (angryBirds.listen) {
               this.slingStretchedSound.play();
 
               this.bird.shiftUp();
@@ -29,7 +29,7 @@ class InputHandler {
 
 
           case ARROW_RIGHT:
-            if (listen) {
+            if (angryBirds.listen) {
               this.slingStretchedSound.play();
 
               this.bird.shiftRight();
@@ -38,7 +38,7 @@ class InputHandler {
 
 
           case ARROW_DOWN:
-            if (listen) {
+            if (angryBirds.listen) {
               this.slingStretchedSound.play();
 
               this.bird.shiftDown();
@@ -47,17 +47,15 @@ class InputHandler {
 
 
           case SPACEBAR:
-            if (listen) {
-              if (!spaceBar) {
-                spaceBar = true;
+            if (angryBirds.listen) {
+              if (!angryBirds.spaceBar) {
+                angryBirds.spaceBar = true;
 
                 this.birdSoundOnLaunch.play();
-
                 this.bird.stopControls();
                 this.bird.initProjectile();
               }
             }
-
             break;
         };
       });

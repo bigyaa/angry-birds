@@ -1,11 +1,12 @@
-const GAME_WIDTH = window.innerWidth - 20;
-const GAME_HEIGHT = window.innerHeight - 20;
+const GAME_WIDTH = window.innerWidth - 10;
+const GAME_HEIGHT = window.innerHeight - 10;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
 const SPACEBAR = 32;
+const ENTER = 13;
 
 const GROUND_X = 0;
 const GROUND_Y = GAME_HEIGHT - 130;
@@ -14,7 +15,7 @@ const SLING_WIDTH = 100;
 const SLING_HEIGHT = 210;
 
 const BIRD_RADIUS = 30;
-const BIRD_POPULATION = 4;
+const BIRD_POPULATION = 1;
 const BIRD_STRETCH_LIMIT = 160;
 
 const INITIAL_BIRD_X = 250;
@@ -22,7 +23,7 @@ const INITIAL_BIRD_Y = GROUND_Y - SLING_HEIGHT + BIRD_RADIUS;
 const INITIAL_BIRD_VELOCITY = 1.75;
 
 const PIG_RADIUS = 35;
-const PIG_POPULATION = 3;
+const PIG_POPULATION = 4;
 const PIG_POSITION = {
   x: [600],
   y: [
@@ -37,7 +38,7 @@ const PIG_SIZE = {
   height: 75
 }
 
-const OBSTACLE_POPULATION = 3;
+const OBSTACLE_POPULATION = PIG_POPULATION;
 
 const OBSTACLE_POSITION = {
   x: [PIG_POSITION.x - 45],
@@ -57,8 +58,6 @@ const TIME_DIFFERENCE = 0.075;
 
 canvas.width = GAME_WIDTH;
 canvas.height = GAME_HEIGHT;
-
-let releaseBird = 0;
 
 let obstacleImageType = {
   vertical: {

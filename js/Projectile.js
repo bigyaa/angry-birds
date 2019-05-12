@@ -7,7 +7,6 @@ class Projectile {
     this.angle = angle;
 
     this.fixAngle();
-    console.log(this.angle)
   }
 
   fixAngle() {

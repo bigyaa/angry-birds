@@ -20,7 +20,6 @@ class Bird extends Circle {
     this.randomPositionOnGround = getRandomInt(GROUND_Y, GROUND_Y + 150);
 
     this.birdFrame = 0;
-    this.vanishingFrame = 4;
     this.birdImage = new Image();
 
     this.imageSources = [
@@ -99,7 +98,7 @@ class Bird extends Circle {
 
 
   launch() {
-    showSlingElastic = false;
+    angryBirds.showSlingElastic = false;
 
     this.birdFrame = 1;
     this.updateImage(this.birdFrame);
@@ -232,7 +231,7 @@ class Bird extends Circle {
 
     this.collision = false;
 
-    showSlingElastic = true;
+    angryBirds.showSlingElastic = true;
   }
 
 

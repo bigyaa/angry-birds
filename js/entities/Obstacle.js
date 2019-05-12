@@ -120,7 +120,7 @@ class Obstacle extends Rectangle {
         angryBirds.score += 80;
         this.audioOnCollision.play();
 
-        this.fall();
+        // this.fall();
 
         break;
     }

@@ -19,11 +19,6 @@ class Sling {
     this.slingImage = new Image();
     this.slingImage.src = "./images/sling.png";
 
-    this.ballPoint = {
-      x: this.position.x + (this.width / 2),
-      y: this.position.y,
-    };
-
     // flag for stretch limit
     this.maxStretch = 0;
   }

@@ -92,19 +92,19 @@ class Pig extends Circle {
 
     switch (damage) {
       case 1:
-        score += 50;
+        angryBirds.score += 50;
 
         this.pigImage.src = "./images/pig_hit-1.png";
         break;
 
       case 2:
-        score += 500;
+        angryBirds.score += 500;
 
         this.pigImage.src = "./images/pig_hit-2.png";
         break;
 
       case 4:
-        score += 750;
+        angryBirds.score += 750;
 
         this.pigImage.src = "./images/pig_hit2-roll-1.png";
         break;

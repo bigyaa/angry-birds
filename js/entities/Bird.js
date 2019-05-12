@@ -17,6 +17,8 @@ class Bird extends Circle {
 
     this.finalPosition = 0;
 
+    this.randomPositionOnGround = randomInt(GROUND_Y, GROUND_Y + 150);
+
     this.birdFrame = 0;
     this.vanishingFrame = 4;
     this.birdImage = new Image();
@@ -127,7 +129,7 @@ class Bird extends Circle {
 
       this.initProjectile();
 
-      if (this.position.y + this.radius < randomInt(GROUND_Y, GROUND_Y + 150)) {
+      if (this.position.y + this.radius < this.randomPositionOnGround) {
         this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
         this.position.y += this.projectile.verticalVelocity * this.fallInterval;
       } else {

@@ -17,15 +17,19 @@ class Game {
     this.birds = [];
     this.pigs = [];
     this.defeatedBirds = [];
-    this.damagedPigs = [];
-    this.defeatedPigs = [];
+    this.recordOfScores = [];
 
     this.sling;
     this.birdInAir;
+    this.score;
+
+    this.reset = false;
   }
 
 
   init() {
+
+    this.score = 0;
 
     this.ground = new Ground(
       GROUND_X,
@@ -100,7 +104,11 @@ class Game {
     );
 
     // Show score points
-    showText(this.context, "SCORE: " + score, "30px Signika", 20, 50, "white");
+    showText(this.context, "SCORE: " + this.score, "30px Signika", 20, 50, "white");
+
+    if (reset) {
+      showText(this.context, "HIGH SCORE: " + this.highScore, "30px Signika", GAME_WIDTH - 30, 50, "white");
+    }
 
     // Add shadow to elements
     this.context.shadowOffsetY = 2;
@@ -264,5 +272,21 @@ class Game {
   startGame(canvas) {
     this.init();
     this.startGameLoop(canvas);
+  }
+
+
+  resetGame() {
+    this.updateScore();
+
+    this.reset = true;
+
+    this.init();
+  }
+
+
+  updateScore() {
+    this.recordOfScores.push(this.score);
+
+    this.highScore = Math.max(this.recordOfScores);
   }
 }

@@ -84,7 +84,6 @@ let pigVanishingImages = [
   "./images/cloud-dark-vanish.png"
 ];
 
-let score = 0;
 
 
 

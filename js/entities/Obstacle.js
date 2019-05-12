@@ -19,7 +19,7 @@ class Obstacle extends Rectangle {
     this.obstacleImage.src = obstacleImageType[imageType].src;
 
     this.audioOnCollision = new Audio();
-    this.audioOnCollision.src = "./sounds/stione-hit.mp3";
+    this.audioOnCollision.src = "./sounds/stone-hit.mp3";
 
     this.imagesAfterDamage = [
       "./images/stone2.png",
@@ -103,24 +103,23 @@ class Obstacle extends Rectangle {
 
     switch (damage) {
       case 1:
-        score += 20;
+        angryBirds.score += 20;
 
         this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
 
         break;
 
       case 2:
-        score += 40;
+        angryBirds.score += 40;
 
         this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
 
         break;
 
       case 3:
-        score += 80;
+        angryBirds.score += 80;
 
         this.fall();
-        // this.obstacleImage.src = this.imagesAfterDamage[damage];
 
         break;
     }

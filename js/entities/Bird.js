@@ -141,13 +141,13 @@ class Bird extends Circle {
 
   show(context) {
     (() => {
-
-      // Align image position with the circle
-      context.drawImage(
-        this.birdImage,
-        this.position.x - this.radius,
-        this.position.y - this.radius
-      );
+      this.birdImage.onload =
+        // Align image position with the circle
+        context.drawImage(
+          this.birdImage,
+          this.position.x - this.radius,
+          this.position.y - this.radius
+        );
     })();
   }
 

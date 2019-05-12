@@ -77,8 +77,6 @@ class Obstacle extends Rectangle {
   // direction = 1 if it moves to right, else -1
   handleObstacleCollision(someEntity, direction) {
     if (this.collision) {
-      this.audioOnCollision.play();
-
       this.damage++;
       this.update();
     }
@@ -104,6 +102,7 @@ class Obstacle extends Rectangle {
     switch (damage) {
       case 1:
         angryBirds.score += 20;
+        this.audioOnCollision.play();
 
         this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
 
@@ -111,6 +110,7 @@ class Obstacle extends Rectangle {
 
       case 2:
         angryBirds.score += 40;
+        this.audioOnCollision.play();
 
         this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
 
@@ -118,6 +118,7 @@ class Obstacle extends Rectangle {
 
       case 3:
         angryBirds.score += 80;
+        this.audioOnCollision.play();
 
         this.fall();
 

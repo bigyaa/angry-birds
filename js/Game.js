@@ -7,10 +7,12 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.background = new Image();
+    this.startScreen = new Image();
+
+    this.startScreen.src = "./images/start-page.png";
     this.background.src = "./images/background.png";
 
     this.audioGameOver = new Audio();
-    this.audioGameOver.loop = true;
     this.audioGameOver.src = "./sounds/game-over.mp3"
 
     this.obstacles = [];
@@ -26,8 +28,18 @@ class Game {
     this.reset = false;
   }
 
+  showStartScreen() {
+    this.context.beginPath();
+    this.context.fillStyle = "white";
+    this.context.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    this.startScreen.onload = () => {
+      this.context.drawImage(this.startScreen, 0, 0, GAME_WIDTH, GAME_HEIGHT);
+    }
+  }
 
   init() {
+
+    sound.pause();
 
     this.score = 0;
 
@@ -260,11 +272,7 @@ class Game {
       requestAnimationFrame(() => this.startGameLoop());
 
     } else {
-      this.audioGameOver.play();
-
-      showText(this.context, "GAME OVER", "80px Signika", 550, GAME_HEIGHT / 2, "black");
-
-      sound.pause();
+      this.showGameOverScreen();
     }
   }
 
@@ -288,5 +296,14 @@ class Game {
     this.recordOfScores.push(this.score);
 
     this.highScore = Math.max(this.recordOfScores);
+  }
+
+
+  showGameOverScreen() {
+    this.audioGameOver.play();
+
+    showText(this.context, "GAME OVER", "80px Signika", 550, GAME_HEIGHT / 2, "black");
+
+    sound.pause();
   }
 }

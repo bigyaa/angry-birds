@@ -72,7 +72,7 @@ let obstacleImageType = {
     height: 25
   },
   stone: {
-    src: "./images/stone.png",
+    src: "./images/stone1.png",
     width: 100,
     height: 30
   }

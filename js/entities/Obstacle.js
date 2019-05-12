@@ -1,4 +1,4 @@
-class Wood extends Rectangle {
+class Obstacle extends Rectangle {
 
   /* imageType= "vertical" or "horizontal" or "stone" */
   constructor(posX, posY, imageType) {
@@ -15,8 +15,16 @@ class Wood extends Rectangle {
       this.posY = posY;
     }
 
-    this.woodImage = new Image();
-    this.woodImage.src = obstacleImageType[imageType].src;
+    this.obstacleImage = new Image();
+    this.obstacleImage.src = obstacleImageType[imageType].src;
+
+    this.audioOnCollision = new Audio();
+    this.audioOnCollision.src = "./sounds/stione-hit.mp3";
+
+    this.imagesAfterDamage = [
+      "./images/stone2.png",
+      "./images/stone3.png"
+    ]
 
     this.width = obstacleImageType[imageType].width;
     this.height = obstacleImageType[imageType].height;
@@ -32,7 +40,7 @@ class Wood extends Rectangle {
   show(context) {
     (() => {
       context.drawImage(
-        this.woodImage,
+        this.obstacleImage,
         this.posX,
         this.posY,
         this.width,
@@ -67,12 +75,15 @@ class Wood extends Rectangle {
 
 
   // direction = 1 if it moves to right, else -1
-  handleObstacleCollision(someEntity) {
+  handleObstacleCollision(someEntity, direction) {
     if (this.collision) {
-      this.initProjectile(someEntity);
-      this.launch(direction);
+      this.audioOnCollision.play();
+
+      this.damage++;
+      this.update();
     }
   }
+
 
   fall() {
     if (this.vertices.fourthPoint.y < GROUND_Y) {
@@ -82,6 +93,8 @@ class Wood extends Rectangle {
 
       // Send updated values to draw on updates co-ordinates
       this.updateVertices(this.posX, this.posY)
+
+      this.collision = false;
     }
   }
 
@@ -90,17 +103,24 @@ class Wood extends Rectangle {
 
     switch (damage) {
       case 1:
-        score += 200;
+        score += 20;
+
+        this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
 
         break;
 
       case 2:
-        score += 400;
+        score += 40;
+
+        this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
 
         break;
 
       case 3:
-        score += 800;
+        score += 80;
+
+        this.fall();
+        // this.obstacleImage.src = this.imagesAfterDamage[damage];
 
         break;
     }

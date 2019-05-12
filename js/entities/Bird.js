@@ -38,6 +38,10 @@ class Bird extends Circle {
 
     this.birdImage.src = this.imageSources[this.birdFrame];
 
+    this.audioOnCollision = new Audio();
+    this.audioOnCollision.loop = false;
+    this.audioOnCollision.src = "./sounds/on-collision.mp3";
+
     this.initialVelocity = INITIAL_BIRD_VELOCITY;
 
     this.radius = radius;
@@ -116,6 +120,8 @@ class Bird extends Circle {
   // direction = 1 if it moves to right, else -1
   handleBirdCollision(direction) {
     if (this.collision) {
+      this.audioOnCollision.play();
+
       this.fallInterval = 8;
       this.initialVelocity = 2;
 
@@ -129,7 +135,6 @@ class Bird extends Circle {
       }
     }
   }
-
 
 
   show(context) {

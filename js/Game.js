@@ -9,6 +9,10 @@ class Game {
     this.background = new Image();
     this.background.src = "./images/background.png";
 
+    this.audioGameOver = new Audio();
+    this.audioGameOver.loop = true;
+    this.audioGameOver.src = "./sounds/game-over.mp3"
+
     this.obstacles = [];
     this.birds = [];
     this.pigs = [];
@@ -62,7 +66,7 @@ class Game {
     // Generate obstacles
     /* obstacleImageType [vertical, horizontal][src, width,height] */
     for (let i = 0; i < OBSTACLE_POPULATION; i++) {
-      this.obstacles[i] = new Wood(
+      this.obstacles[i] = new Obstacle(
         OBSTACLE_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i,
         OBSTACLE_POSITION.y[i] - (
           obstacleImageType["stone"]["height"]
@@ -171,6 +175,15 @@ class Game {
           this.birds[0].collision = true;
         }
       }
+
+      for (let pig of this.pigs) {
+        for (let obstacle of this.obstacles) {
+          if (checkCircleToRectangleCollision(this.birds[0], obstacle) &&
+            !checkCircleToRectangleCollision(pig, obstacle)) {
+            pig.fall(obstacle);
+          }
+        }
+      }
     }
 
     // Change launching bird when bird touches the ground or when it collides
@@ -199,25 +212,20 @@ class Game {
 
     for (let pig of this.pigs) {
       if (pig.collision) {
-        this.birdInAir.collision = true;
-
         pig.handlePigCollision(this.birdInAir, 1);
       }
     }
 
-    // If the obstacle isn't stationary
-    /*     for (let obstacle of this.obstacles) {
-          if (obstacle.collision) {
-            this.birdInAir.collision = true;
-
-            obstacle.handleObstacleCollision(this.birdInAir);
-          }
-        } */
+    for (let obstacle of this.obstacles) {
+      if (obstacle.collision) {
+        obstacle.handleObstacleCollision(this.birdInAir, 1);
+      }
+    }
 
     if (this.birdInAir &&
       this.birdInAir.collision) {
 
-      // @arg: specifies direction; -1 if it is supposed to move to the left, else 1
+      // @param: specifies direction; -1 if it is supposed to move to the left, else 1
       this.birdInAir.handleBirdCollision(-1);
     }
   }
@@ -244,6 +252,8 @@ class Game {
       requestAnimationFrame(() => this.startGameLoop());
 
     } else {
+      this.audioGameOver.play();
+
       showText(this.context, "GAME OVER", "80px Signika", 550, GAME_HEIGHT / 2, "black");
 
       sound.pause();

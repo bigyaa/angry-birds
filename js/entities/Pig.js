@@ -20,6 +20,9 @@ class Pig extends Circle {
     this.pigImage = new Image();
     this.pigImage.src = "./images/pig_initial.png";
 
+    this.audioOnPigHit = new Audio();
+    this.audioOnPigHit.src = "./sounds/pig-hit.mp3";
+
     this.initialVelocity = 0;
     this.velocityAdjustment = 0.75;
 
@@ -61,8 +64,11 @@ class Pig extends Circle {
     }
   }
 
+
   handlePigCollision(someEntity, direction) {
     if (this.collision) {
+      this.audioOnPigHit.play();
+
       this.fallInterval = 6;
 
       this.initProjectile(someEntity);
@@ -71,31 +77,34 @@ class Pig extends Circle {
     }
   }
 
-  fall() {
-    if (this.position.y + this.radius < GROUND_Y) {
+
+  fall(obstacle) {
+    if (this.position.y + this.radius < GROUND_Y &&
+      this.position.y + this.radius < obstacle.posY) {
 
       // Increase y-coordinate until it collides
       this.position.y += GRAVITY;
     }
   }
 
+
   update(damage = this.damage) {
 
     switch (damage) {
       case 1:
-        score += 500;
+        score += 50;
 
         this.pigImage.src = "./images/pig_hit-1.png";
         break;
 
       case 2:
-        score += 1000;
+        score += 500;
 
         this.pigImage.src = "./images/pig_hit-2.png";
         break;
 
       case 4:
-        score += 1500;
+        score += 750;
 
         this.pigImage.src = "./images/pig_hit2-roll-1.png";
         break;

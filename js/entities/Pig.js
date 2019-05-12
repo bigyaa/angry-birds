@@ -52,10 +52,12 @@ class Pig extends Circle {
     );
   }
 
+
   // direction = 1 if it moves to right, else -1
   launch(direction) {
     if (this.position.y + this.radius <= GROUND_Y &&
-      this.damage === 2) {
+      this.damage === 2
+    ) {
       this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
       this.position.y += this.projectile.verticalVelocity * this.fallInterval;
     } else {
@@ -80,8 +82,8 @@ class Pig extends Circle {
 
   fall(obstacle) {
     if (this.position.y + this.radius < GROUND_Y &&
-      this.position.y + this.radius < obstacle.posY) {
-
+      this.position.y + this.radius < obstacle.posY
+    ) {
       // Increase y-coordinate until it collides
       this.position.y += GRAVITY;
     }
@@ -91,22 +93,26 @@ class Pig extends Circle {
   update(damage = this.damage) {
 
     switch (damage) {
+
       case 1:
         angryBirds.score += 50;
 
         this.pigImage.src = "./images/pig_hit-1.png";
+
         break;
 
       case 2:
         angryBirds.score += 500;
 
         this.pigImage.src = "./images/pig_hit-2.png";
+
         break;
 
       case 4:
         angryBirds.score += 750;
 
         this.pigImage.src = "./images/pig_hit2-roll-1.png";
+
         break;
     }
   }

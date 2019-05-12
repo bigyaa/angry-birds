@@ -43,6 +43,8 @@ class Bird extends Circle {
     this.audioOnCollision.loop = false;
     this.audioOnCollision.src = "./sounds/on-collision.mp3";
 
+    this.slingStretchedSound = document.getElementById("slingStretched");
+
     this.initialVelocity = INITIAL_BIRD_VELOCITY;
 
     this.radius = radius;
@@ -159,6 +161,8 @@ class Bird extends Circle {
       this.position.x,
       this.position.y
     )) {
+      this.slingStretchedSound.play();
+
       this.position.x -= this.shiftingDistance.x;
     } else {
       this.position.x += this.stretchFix;
@@ -174,6 +178,8 @@ class Bird extends Circle {
       this.position.x,
       this.position.y
     )) {
+      this.slingStretchedSound.play();
+
       this.position.x += this.shiftingDistance.x;
     }
   }
@@ -187,6 +193,8 @@ class Bird extends Circle {
       this.position.x,
       this.position.y
     )) {
+      this.slingStretchedSound.play();
+
       this.position.y -= this.shiftingDistance.y;
     }
   }
@@ -200,6 +208,8 @@ class Bird extends Circle {
       this.position.x,
       this.position.y
     )) {
+      this.slingStretchedSound.play();
+
       this.position.y += this.shiftingDistance.y;
     }
   }
@@ -226,11 +236,9 @@ class Bird extends Circle {
     this.initialVelocity = INITIAL_BIRD_VELOCITY;
 
     this.angle = 0;
-
     this.birdFrame = 0;
 
     this.collision = false;
-
     angryBirds.showSlingElastic = true;
   }
 

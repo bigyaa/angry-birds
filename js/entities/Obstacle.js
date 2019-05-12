@@ -30,10 +30,9 @@ class Obstacle extends Rectangle {
     this.height = obstacleImageType[imageType].height;
 
     this.damage = 0;
+    this.velocityChangeFactor = 0.75;
 
     this.collision = false;
-
-    this.velocityChangeFactor = 0.75;
   }
 
 
@@ -64,6 +63,7 @@ class Obstacle extends Rectangle {
     if (this.posY + this.height < GROUND_Y) {
       this.posX += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
       this.posY += this.projectile.verticalVelocity * TIME_DIFFERENCE;
+
     } else {
       this.damage++;
       this.collision = false;
@@ -102,6 +102,7 @@ class Obstacle extends Rectangle {
     switch (damage) {
       case 1:
         angryBirds.score += 20;
+
         this.audioOnCollision.play();
 
         this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
@@ -110,6 +111,7 @@ class Obstacle extends Rectangle {
 
       case 2:
         angryBirds.score += 40;
+
         this.audioOnCollision.play();
 
         this.obstacleImage.src = this.imagesAfterDamage[damage - 1];
@@ -118,6 +120,7 @@ class Obstacle extends Rectangle {
 
       case 3:
         angryBirds.score += 80;
+
         this.audioOnCollision.play();
 
         // this.fall();

@@ -27,17 +27,24 @@ class Game {
     this.showSlingElastic;
     this.listen;
     this.animation;
+    this.InputHandler;
 
     this.reset = false;
   }
 
 
-  init() {
+  startGame() {
+    this.init();
+    this.startGameLoop();
+  }
 
+
+  init() {
     this.score = 0;
+    this.birdInAir = null;
+
     this.birds = [];
     this.defeatedBirds = [];
-    this.birdInAir = 0;
 
     this.gameOver = false;
     this.spaceBar = false
@@ -79,6 +86,7 @@ class Game {
     // Initiate input-handler
     this.inputHandler = new InputHandler(this.birds[0]);
 
+
     // Generate obstacles
     /* obstacleImageType [vertical, horizontal, stone][src, width, height] */
     for (let i = 0; i < OBSTACLE_POPULATION; i++) {
@@ -100,8 +108,32 @@ class Game {
   }
 
 
-  draw() {
 
+  startGameLoop() {
+    this.draw();
+
+    if (this.spaceBar) {
+      this.birds[0].launch();
+
+      this.listen = false;
+    }
+
+    this.handleCollisions();
+
+    if (this.defeatedBirds.length === BIRD_POPULATION &&
+      !this.birdInAir.collision) {
+      this.gameOver = true;
+    }
+
+    if (this.gameOver) {
+      this.showGameOverScreen();
+    } else {
+      this.animation = requestAnimationFrame(() => this.startGameLoop());
+    }
+  }
+
+
+  draw() {
     this.context.clearRect(
       0,
       0,
@@ -142,7 +174,7 @@ class Game {
     this.ground.show(this.context);
 
     if (this.showSlingElastic) {
-      drawSlingElasticBack(
+      this.sling.drawSlingElasticBack(
         this.context,
         this.birds[0].position.x,
         this.birds[0].position.y
@@ -159,7 +191,7 @@ class Game {
     }
 
     if (this.showSlingElastic) {
-      drawSlingElasticFront(
+      this.sling.drawSlingElasticFront(
         this.context,
         this.birds[0].positionX,
         this.birds[0].positionY
@@ -252,7 +284,7 @@ class Game {
 
     for (let obstacle of this.obstacles) {
       if (obstacle.collision) {
-        obstacle.handleObstacleCollision(this.birdInAir, 1);
+        obstacle.handleObstacleCollision();
       }
     }
 
@@ -262,36 +294,6 @@ class Game {
       // @param: specifies direction; -1 if it is supposed to move to the left, else 1
       this.birdInAir.handleBirdCollision(-1);
     }
-  }
-
-
-  startGameLoop() {
-
-    this.draw();
-    this.handleCollisions();
-
-    if (this.defeatedBirds.length === BIRD_POPULATION &&
-      !this.birdInAir.collision) {
-      this.gameOver = true;
-    }
-
-    if (this.spaceBar) {
-      this.birds[0].launch();
-
-      this.listen = false;
-    }
-
-    if (this.gameOver) {
-      this.showGameOverScreen();
-    } else {
-      this.animation = requestAnimationFrame(() => this.startGameLoop());
-    }
-  }
-
-
-  startGame() {
-    this.init();
-    this.startGameLoop();
   }
 
 

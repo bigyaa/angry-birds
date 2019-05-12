@@ -9,12 +9,16 @@ class Projectile {
     this.fixAngle();
   }
 
+
   fixAngle() {
-    if (getAngleInDegree(this.angle) < 0) { this.angle += getAngleInRadian(180) }
+    if (getAngleInDegree(this.angle) < 0) {
+      this.angle += getAngleInRadian(180);
+    }
   }
 
+
   // y=usin0
-  verticalDistance() {
+  get verticalDistance() {
 
     return (this.initialVelocity * Math.sin(this.angle));
 
@@ -22,7 +26,7 @@ class Projectile {
 
 
   // x=ucos0
-  horizontalDistance() {
+  get horizontalDistance() {
 
     return (this.initialVelocity * Math.cos(this.angle));
 
@@ -32,14 +36,14 @@ class Projectile {
   // v=usin0t+(1/2)gt2
   get verticalVelocity() {
 
-    return (this.verticalDistance() * this.time) + (0.5 * GRAVITY * this.time * this.time);
+    return (this.verticalDistance * this.time) + (0.5 * GRAVITY * this.time * this.time);
 
   }
 
 
   get horizontalVelocity() {
 
-    return this.horizontalDistance() * this.time;
+    return this.horizontalDistance * this.time;
 
   }
 

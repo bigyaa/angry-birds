@@ -15,7 +15,7 @@ const SLING_WIDTH = 100;
 const SLING_HEIGHT = 210;
 
 const BIRD_RADIUS = 30;
-const BIRD_POPULATION = 1;
+const BIRD_POPULATION = 4;
 const BIRD_STRETCH_LIMIT = 160;
 const GAP_BETWEEN_BIRDS = 70;
 const HEIGHT_GAP_BETWEEN_BIRDS = 160;
@@ -79,11 +79,6 @@ let obstacleImageType = {
   }
 };
 
-let pigVanishingImages = [
-  "./images/cloud-cushy-dark.png",
-  "./images/cloud-dark.png",
-  "./images/cloud-dark-vanish.png"
-];
 
 
 

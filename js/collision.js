@@ -57,14 +57,6 @@ function checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
   }
 }
 
-/* function handleVerticalRectangleToRectangleCollision(rectangle1, rectangle2) {
-  if (!checkVerticalRectangleToRectangleCollision(rectangle1, rectangle2)) {
-    while (rectangle1.positionY < rectangle2.positionY) {
-      rectangle1.positionY += 2;
-    }
-  }
-} */
-
 
 
 

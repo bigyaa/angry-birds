@@ -8,6 +8,7 @@ function getTrajectoryAngle(
   let dY = finalPosY - initialPosY;
 
   return Math.atan(dY / dX);
+
 }
 
 
@@ -23,52 +24,40 @@ function getDistance(x1, y1, x2, y2) {
   return Math.sqrt(
     Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
   );
+
 }
 
 
 function getAngleInDegree(angleInRadian) {
 
   return (180 / Math.PI) * angleInRadian;
+
 }
 
 
 function getAngleInRadian(angleInDegree) {
 
   return (Math.PI / 180) * angleInDegree;
+
 }
 
 
 function getRangeValues(start, end) {
   var ans = [];
+
   for (let i = start; i <= end; i++) {
     ans.push(i);
   }
 
   return ans;
+
 }
+
 
 function getRandomInt(min, max) {
+
   return Math.floor(Math.random() * (max - min) + min);
-}
 
-
-function drawSlingElasticBack(context, positionX, positionY) {
-  context.beginPath();
-  context.strokeStyle = 'black';
-
-  context.moveTo(INITIAL_BIRD_X, INITIAL_BIRD_Y);
-  context.lineTo(positionX - BIRD_RADIUS, positionY);
-  context.stroke();
-}
-
-
-function drawSlingElasticFront(context, positionX, positionY) {
-  context.beginPath();
-  context.strokeStyle = 'black';
-
-  context.moveTo(INITIAL_BIRD_X - SLING_WIDTH / 2.2, INITIAL_BIRD_Y);
-  context.lineTo(positionX - BIRD_RADIUS, positionY);
-  context.stroke();
 }
 
 

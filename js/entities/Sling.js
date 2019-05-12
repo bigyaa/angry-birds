@@ -35,6 +35,26 @@ class Sling {
   }
 
 
+  drawSlingElasticBack(context, positionX, positionY) {
+    context.beginPath();
+    context.strokeStyle = 'black';
+
+    context.moveTo(INITIAL_BIRD_X, INITIAL_BIRD_Y);
+    context.lineTo(positionX - BIRD_RADIUS, positionY);
+    context.stroke();
+  }
+
+
+  drawSlingElasticFront(context, positionX, positionY) {
+    context.beginPath();
+    context.strokeStyle = 'black';
+
+    context.moveTo(INITIAL_BIRD_X - SLING_WIDTH / 2.2, INITIAL_BIRD_Y);
+    context.lineTo(positionX - BIRD_RADIUS, positionY);
+    context.stroke();
+  }
+
+
   reachStretchLimit(
     initialObjPositionX,
     initialObjPositionY,
@@ -48,12 +68,8 @@ class Sling {
       stretchedPositionY
     );
 
-    if (this.travelledDistance >= BIRD_STRETCH_LIMIT
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    (this.travelledDistance >= BIRD_STRETCH_LIMIT) ?
+      true : false;
   }
 
 

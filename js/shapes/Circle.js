@@ -17,7 +17,6 @@ class Circle {
     this.color = '#FF1';
     this.radius = radius;
     this.speed = 2;
-
   }
 
 
@@ -28,7 +27,8 @@ class Circle {
       this.position.x,
       this.position.y,
       this.radius,
-      0, 2 * Math.PI
+      0,
+      2 * Math.PI
     );
 
     context.fill();

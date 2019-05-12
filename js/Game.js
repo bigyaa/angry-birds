@@ -1,4 +1,3 @@
-// Main Execution
 class Game {
 
   constructor(canvas) {
@@ -15,11 +14,11 @@ class Game {
     this.resetButton = document.getElementById('resetButton');
 
     this.obstacles = [];
-    this.birds = [];
     this.pigs = [];
-    this.defeatedBirds = [];
     this.recordOfScores = [];
 
+    this.birds;
+    this.defeatedBirds;
     this.sling;
     this.birdInAir;
     this.score;
@@ -34,8 +33,6 @@ class Game {
 
 
   init() {
-
-    sound.pause();
 
     this.score = 0;
     this.birds = [];
@@ -71,10 +68,9 @@ class Game {
           this.sling
         );
       } else {
-
         this.birds[i] = new Bird(
-          INITIAL_BIRD_X - i * 70,
-          INITIAL_BIRD_Y + 160,
+          INITIAL_BIRD_X - i * GAP_BETWEEN_BIRDS,
+          INITIAL_BIRD_Y + HEIGHT_GAP_BETWEEN_BIRDS,
           this.sling
         );
       }
@@ -84,7 +80,7 @@ class Game {
     this.inputHandler = new InputHandler(this.birds[0]);
 
     // Generate obstacles
-    /* obstacleImageType [vertical, horizontal][src, width,height] */
+    /* obstacleImageType [vertical, horizontal, stone][src, width, height] */
     for (let i = 0; i < OBSTACLE_POPULATION; i++) {
       this.obstacles[i] = new Obstacle(
         OBSTACLE_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i,
@@ -97,7 +93,9 @@ class Game {
 
     // Generate pigs
     for (let i = 0; i < PIG_POPULATION; i++) {
-      this.pigs[i] = new Pig(PIG_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i, PIG_POSITION.y[i]);
+      this.pigs[i] = new Pig(
+        PIG_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i,
+        PIG_POSITION.y[i]);
     }
   }
 
@@ -110,7 +108,6 @@ class Game {
       GAME_WIDTH,
       GAME_HEIGHT
     );
-
     this.context.drawImage(
       this.background,
       0,
@@ -196,6 +193,8 @@ class Game {
 
     // Condition to ensure all birds haven't been defeated
     if (this.birds.length != 0) {
+
+      //  Check bird to pig collision
       for (let pig of this.pigs) {
         if (checkCircleToCircleCollision(this.birds[0], pig)) {
           pig.collision = true;
@@ -203,6 +202,7 @@ class Game {
         }
       }
 
+      // Check bird to obstacle collision
       for (let obstacle of this.obstacles) {
         if (checkCircleToRectangleCollision(this.birds[0], obstacle)) {
           obstacle.collision = true;
@@ -210,6 +210,7 @@ class Game {
         }
       }
 
+      // Check collision between the pigs and obstacles
       for (let pig of this.pigs) {
         for (let obstacle of this.obstacles) {
           if (checkCircleToRectangleCollision(this.birds[0], obstacle) &&
@@ -267,7 +268,6 @@ class Game {
   startGameLoop() {
 
     this.draw();
-
     this.handleCollisions();
 
     if (this.defeatedBirds.length === BIRD_POPULATION &&
@@ -283,9 +283,9 @@ class Game {
 
     if (this.gameOver) {
       this.showGameOverScreen();
+    } else {
+      this.animation = requestAnimationFrame(() => this.startGameLoop());
     }
-
-    this.animation = requestAnimationFrame(() => this.startGameLoop());
   }
 
 
@@ -296,15 +296,12 @@ class Game {
 
 
   resetGame() {
+    this.reset = true;
+
     this.resetButton.style.display = "none";
 
     this.updateScore();
-
-    cancelAnimationFrame(this.animation);
-
     this.startGame();
-
-    this.reset = true;
   }
 
 
@@ -319,8 +316,18 @@ class Game {
     this.audioGameOver.play();
 
     this.resetButton.style.display = "block";
-    this.resetButton.addEventListener('mousedown', () => { this.resetGame(); });
+    this.resetButton.addEventListener('mousedown',
+      () => {
+        this.resetGame();
+      });
 
-    showText(this.context, "GAME OVER", "80px Signika", 550, 500, "black");
+    showText(
+      this.context,
+      "GAME OVER",
+      "80px Signika",
+      550,
+      500,
+      "black"
+    );
   }
 }

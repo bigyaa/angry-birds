@@ -9,6 +9,7 @@ sound.play();
 startScreen.addEventListener('click',
   () => {
     startScreen.style.display = "none";
+    sound.pause();
     angryBirds.startGame();
   });
 

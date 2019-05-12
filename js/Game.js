@@ -27,6 +27,7 @@ class Game {
     this.spaceBar;
     this.showSlingElastic;
     this.listen;
+    this.animation;
 
     this.reset = false;
   }
@@ -98,8 +99,6 @@ class Game {
     for (let i = 0; i < PIG_POPULATION; i++) {
       this.pigs[i] = new Pig(PIG_POSITION.x[0] + SPACE_BETWEEN_OBSTACLES * i, PIG_POSITION.y[i]);
     }
-
-    this.startGameLoop();
   }
 
 
@@ -282,16 +281,17 @@ class Game {
       this.listen = false;
     }
 
-    if (!this.gameOver) {
-      requestAnimationFrame(() => this.startGameLoop());
-    } else {
+    if (this.gameOver) {
       this.showGameOverScreen();
     }
+
+    this.animation = requestAnimationFrame(() => this.startGameLoop());
   }
 
 
   startGame() {
     this.init();
+    this.startGameLoop();
   }
 
 
@@ -299,7 +299,10 @@ class Game {
     this.resetButton.style.display = "none";
 
     this.updateScore();
-    this.init();
+
+    cancelAnimationFrame(this.animation);
+
+    this.startGame();
 
     this.reset = true;
   }
@@ -316,7 +319,7 @@ class Game {
     this.audioGameOver.play();
 
     this.resetButton.style.display = "block";
-    this.resetButton.addEventListener('click', () => { this.resetGame(); });
+    this.resetButton.addEventListener('mousedown', () => { this.resetGame(); });
 
     showText(this.context, "GAME OVER", "80px Signika", 550, 500, "black");
   }

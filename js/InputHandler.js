@@ -49,11 +49,11 @@ class InputHandler {
           case SPACEBAR:
             if (angryBirds.listen) {
               if (!angryBirds.spaceBar) {
-                angryBirds.spaceBar = true;
-
-                this.birdSoundOnLaunch.play();
                 this.bird.stopControls();
                 this.bird.initProjectile();
+                this.birdSoundOnLaunch.play();
+
+                angryBirds.spaceBar = true;
               }
             }
             break;

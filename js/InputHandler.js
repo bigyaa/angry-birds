@@ -12,7 +12,7 @@ class InputHandler {
 
           case ARROW_LEFT:
 
-            if (angryBirds.listen) {
+            if (this.bird.listen) {
               this.bird.shiftLeft();
             }
 
@@ -21,7 +21,7 @@ class InputHandler {
 
           case ARROW_UP:
 
-            if (angryBirds.listen) {
+            if (this.bird.listen) {
               this.bird.shiftUp();
             }
 
@@ -30,7 +30,7 @@ class InputHandler {
 
           case ARROW_RIGHT:
 
-            if (angryBirds.listen) {
+            if (this.bird.listen) {
               this.bird.shiftRight();
             }
 
@@ -39,7 +39,7 @@ class InputHandler {
 
           case ARROW_DOWN:
 
-            if (angryBirds.listen) {
+            if (this.bird.listen) {
               this.bird.shiftDown();
             }
 
@@ -47,8 +47,9 @@ class InputHandler {
 
 
           case SPACEBAR:
-            if (angryBirds.listen &&
-              !angryBirds.spaceBar) {
+            if (this.bird.listen &&
+              !angryBirds.spaceBar
+            ) {
               this.bird.stopControls();
               this.bird.initProjectile();
               this.birdSoundOnLaunch.play();

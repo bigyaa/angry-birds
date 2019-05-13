@@ -25,7 +25,6 @@ class Game {
     this.gameOver;
     this.spaceBar;
     this.showSlingElastic;
-    this.listen;
     this.animation;
     this.InputHandler;
 
@@ -49,7 +48,6 @@ class Game {
     this.gameOver = false;
     this.spaceBar = false
     this.showSlingElastic = true;
-    this.listen = true;
 
     this.ground = new Ground(
       GROUND_X,
@@ -74,6 +72,9 @@ class Game {
           INITIAL_BIRD_Y,
           this.sling
         );
+
+        this.birds[i].listen = true;
+
       } else {
         this.birds[i] = new Bird(
           INITIAL_BIRD_X - i * GAP_BETWEEN_BIRDS,
@@ -82,6 +83,7 @@ class Game {
         );
       }
     }
+
 
     // Initiate input-handler
     this.inputHandler = new InputHandler(this.birds[0]);
@@ -115,7 +117,7 @@ class Game {
     if (this.spaceBar) {
       this.birds[0].launch();
 
-      this.listen = false;
+      this.birds[0].listen = false;
     }
 
     this.handleCollisions();
@@ -260,7 +262,7 @@ class Game {
     ) {
 
       this.spaceBar = false;
-      this.listen = true;
+      this.birds[0].listen = false;
 
       // Add defeated birds to new array
       this.defeatedBirds.push(this.birds.splice(0, 1)[0]);
@@ -270,6 +272,8 @@ class Game {
       // Reset bird attributes if it isn't empty
       if (this.birds.length > 0) {
         this.birds[0].resetAttributes();
+        this.birds[0].listen = true;
+
         this.inputHandler.updateInputHandler(this.birds[0]);
       }
     }

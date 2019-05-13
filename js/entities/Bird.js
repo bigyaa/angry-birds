@@ -53,6 +53,7 @@ class Bird extends Circle {
     this.stretchFix = 10;
 
     this.collision = false;
+    this.listen = false;
   }
 
   get positionX() {
@@ -62,6 +63,14 @@ class Bird extends Circle {
   get positionY() {
     return this.position.y;
   }
+
+  /**
+   * @param {boolean} trueOrFalse
+   */
+
+  // set listen(trueOrFalse) {
+  //   this.listen = trueOrFalse;
+  // }
 
   updateImage(birdFrame = this.birdFrame) {
     this.birdImage.src = this.imageSources[birdFrame];

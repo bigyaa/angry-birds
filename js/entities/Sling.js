@@ -68,8 +68,11 @@ class Sling {
       stretchedPositionY
     );
 
-    (this.travelledDistance >= BIRD_STRETCH_LIMIT) ?
-      true : false;
+    if (this.travelledDistance >= BIRD_STRETCH_LIMIT) {
+      return true
+    } else {
+      return false;
+    }
   }
 
 

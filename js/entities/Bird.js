@@ -182,7 +182,8 @@ class Bird extends Circle {
       this.position.x,
       this.position.y
     ) &&
-      this.position.x <= INITIAL_BIRD_X) {
+      this.position.x <= INITIAL_BIRD_X
+    ) {
       this.slingStretchedSound.play();
 
       this.position.x += this.shiftingDistance.x;

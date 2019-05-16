@@ -13,9 +13,11 @@ function getTrajectoryAngle(
 
 
 function isBetween(min, max, inclusive) {
-  (inclusive >= min && inclusive < max) ?
-    true :
-    false;
+  if (inclusive >= min && inclusive < max) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 

@@ -255,10 +255,12 @@ class Game {
       }
     }
 
-    // Change launching bird when bird touches the ground or when it collides
+    // Change launching bird when bird touches the ground or when it collides or when it goes out of the game frame
     if (this.birds.length >= 1 &&
       (this.birds[0].position.y + this.birds[0].radius >= GROUND_Y ||
-        this.birds[0].collision === true)
+        this.birds[0].collision === true ||
+        this.birds[0].position.y < 0 - this.birds[0].radius ||
+        this.birds[0].position.x > GAME_WIDTH + this.birds[0].radius)
     ) {
 
       this.spaceBar = false;

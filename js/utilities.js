@@ -45,7 +45,7 @@ function getAngleInRadian(angleInDegree) {
 
 
 function getRangeValues(start, end) {
-  var ans = [];
+  let ans = [];
 
   for (let i = start; i <= end; i++) {
     ans.push(i);

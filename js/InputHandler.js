@@ -49,8 +49,8 @@ class InputHandler {
           case SPACEBAR:
             if (this.bird.listen &&
               !angryBirds.spaceBar &&
-              (this.bird.position.x != this.bird.initialPosition.x) &&
-              (this.bird.position.y != this.bird.initialPosition.y)
+              ((this.bird.position.x != this.bird.initialPosition.x) ||
+              (this.bird.position.y != this.bird.initialPosition.y))
             ) {
               this.bird.stopControls();
               this.bird.initProjectile();

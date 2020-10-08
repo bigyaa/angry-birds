@@ -1,68 +1,56 @@
 class InputHandler {
-
   constructor(bird) {
-
     this.bird = bird;
 
-    this.birdSoundOnLaunch = document.getElementById("birdOnLaunch");
+    this.birdSoundOnLaunch = document.getElementById('birdOnLaunch');
 
-    document.addEventListener('keydown',
-      (event) => {
-        switch (event.keyCode) {
+    document.addEventListener('keydown', (event) => {
+      switch (event.keyCode) {
+        case ARROW_LEFT:
+          if (this.bird.listen) {
+            this.bird.shiftLeft();
+          }
 
-          case ARROW_LEFT:
+          break;
 
-            if (this.bird.listen) {
-              this.bird.shiftLeft();
-            }
+        case ARROW_UP:
+          if (this.bird.listen) {
+            this.bird.shiftUp();
+          }
 
-            break;
+          break;
 
+        case ARROW_RIGHT:
+          if (this.bird.listen) {
+            this.bird.shiftRight();
+          }
 
-          case ARROW_UP:
+          break;
 
-            if (this.bird.listen) {
-              this.bird.shiftUp();
-            }
+        case ARROW_DOWN:
+          if (this.bird.listen) {
+            this.bird.shiftDown();
+          }
 
-            break;
+          break;
 
+        case SPACEBAR:
+          if (
+            this.bird.listen &&
+            !angryBirds.spaceBar &&
+            (this.bird.position.x != this.bird.initialPosition.x ||
+              this.bird.position.y != this.bird.initialPosition.y)
+          ) {
+            this.bird.stopControls();
+            this.bird.initProjectile();
+            this.birdSoundOnLaunch.play();
 
-          case ARROW_RIGHT:
+            angryBirds.spaceBar = true;
+          }
 
-            if (this.bird.listen) {
-              this.bird.shiftRight();
-            }
-
-            break;
-
-
-          case ARROW_DOWN:
-
-            if (this.bird.listen) {
-              this.bird.shiftDown();
-            }
-
-            break;
-
-
-          case SPACEBAR:
-            if (this.bird.listen &&
-              !angryBirds.spaceBar &&
-              ((this.bird.position.x != this.bird.initialPosition.x) ||
-              (this.bird.position.y != this.bird.initialPosition.y))
-            ) {
-              this.bird.stopControls();
-              this.bird.initProjectile();
-              this.birdSoundOnLaunch.play();
-
-              angryBirds.spaceBar = true;
-            }
-
-            break;
-        };
+          break;
       }
-    );
+    });
 
     let mouseStartX;
     let mouseStartY;
@@ -70,47 +58,44 @@ class InputHandler {
 
     document.addEventListener('mousedown', (event) => {
       if (event.button !== 0) {
-        return
+        return;
       }
 
-      mouseStartX = event.pageX
-      mouseStartY = event.pageY
-      mouseIsDragging = true
-    })
+      mouseStartX = event.pageX;
+      mouseStartY = event.pageY;
+      mouseIsDragging = true;
+    });
 
     document.addEventListener('mousemove', (event) => {
       if (mouseIsDragging) {
         const diffX = event.pageX - this.bird.position.x;
         if (diffX > this.bird.shiftingDistance.x) {
-          this.bird.shiftRight()
+          this.bird.shiftRight();
         } else if (-diffX > this.bird.shiftingDistance.x) {
-          this.bird.shiftLeft()
+          this.bird.shiftLeft();
         }
 
         const diffY = event.pageY - this.bird.position.y;
         if (diffY > this.bird.shiftingDistance.y) {
-          this.bird.shiftDown()
+          this.bird.shiftDown();
         } else if (-diffY > this.bird.shiftingDistance.y) {
-          this.bird.shiftUp()
+          this.bird.shiftUp();
         }
       }
-    })
+    });
 
     document.addEventListener('mouseup', (event) => {
       if (
-        mouseIsDragging
-        && event.pageX !== mouseStartX
-        && event.pageY !== mouseStartY
+        mouseIsDragging &&
+        event.pageX !== mouseStartX &&
+        event.pageY !== mouseStartY
       ) {
         const diffX = Math.abs(event.pageX - mouseStartX);
         const diffY = Math.abs(event.pageY - mouseStartY);
         const threshold = 10;
 
         if (diffX > threshold || diffY > threshold) {
-          if (
-            this.bird.listen
-            && !angryBirds.spaceBar
-          ) {
+          if (this.bird.listen && !angryBirds.spaceBar) {
             this.bird.stopControls();
             this.bird.initProjectile();
             this.birdSoundOnLaunch.play();
@@ -120,8 +105,8 @@ class InputHandler {
         }
       }
 
-      mouseIsDragging = false
-    })
+      mouseIsDragging = false;
+    });
   }
 
   updateInputHandler(newBird) {

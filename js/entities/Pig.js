@@ -1,16 +1,14 @@
 class Pig extends Circle {
-
   constructor(posX, posY, radius = PIG_RADIUS) {
-
     super(posX, posY, radius);
 
     this.initialPosition = {
       x: posX,
-      y: posY
+      y: posY,
     };
     this.position = {
       x: posX,
-      y: posY
+      y: posY,
     };
 
     this.radius = radius;
@@ -18,17 +16,16 @@ class Pig extends Circle {
     this.damage = 0;
 
     this.pigImage = new Image();
-    this.pigImage.src = "./images/pig_initial.png";
+    this.pigImage.src = './images/pig_initial.png';
 
     this.audioOnPigHit = new Audio();
-    this.audioOnPigHit.src = "./sounds/pig-hit.mp3";
+    this.audioOnPigHit.src = './sounds/pig-hit.mp3';
 
     this.initialVelocity = 0;
     this.velocityAdjustment = 0.75;
 
     this.collision = false;
   }
-
 
   show(context) {
     (() => {
@@ -42,30 +39,23 @@ class Pig extends Circle {
     })();
   }
 
-
   initProjectile(circle) {
     this.initialVelocity = circle.initialVelocity * this.velocityAdjustment;
 
-    this.projectile = new Projectile(
-      circle.angle,
-      this.initialVelocity
-    );
+    this.projectile = new Projectile(circle.angle, this.initialVelocity);
   }
-
 
   // direction = 1 if it moves to right, else -1
   launch(direction) {
-    if (this.position.y + this.radius <= GROUND_Y &&
-      this.damage === 2
-    ) {
-      this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+    if (this.position.y + this.radius <= GROUND_Y && this.damage === 2) {
+      this.position.x +=
+        direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
       this.position.y += this.projectile.verticalVelocity * this.fallInterval;
     } else {
       this.damage += 2;
       this.collision = false;
     }
   }
-
 
   handlePigCollision(someEntity, direction) {
     if (this.collision) {
@@ -79,9 +69,9 @@ class Pig extends Circle {
     }
   }
 
-
   fall(obstacle) {
-    if (this.position.y + this.radius < GROUND_Y &&
+    if (
+      this.position.y + this.radius < GROUND_Y &&
       this.position.y + this.radius < obstacle.posY
     ) {
       // Increase y-coordinate until it collides
@@ -89,29 +79,26 @@ class Pig extends Circle {
     }
   }
 
-
   update(damage = this.damage) {
-
     switch (damage) {
-
       case 1:
         angryBirds.score += 50;
 
-        this.pigImage.src = "./images/pig_hit-1.png";
+        this.pigImage.src = './images/pig_hit-1.png';
 
         break;
 
       case 2:
         angryBirds.score += 500;
 
-        this.pigImage.src = "./images/pig_hit-2.png";
+        this.pigImage.src = './images/pig_hit-2.png';
 
         break;
 
       case 4:
         angryBirds.score += 750;
 
-        this.pigImage.src = "./images/pig_hit2-roll-1.png";
+        this.pigImage.src = './images/pig_hit2-roll-1.png';
 
         break;
     }

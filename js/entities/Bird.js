@@ -1,8 +1,6 @@
 class Bird extends Circle {
-
   // Radius assigned based on actual image size
   constructor(posX, posY, sling, radius = BIRD_RADIUS) {
-
     super(posX, posY, radius);
 
     this.initialPosition = {
@@ -23,27 +21,27 @@ class Bird extends Circle {
     this.birdImage = new Image();
 
     this.imageSources = [
-      "./images/red-bird.png",
-      "./images/bird-flight.png",
-      "./images/bird-hit1.png",
-      "./images/bird-hit2.png",
-      "./images/cloud-white.png",
-      "./images/cloud-white-another.png",
-      "./images/cloud-white-vanish.png"
+      './images/red-bird.png',
+      './images/bird-flight.png',
+      './images/bird-hit1.png',
+      './images/bird-hit2.png',
+      './images/cloud-white.png',
+      './images/cloud-white-another.png',
+      './images/cloud-white-vanish.png',
     ];
 
     this.shiftingDistance = {
       x: 2,
-      y: 2
+      y: 2,
     };
 
     this.birdImage.src = this.imageSources[this.birdFrame];
 
     this.audioOnCollision = new Audio();
     this.audioOnCollision.loop = false;
-    this.audioOnCollision.src = "./sounds/on-collision.mp3";
+    this.audioOnCollision.src = './sounds/on-collision.mp3';
 
-    this.slingStretchedSound = document.getElementById("slingStretched");
+    this.slingStretchedSound = document.getElementById('slingStretched');
 
     this.initialVelocity = INITIAL_BIRD_VELOCITY;
 
@@ -56,38 +54,31 @@ class Bird extends Circle {
     this.listen = false;
   }
 
-
   get positionX() {
     return this.position.x;
   }
-
 
   get positionY() {
     return this.position.y;
   }
 
-
   updateImage(birdFrame = this.birdFrame) {
     this.birdImage.src = this.imageSources[birdFrame];
   }
 
-
   calcBirdStretch() {
-
     /* The sling stretched distance determines the range and height of the projectile.
     The lower the value, the lower the range and vice-versa */
-    this.birdStretch = (
-      this.sling.calcStretchDistance(
-        this.initialPosition.x,
-        this.initialPosition.y,
-        this.finalPosition.x,
-        this.finalPosition.y
-      ));
+    this.birdStretch = this.sling.calcStretchDistance(
+      this.initialPosition.x,
+      this.initialPosition.y,
+      this.finalPosition.x,
+      this.finalPosition.y
+    );
 
     /* Determines speed of the bird based on the stretched distance */
     this.initialVelocity *= this.birdStretch;
   }
-
 
   initProjectile() {
     this.angle = getTrajectoryAngle(
@@ -97,11 +88,8 @@ class Bird extends Circle {
       this.finalPosition.y
     );
 
-    this.projectile = new Projectile(
-      this.angle,
-      this.initialVelocity);
+    this.projectile = new Projectile(this.angle, this.initialVelocity);
   }
-
 
   launch() {
     angryBirds.showSlingElastic = false;
@@ -135,14 +123,14 @@ class Bird extends Circle {
       this.initProjectile();
 
       if (this.position.y + this.radius < this.randomPositionOnGround) {
-        this.position.x += direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
+        this.position.x +=
+          direction * this.projectile.horizontalVelocity * TIME_DIFFERENCE;
         this.position.y += this.projectile.verticalVelocity * this.fallInterval;
       } else {
         this.collision = false;
       }
     }
   }
-
 
   show(context) {
     (() => {
@@ -156,15 +144,16 @@ class Bird extends Circle {
     })();
   }
 
-
   shiftLeft() {
     // To shift position if max stretch limit is not reached at current position
-    if (!this.sling.reachStretchLimit(
-      this.initialPosition.x,
-      this.initialPosition.y,
-      this.position.x,
-      this.position.y
-    )) {
+    if (
+      !this.sling.reachStretchLimit(
+        this.initialPosition.x,
+        this.initialPosition.y,
+        this.position.x,
+        this.position.y
+      )
+    ) {
       this.slingStretchedSound.play();
 
       this.position.x -= this.shiftingDistance.x;
@@ -173,15 +162,15 @@ class Bird extends Circle {
     }
   }
 
-
   shiftRight() {
     // To shift position if max stretch limit is not reached at current position
-    if (!this.sling.reachStretchLimit(
-      this.initialPosition.x,
-      this.initialPosition.y,
-      this.position.x,
-      this.position.y
-    ) &&
+    if (
+      !this.sling.reachStretchLimit(
+        this.initialPosition.x,
+        this.initialPosition.y,
+        this.position.x,
+        this.position.y
+      ) &&
       this.position.x <= INITIAL_BIRD_X
     ) {
       this.slingStretchedSound.play();
@@ -190,36 +179,37 @@ class Bird extends Circle {
     }
   }
 
-
   shiftUp() {
     // To shift position if max stretch limit is not reached at current position
-    if (!this.sling.reachStretchLimit(
-      this.initialPosition.x,
-      this.initialPosition.y,
-      this.position.x,
-      this.position.y
-    )) {
+    if (
+      !this.sling.reachStretchLimit(
+        this.initialPosition.x,
+        this.initialPosition.y,
+        this.position.x,
+        this.position.y
+      )
+    ) {
       this.slingStretchedSound.play();
 
       this.position.y -= this.shiftingDistance.y;
     }
   }
 
-
   shiftDown() {
     // To shift position if max stretch limit is not reached at current position
-    if (!this.sling.reachStretchLimit(
-      this.initialPosition.x,
-      this.initialPosition.y,
-      this.position.x,
-      this.position.y
-    )) {
+    if (
+      !this.sling.reachStretchLimit(
+        this.initialPosition.x,
+        this.initialPosition.y,
+        this.position.x,
+        this.position.y
+      )
+    ) {
       this.slingStretchedSound.play();
 
       this.position.y += this.shiftingDistance.y;
     }
   }
-
 
   stopControls() {
     this.finalPosition = this.position;
@@ -228,7 +218,6 @@ class Bird extends Circle {
 
     this.shiftingDistance = 0;
   }
-
 
   resetAttributes() {
     this.initialPosition.x = INITIAL_BIRD_X;
@@ -248,13 +237,10 @@ class Bird extends Circle {
     angryBirds.showSlingElastic = true;
   }
 
-
   fall() {
     if (this.position.y + this.radius < GROUND_Y) {
-
       // Increase y-coordinate until it collides
       this.position.y += GRAVITY;
     }
   }
 }
-

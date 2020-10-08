@@ -33,12 +33,13 @@ const PIG_POSITION = {
     GROUND_Y - PIG_RADIUS - 400,
     GROUND_Y - PIG_RADIUS - 200,
     GROUND_Y - PIG_RADIUS - 300,
-    GROUND_Y - PIG_RADIUS - 500]
+    GROUND_Y - PIG_RADIUS - 500,
+  ],
 };
 const PIG_SIZE = {
   width: 75,
-  height: 75
-}
+  height: 75,
+};
 
 const OBSTACLE_POPULATION = PIG_POPULATION;
 
@@ -49,7 +50,8 @@ const OBSTACLE_POSITION = {
     GROUND_Y + PIG_RADIUS - 400,
     GROUND_Y + PIG_RADIUS - 200,
     GROUND_Y + PIG_RADIUS - 300,
-    GROUND_Y + PIG_RADIUS - 500]
+    GROUND_Y + PIG_RADIUS - 500,
+  ],
 };
 
 const SPACE_BETWEEN_OBSTACLES = 150;
@@ -63,23 +65,18 @@ canvas.height = GAME_HEIGHT;
 
 let obstacleImageType = {
   vertical: {
-    src: "./images/wood-vertical.png",
+    src: './images/wood-vertical.png',
     width: 25,
-    height: 90
+    height: 90,
   },
   horizontal: {
-    src: "./images/wood-horizontal.png",
+    src: './images/wood-horizontal.png',
     width: 100,
-    height: 25
+    height: 25,
   },
   stone: {
-    src: "./images/stone1.png",
+    src: './images/stone1.png',
     width: 100,
-    height: 30
-  }
+    height: 30,
+  },
 };
-
-
-
-
-

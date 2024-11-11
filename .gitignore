@@ -1,1 +1,5 @@
 levels.js
+node_modules
+package-lock.json
+.editorconfig
+.prettierrc.json

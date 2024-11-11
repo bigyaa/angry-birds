@@ -20,3 +20,7 @@ canvas {
   top: 30%;
   left: 48%;
 }
+
+.hidden {
+  display: none;
+}

@@ -4,37 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
     <title>Play Angry Birds Online - By bigyaa</title>
 
+    <!-- Preload fonts for faster loading -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Signika"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/loader.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Signika"
-      rel="preload"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
   </head>
-  <div class="loader"><span class="loader-text">Loading...</span></div>
-  <body>
-    <div class="loader">Loading...</div>
 
+  <body>
+    <!-- Loader Element -->
+    <div class="loader" id="loader">
+      <span class="loader-text">Loading...</span>
+    </div>
+
+    <!-- Game Canvas -->
     <canvas id="canvas"></canvas>
 
-    <div id="startScreen">
+    <!-- Start Screen -->
+    <div id="startScreen" class="hidden">
       <img src="./images/start-page.png" alt="Start Page" />
     </div>
 
-    <div id="resetButton">
+    <!-- Reset Button -->
+    <div id="resetButton" class="hidden">
       <img src="./images/reset.png" alt="Reset Button" />
     </div>
 
+    <!-- Audio Elements -->
     <audio id="slingStretched" src="./sounds/sling-stretched.mp3"></audio>
     <audio id="birdOnLaunch" src="./sounds/angry-bird-on-launch.mp3"></audio>
     <audio loop id="mainAudio" src="./sounds/angry-birds.mp3"></audio>
 
+    <!-- JavaScript Files -->
     <script src="js/data.js"></script>
     <script src="js/shapes/Circle.js"></script>
     <script src="js/shapes/Rectangle.js"></script>
@@ -48,13 +54,17 @@
     <script src="js/collision.js"></script>
     <script src="js/InputHandler.js"></script>
     <script src="js/Game.js"></script>
-
     <script src="js/index.js"></script>
 
+    <!-- Loader Script -->
     <script type="text/javascript">
       window.addEventListener('load', () => {
-        const loader = document.querySelector('.loader');
+        const loader = document.getElementById('loader');
         loader.classList.add('hidden');
+
+        // Display start screen after the loader disappears
+        const startScreen = document.getElementById('startScreen');
+        startScreen.classList.remove('hidden');
       });
     </script>
   </body>

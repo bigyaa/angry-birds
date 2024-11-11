@@ -1,11 +1,3 @@
-// const GROUND_COLOR = 'rgb(188,212,56)';
-// const GAME_WIDTH = 1200;
-// const GAME_HEIGHT = 600;
-// const GROUND_Y = GAME_HEIGHT - 20;
-// const GRAVITY = 9.8;
-import Bird from './Bird.js';
-import { checkCircleToCircleCollision, checkCircleToRectangleCollision } from './collision.js';
-
 class Game {
   static resetButton = document.getElementById('resetButton');
 
@@ -60,7 +52,7 @@ class Game {
    * Adds a new bird to the game.
    */
   addNewBird() {
-    const newBird = new Bird();
+    const newBird = new Bird(this.sling);
     this.birds.push(newBird);
   }
 

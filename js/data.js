@@ -1,5 +1,6 @@
 const GAME_WIDTH = window.innerWidth - 10;
 const GAME_HEIGHT = window.innerHeight - 10;
+const GROUND_COLOR = 'rgb(188,212,56)';
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -9,7 +10,7 @@ const SPACEBAR = 32;
 const ENTER = 13;
 
 const GROUND_X = 0;
-const GROUND_Y = GAME_HEIGHT - 130;
+const GROUND_Y = GAME_HEIGHT - 20;
 
 const SLING_WIDTH = 100;
 const SLING_HEIGHT = 210;
@@ -56,7 +57,7 @@ const OBSTACLE_POSITION = {
 
 const SPACE_BETWEEN_OBSTACLES = 150;
 
-const GRAVITY = 2;
+const GRAVITY = 9.8;
 const FRICTION = 0.02;
 const TIME_DIFFERENCE = 0.075;
 

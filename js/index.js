@@ -1,3 +1,5 @@
+import Game from './Game.js';
+
 const canvas = document.getElementById('canvas');
 const sound = document.getElementById('mainAudio');
 const startScreen = document.getElementById('startScreen');

@@ -1,21 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>Angry Birds by Bigyaa</title>
+    <title>Play Angry Birds Online - By bigyaa</title>
 
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/loader.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Signika"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
   </head>
-
+  <div class="loader"><span class="loader-text">Loading...</span></div>
   <body>
     <div class="loader">Loading...</div>
 
@@ -52,7 +54,7 @@
     <script type="text/javascript">
       window.addEventListener('load', () => {
         const loader = document.querySelector('.loader');
-        loader.className += ' hidden';
+        loader.classList.add('hidden');
       });
     </script>
   </body>

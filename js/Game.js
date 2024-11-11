@@ -1,15 +1,20 @@
+const GROUND_COLOR = 'rgb(188,212,56)';
+const GAME_WIDTH = 1200;
+const GAME_HEIGHT = 600;
+const GROUND_Y = GAME_HEIGHT - 20;
+const GRAVITY = 9.8;
+
 class Game {
   static resetButton = document.getElementById('resetButton');
 
   constructor(canvas) {
     this.canvas = canvas;
     this.context = this.canvas.getContext('2d');
-
     this.background = new Image();
     this.background.src = './images/background.png';
     this.audioGameOver = new Audio('./sounds/game-over.mp3');
-
     this.resetButton = Game.resetButton;
+
     this.obstacles = [];
     this.pigs = [];
     this.birds = [];
@@ -20,6 +25,7 @@ class Game {
     this.highScore = 0;
     this.gameOver = false;
     this.spaceBarPressed = false;
+    this.reset = false;
     this.animation = null;
 
     this.init();
@@ -40,9 +46,20 @@ class Game {
     this.spaceBarPressed = false;
 
     // Initialize ground and input handler
-    this.ground = new Ground(GROUND_X, GROUND_COLOR, GAME_WIDTH, GAME_HEIGHT - 20);
-    this.inputHandler = new InputHandler(null, this);
+    this.ground = new Ground(0, GROUND_COLOR, GAME_WIDTH, GROUND_Y);
+    this.sling = new Sling();
+    this.addNewBird();
+
+    this.inputHandler = new InputHandler(this.birds[0], this);
     this.startGameLoop();
+  }
+
+  /**
+   * Adds a new bird to the game.
+   */
+  addNewBird() {
+    const newBird = new Bird();
+    this.birds.push(newBird);
   }
 
   /**
@@ -51,19 +68,19 @@ class Game {
   startGameLoop() {
     this.draw();
 
-    // Launch the bird if the spacebar is pressed and no bird is in the air
-    if (this.spaceBarPressed && this.birdInAir === null && this.birds.length > 0) {
+    if (this.spaceBarPressed && !this.birdInAir && this.birds.length > 0) {
       this.birdInAir = this.birds.shift();
       this.birdInAir.launch();
-      this.inputHandler.updateInputHandler(this.birdInAir, this);
+      this.inputHandler.updateInputHandler(this.birdInAir);
     }
 
-    // Handle collisions
     this.handleCollisions();
 
-    // Check if the game is over
-    if (this.birds.length === 0 && this.defeatedBirds.length === BIRD_POPULATION) {
-      this.gameOver = true;
+    if (this.birds.length === 0 && this.birdInAir === null) {
+      this.addNewBird();
+    }
+
+    if (this.gameOver) {
       this.showGameOverScreen();
     } else {
       this.animation = requestAnimationFrame(() => this.startGameLoop());
@@ -77,20 +94,42 @@ class Game {
     this.context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     this.context.drawImage(this.background, 0, 0, GAME_WIDTH, GROUND_Y);
 
-    showText(this.context, `SCORE: ${this.score}`, '30px Signika', 20, 50, 'white');
-    showText(this.context, `HIGH SCORE: ${this.highScore}`, '30px Signika', GAME_WIDTH - 300, 50, 'white');
+    showText(
+      this.context,
+      `SCORE: ${this.score}`,
+      '30px Signika',
+      20,
+      50,
+      'white'
+    );
+    showText(
+      this.context,
+      `HIGH SCORE: ${this.highScore}`,
+      '30px Signika',
+      GAME_WIDTH - 300,
+      50,
+      'white'
+    );
 
     this.ground.show(this.context);
 
     if (this.birdInAir) {
-      this.sling.drawSlingElasticBack(this.context, this.birdInAir.position.x, this.birdInAir.position.y);
+      this.sling.drawSlingElasticBack(
+        this.context,
+        this.birdInAir.position.x,
+        this.birdInAir.position.y
+      );
       this.birdInAir.show(this.context);
-      this.sling.drawSlingElasticFront(this.context, this.birdInAir.position.x, this.birdInAir.position.y);
+      this.sling.drawSlingElasticFront(
+        this.context,
+        this.birdInAir.position.x,
+        this.birdInAir.position.y
+      );
     }
 
-    this.obstacles.forEach(obstacle => obstacle.show(this.context));
-    this.pigs.forEach(pig => pig.show(this.context));
-    this.defeatedBirds.forEach(bird => bird.show(this.context));
+    this.obstacles.forEach((obstacle) => obstacle.show(this.context));
+    this.pigs.forEach((pig) => pig.show(this.context));
+    this.defeatedBirds.forEach((bird) => bird.show(this.context));
 
     this.sling.showSling(this.context);
   }
@@ -100,7 +139,6 @@ class Game {
    */
   handleCollisions() {
     if (this.birdInAir) {
-      // Check collision with pigs
       for (let pig of this.pigs) {
         if (checkCircleToCircleCollision(this.birdInAir, pig)) {
           pig.collision = true;
@@ -111,7 +149,6 @@ class Game {
         }
       }
 
-      // Check collision with obstacles
       for (let obstacle of this.obstacles) {
         if (checkCircleToRectangleCollision(this.birdInAir, obstacle)) {
           this.defeatedBirds.push(this.birdInAir);
@@ -120,11 +157,10 @@ class Game {
         }
       }
 
-      // Check if bird hits the ground or goes out of bounds
       if (
         this.birdInAir.position.y + this.birdInAir.radius >= GROUND_Y ||
-        this.birdInAir.position.y < 0 - this.birdInAir.radius ||
-        this.birdInAir.position.x > GAME_WIDTH + this.birdInAir.radius
+        this.birdInAir.position.y < 0 ||
+        this.birdInAir.position.x > GAME_WIDTH
       ) {
         this.defeatedBirds.push(this.birdInAir);
         this.birdInAir = null;
@@ -133,12 +169,11 @@ class Game {
   }
 
   /**
-   * Resets the game.
+   * Resets the game and updates the score.
    */
   resetGame() {
-    this.reset = true;
-    this.resetButton.style.display = 'none';
     this.updateScore();
+    this.resetButton.style.display = 'none';
     this.init();
   }
 
@@ -156,6 +191,42 @@ class Game {
     this.audioGameOver.play();
     showText(this.context, 'GAME OVER', '80px Signika', 550, 500, 'black');
     this.resetButton.style.display = 'block';
-    this.resetButton.onclick = () => this.resetGame();
+    this.resetButton.onclick = () => {
+      this.resetGame();
+    };
+  }
+}
+
+class InputHandler {
+  constructor(birdObject, game) {
+    this.bird = birdObject;
+    this.game = game;
+    this.mouseIsDragging = false;
+
+    document.addEventListener('mousedown', (event) => {
+      if (event.button !== 0) return;
+      this.mouseIsDragging = true;
+    });
+
+    document.addEventListener('mousemove', (event) => {
+      if (this.mouseIsDragging) {
+        this.handleMouseMove(event);
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      this.mouseIsDragging = false;
+    });
+  }
+
+  updateInputHandler(newBird) {
+    this.bird = newBird;
+  }
+
+  handleMouseMove(event) {
+    if (this.mouseIsDragging && this.bird.listen) {
+      this.bird.position.x = event.pageX;
+      this.bird.position.y = event.pageY;
+    }
   }
 }

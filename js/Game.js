@@ -1,4 +1,4 @@
-class Game {
+export default class Game {
   static resetButton = document.getElementById('resetButton');
 
   constructor(canvas) {

@@ -1,5 +1,5 @@
 // Class to handle input events for the bird
-class InputHandler {
+export default class InputHandler {
   constructor(birdObject, game) {
     this.bird = birdObject;
     this.game = game; // Reference to the Game instance

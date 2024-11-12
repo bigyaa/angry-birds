@@ -1,4 +1,4 @@
-import InputHandler from "./InputHandler";
+import InputHandler from "./InputHandler.js";
 export default class Game {
   static resetButton = document.getElementById('resetButton');
 

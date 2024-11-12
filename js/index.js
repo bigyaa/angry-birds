@@ -12,15 +12,12 @@ window.onload = () => {
     return;
   }
 
-  // Initialize the game instance
-  const gameInstance = new Game(canvas);
-
   // Play background music when the user clicks to start the game
   startScreen.addEventListener('click', () => {
     startScreen.style.display = 'none';
 
-    // Start the game loop
-    gameInstance.startGame();
+    // Initialize the game instance
+    const gameInstance = new Game(canvas);
 
     // Play background music after user interaction
     sound.play().catch((err) => {

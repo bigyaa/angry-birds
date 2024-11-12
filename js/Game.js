@@ -66,7 +66,7 @@ export default class Game {
     const numPigs = 3; // Number of pigs to create
     for (let i = 0; i < numPigs; i++) {
       const obstaclePosX = getRandomInt(100, GAME_WIDTH - 200);
-      const obstaclePosY = GROUND_Y - 50;
+      const obstaclePosY = GROUND_Y - 350;
 
       const obstacle = new Obstacle(obstaclePosX, obstaclePosY, 'stone');
       this.obstacles.push(obstacle);

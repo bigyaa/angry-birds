@@ -1,3 +1,5 @@
+import Game from './Game.js';
+
 window.onload = () => {
   // Get DOM elements after the window is fully loaded
   const canvas = document.getElementById('canvas');

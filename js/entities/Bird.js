@@ -1,10 +1,7 @@
 class Bird {
   constructor(sling, radius = BIRD_RADIUS) {
-    this.initialPosition = { x: posX, y: posY };
-    this.position = {
-      x: posX,
-      y: posY,
-    };
+    this.initialPosition = { x: INITIAL_BIRD_X, y: INITIAL_BIRD_Y };
+    this.position = this.initialPosition;
     this.radius = radius;
     this.collision = false;
     this.finalPosition = { x: 0, y: 0 };

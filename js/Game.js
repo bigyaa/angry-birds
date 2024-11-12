@@ -39,9 +39,11 @@ export default class Game {
     this.gameOver = false;
     this.spaceBarPressed = false;
 
-    // Initialize ground and input handler
+    // Initialize ground and sling
     this.ground = new Ground(0, GROUND_COLOR, GAME_WIDTH, GROUND_Y);
     this.sling = new Sling();
+
+    this.createObstaclesAndPigs();
     this.addNewBird();
 
     this.inputHandler = new InputHandler(this.birds[0], this);
@@ -57,22 +59,40 @@ export default class Game {
   }
 
   /**
+   * Creates obstacles and places pigs on top of them.
+   */
+  createObstaclesAndPigs() {
+    const numPigs = 3; // Number of pigs to create
+    for (let i = 0; i < numPigs; i++) {
+      const obstaclePosX = getRandomInt(100, GAME_WIDTH - 200);
+      const obstaclePosY = GROUND_Y - 50;
+
+      const obstacle = new Obstacle(obstaclePosX, obstaclePosY, 'stone');
+      this.obstacles.push(obstacle);
+
+      // Place a pig on top of the obstacle
+      const pigPosX = obstaclePosX + obstacle.width / 2;
+      const pigPosY = obstaclePosY - PIG_RADIUS;
+      const pig = new Pig(pigPosX, pigPosY);
+      this.pigs.push(pig);
+    }
+  }
+
+  /**
    * Starts the main game loop.
    */
   startGameLoop() {
     this.draw();
 
+    // Handle bird launch if space bar is pressed
     if (this.spaceBarPressed && !this.birdInAir && this.birds.length > 0) {
       this.birdInAir = this.birds.shift();
       this.birdInAir.launch();
       this.inputHandler.updateInputHandler(this.birdInAir);
+      this.addNewBird(); // Add a new bird immediately after launching
     }
 
     this.handleCollisions();
-
-    if (this.birds.length === 0 && this.birdInAir === null) {
-      this.addNewBird();
-    }
 
     if (this.gameOver) {
       this.showGameOverScreen();
@@ -133,24 +153,28 @@ export default class Game {
    */
   handleCollisions() {
     if (this.birdInAir) {
+      // Check collision with pigs
       for (let pig of this.pigs) {
-        if (checkCircleToCircleCollision(this.birdInAir, pig)) {
-          pig.collision = true;
-          this.score += 10;
+        if (checkCircleToCircleCollision(this.birdInAir, pig) && !pig.collision) {
+          pig.handlePigCollision(this.birdInAir, 1);
+          this.score += 50;
           this.defeatedBirds.push(this.birdInAir);
           this.birdInAir = null;
           break;
         }
       }
 
+      // Check collision with obstacles
       for (let obstacle of this.obstacles) {
         if (checkCircleToRectangleCollision(this.birdInAir, obstacle)) {
+          obstacle.handleObstacleCollision(this.birdInAir, 1);
           this.defeatedBirds.push(this.birdInAir);
           this.birdInAir = null;
           break;
         }
       }
 
+      // Check if bird hits the ground or goes out of bounds
       if (
         this.birdInAir.position.y + this.birdInAir.radius >= GROUND_Y ||
         this.birdInAir.position.y < 0 ||
@@ -188,39 +212,5 @@ export default class Game {
     this.resetButton.onclick = () => {
       this.resetGame();
     };
-  }
-}
-
-class InputHandler {
-  constructor(birdObject, game) {
-    this.bird = birdObject;
-    this.game = game;
-    this.mouseIsDragging = false;
-
-    document.addEventListener('mousedown', (event) => {
-      if (event.button !== 0) return;
-      this.mouseIsDragging = true;
-    });
-
-    document.addEventListener('mousemove', (event) => {
-      if (this.mouseIsDragging) {
-        this.handleMouseMove(event);
-      }
-    });
-
-    document.addEventListener('mouseup', () => {
-      this.mouseIsDragging = false;
-    });
-  }
-
-  updateInputHandler(newBird) {
-    this.bird = newBird;
-  }
-
-  handleMouseMove(event) {
-    if (this.mouseIsDragging && this.bird.listen) {
-      this.bird.position.x = event.pageX;
-      this.bird.position.y = event.pageY;
-    }
   }
 }

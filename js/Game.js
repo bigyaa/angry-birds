@@ -1,3 +1,4 @@
+import InputHandler from "./InputHandler";
 export default class Game {
   static resetButton = document.getElementById('resetButton');
 
